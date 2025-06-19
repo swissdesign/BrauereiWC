@@ -233,18 +233,22 @@ nav a::before {
   z-index: -1;
 }
 .logo {
-  margin-top: 0px;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 999999;
-  position: fixed;
   display: inline-block;
-  text-align: center;
   background-color: #ebeaea;
+
+  /* Your sizing */
   height: 15%;
   width: 15%;
-  padding: 5px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+  /* Background image styling */
+  background-image: url('Brauerie Andermatt - Logo A - 3 colour.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .logo-img {
