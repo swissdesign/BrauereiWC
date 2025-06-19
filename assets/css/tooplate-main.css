@@ -233,16 +233,24 @@ nav a::before {
   z-index: -1;
 }
 .logo {
-	margin-top: 0px;
+  margin-top: 0px;
   top: 0;
   left: 0;
   z-index: 999999;
   position: fixed;
- 	display: inline-block;
+  display: inline-block;
   text-align: center;
-	background-color: #ebeaea;
-	height: 15%;
-	width: 15%;
+  background-color: #ebeaea;
+  height: 15%;
+  width: 15%;
+  padding: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 .logo h1 {
   font-size: 24px;
