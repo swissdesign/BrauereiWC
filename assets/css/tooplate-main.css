@@ -242,7 +242,7 @@ nav a::before {
   /* Your sizing */
 height: 12vw;
 width: 12vw;
-	 margin: 1rem; 
+	 margin: 10rem; 
   /* Background image styling */
   background-image: url('images/Brauerie Andermatt - Logo A - 3 colour.png');
   background-size: contain;
