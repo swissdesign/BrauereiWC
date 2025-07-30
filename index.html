@@ -1,40 +1,3 @@
-Of course\! I can definitely do that. A dynamic, deconstructing logo animation for the preloader is a fantastic idea, and switching to a high-quality, free Google Font is smart for web compatibility.
-
-I've updated the code with a new preloader animation featuring your SVG logo and replaced the premium 'Klara' font with an excellent, free alternative.
-
------
-
-## Key Changes
-
-Here’s a breakdown of the modifications I made:
-
-### 1\. Font Replacement: 'Klara' to 'Playfair Display'
-
-To solve the premium font issue, I've replaced 'Klara' with **'Playfair Display'** from Google Fonts. It's a beautiful, elegant serif font with a strong presence, perfect for a craft brewery brand. It captures a similar sophisticated yet bold feel.
-
-  * **Google Fonts Link Updated:** The `<link>` in the `<head>` now includes Playfair Display.
-  * **CSS Updated:** The `font-family` for headings has been changed to `'Playfair Display', serif`.
-
-### 2\. New Preloader Animation ✨
-
-The old preloader has been replaced with your custom SVG logo. I've added unique IDs to the different groups of paths within your SVG to animate them individually with GSAP.
-
-The new animation sequence is as follows:
-
-1.  **Deconstruct:** The various elements of the logo (text, hops, etc.) elegantly move outward from the center.
-2.  **Rotate:** As the pieces move, the entire logo assembly rotates 360 degrees.
-3.  **Reconstruct:** The elements smoothly return to their original positions, re-forming the complete logo.
-4.  **Hold & Transition:** The fully formed logo pauses for a moment before the preloader fades out to reveal the hero section.
-
-This creates a much more branded and memorable loading experience.
-
------
-
-## Complete Updated Code
-
-Here is the complete HTML file with all the changes integrated. You can copy and paste this directly into your project.
-
-```html
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -459,4 +422,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-```
