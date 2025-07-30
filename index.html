@@ -87,8 +87,8 @@
             z-index: 10000;
         }
         #preloader-logo {
-            width: 300px; /* UPDATED: Increased size */
-            height: 300px; /* UPDATED: Increased size */
+            width: 300px;
+            height: 300px;
         }
         
         /* Beer Cards */
@@ -133,6 +133,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* Hero Text Readability */
+        #hero-content h1, #hero-content p {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
         }
     </style>
 </head>
@@ -209,7 +214,8 @@
         <!-- Hero Section -->
         <header id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
             <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('./images/talbild.jpg');"></div>
-            <div id="hero-content" class="relative text-center text-white z-10 flex flex-col items-center">
+            <!-- REMOVED: Dark overlay div was here -->
+            <div id="hero-content" class="relative text-center text-white z-10 flex flex-col items-center p-4">
                 <div class="w-48 h-48 mb-8">
                     <!-- Inlined SVG Logo -->
                      <svg id="hero-logo" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-full h-full">
@@ -222,7 +228,7 @@
                          <g><path class="st0-hero" d="M237.18,115.85l-2.97-.45,1.48.22-1.48-.22c.06-.43,1.44-10.45-6.45-12.83l.87-2.87c8.31,2.5,9.23,11.65,8.55,16.14Z"/><path class="st0-hero" d="M235.87,135.39l-.85-.58c-2.51-1.72-4.02-4.35-4.82-6.19-5.82,4.38-11,3.25-11.24,3.2l-1.29-.3.14-1.32c.03-.27.75-6.71,5.36-11.14,4.61-4.44,12.11-4.91,12.42-4.92h.08s.08,0,.08,0c.33.02,8.22.48,12.83,4.92,4.61,4.43,5.33,10.87,5.36,11.14l.14,1.32-1.29.3c-.24.05-5.42,1.18-11.24-3.2-.81,1.85-2.31,4.47-4.82,6.19l-.85.58ZM231.7,123.27l.63,2.45s.97,3.64,3.54,5.95c2.56-2.31,3.53-5.91,3.54-5.95l.63-2.43,1.84,1.71c3.58,3.33,6.94,3.95,8.78,4-.46-1.93-1.59-5.29-4.17-7.77-3.58-3.44-10.02-4.02-10.83-4.08-.78.06-6.86.65-10.43,4.08-2.58,2.48-3.71,5.85-4.17,7.77,1.84-.04,5.2-.66,8.78-4l1.85-1.72Z"/><path class="st0-hero" d="M221.1,147.44l-.64-1.17c-.07-.13-1.74-3.24-1.79-8.23-.05-5.54,1.25-8.47,1.3-8.6l2.73,1.23-1.37-.62,1.37.61s-1.08,2.54-1.04,7.35c.02,2.4.48,4.29.87,5.46,1.58-.91,4.31-2.79,6.72-6.03,2.27-3.04,2.2-6.8,2.2-6.84l3-.09c0,.2.12,4.83-2.79,8.73-4.18,5.6-9.14,7.61-9.34,7.7l-1.23.49Z"/><path class="st0-hero" d="M250.2,147.44l-1.23-.49c-.21-.08-5.16-2.1-9.35-7.7-2.91-3.9-2.8-8.53-2.79-8.73l3,.1s-.07,3.8,2.2,6.84c2.42,3.23,5.14,5.12,6.73,6.03.39-1.17.85-3.06.87-5.46.04-4.81-1.03-7.32-1.04-7.35l2.74-1.23c.06.12,1.35,3.06,1.3,8.6-.04,4.99-1.71,8.1-1.79,8.23l-.64,1.17Z"/><path class="st0-hero" d="M235.62,153.71l-1.12-1.15c-.09-.09-2.25-2.32-3.73-4.73-1.48-2.41-2.98-6.84-3.04-7.03l2.84-.96s1.45,4.29,2.75,6.41c.68,1.11,1.54,2.19,2.22,2.98.8-.96,1.85-2.27,2.42-3.21.82-1.36,2.03-4.91,2.43-6.16l2.86.91c-.16.49-1.57,4.89-2.72,6.79-1.15,1.91-3.74,4.81-3.85,4.94l-1.07,1.2Z"/><path class="st0-hero" d="M228.09,158.75l-1.11-1.18c-.08-.08-1.91-2.04-3.41-5.02-1.53-3.02-2.01-7.13-2.03-7.31l2.98-.34s.45,3.76,1.73,6.29c.62,1.23,1.32,2.27,1.87,3.02.83-.96,1.9-2.25,2.5-3.2,1-1.55,1.28-2.5,1.28-2.5l2.89.79c-.04.14-.39,1.39-1.65,3.34-1.22,1.89-3.85,4.78-3.96,4.91l-1.09,1.2Z"/><path class="st0-hero" d="M243.27,158.75l-1.09-1.2c-.11-.12-2.75-3.01-3.97-4.91-1.26-1.95-1.61-3.2-1.65-3.34l2.9-.78h0s.28.95,1.28,2.49c.61.95,1.68,2.24,2.5,3.2.55-.75,1.25-1.79,1.87-3.02,1.28-2.54,1.72-6.26,1.73-6.29l2.98.34c-.02.17-.5,4.29-2.03,7.31-1.5,2.98-3.33,4.94-3.41,5.02l-1.11,1.18Z"/><path class="st0-hero" d="M235.64,163.82l-1.09-1.12c-.07-.07-1.61-1.65-2.78-3.2-1.2-1.59-2.59-4.43-2.65-4.55l2.7-1.31s1.32,2.7,2.34,4.06c.46.61.99,1.23,1.45,1.75.51-.56,1.1-1.24,1.54-1.78.74-.92,1.95-3.23,2.36-4.04l2.68,1.34c-.16.33-1.63,3.24-2.7,4.57-1.02,1.28-2.71,3.07-2.78,3.15l-1.07,1.14Z"/></g>
                     </svg>
                 </div>
-                <h1 id="hero-headline" class="text-5xl md:text-7xl font-klara mb-4">Probably the Best Beer you have ever tasted.</h1>
+                <h1 id="hero-headline" class="text-5xl md:text-7xl font-klara mb-4">Probably the Best Beer on this Mountain.</h1>
                 <p id="hero-tagline" class="text-xl text-gray-200">Craft beer from the Urner Alps.</p>
                 <a href="#beers" id="hero-cta" class="mt-8 px-8 py-4 bg-white/20 text-white border-2 border-white rounded-full backdrop-blur-sm hover:bg-white/40 transition-colors duration-300 interactive">Meet Our Beers</a>
             </div>
@@ -241,7 +247,7 @@
         </section>
 
         <!-- The Source Section -->
-        <section id="source-section" class="relative h-screen bg-black text-white">
+           <section id="source-section" class="relative h-screen bg-black text-white">
             <div id="source-track" class="relative h-full">
                 <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://backend.roundshot.com/cams/fbd52e937aadf27b52ab1cfba197fe9b/default');"><div class="text-center p-8 bg-black/50 rounded-lg"><h2 class="text-6xl font-klara">From the wild and majestic Ursern valley...</h2></div></div>
                 <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://backend.roundshot.com/cams/4a3f395ba9454e649d686b03723d70fd/default');"><div class="text-center p-8 bg-black/50 rounded-lg"><h2 class="text-6xl font-klara">...Using Modern clean and efficient Technology...</h2></div></div>
@@ -254,7 +260,6 @@
         <section id="about" class="py-24 px-4 overflow-hidden">
             <div class="container mx-auto text-center max-w-4xl">
                 <h2 class="text-5xl mb-8 font-klara about-anim">Born in Andermatt</h2>
-                <!-- UPDATED: New text and removed icons -->
                 <p class="text-xl mb-16 leading-relaxed about-anim">
                     Our beer begins its journey as pure, mineral-rich water from the heart of the Swiss Alps. It flows down into the Urserntal—the valley of bears (pun intended)—and into every can we brew before making its way to the rest of Europe.
                 </p>
@@ -288,7 +293,6 @@
                 <a href="#" class="interactive"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
                 <a href="#" class="interactive"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
             </div>
-            <!-- REMOVED: Footer accent SVG -->
             <p class="mt-8">&copy; <span id="current-year"></span> Brauerei Andermatt. Drink Responsibly.</p>
         </div>
     </footer>
@@ -428,3 +432,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
+       
