@@ -1,0 +1,99 @@
+/* ================================
+   HOME PAGE STYLES
+   ================================ */
+
+/* Prevent scroll on large screens, allow it on very small ones */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* bg - panorama */
+.bg-panorama {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+#bg-image {
+  height: 100vh;
+  width: auto;
+  min-width: 200vw; /* ensures it's wider than viewport */
+  transition: transform 1s ease;
+  object-fit: cover;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;     /* reserve for nav */
+  padding-bottom: 4rem;  /* reserve for footer */
+  text-align: center;
+  position: relative;
+  z-index: 1; /* Behind nav */
+}
+
+/* Logo scroll container */
+.logo-scroller {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  will-change: transform;
+  z-index: 1; /* Behind nav */
+}
+
+/* Main SVG logo */
+.logo {
+  width: 400px;
+  height: auto;
+  fill: #1d1d1b;
+  opacity: 1;
+  transition:
+    transform 1s ease-out,
+    fill 1s ease-out,
+    opacity 1s ease-out,
+    width 1s ease-out;
+  will-change: transform, fill, opacity, width;
+}
+
+/* Footer pinned at bottom of hero */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: transparent;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Responsive fallback for very short screens */
+@media (max-height: 500px), (max-width: 400px) {
+  html, body {
+    overflow-y: auto;
+  }
+
+  .hero {
+    height: auto;
+    min-height: 500px;
+    padding: 2rem 1rem;
+  }
+
+  .logo {
+    width: 280px;
+  }
+
+  footer {
+    position: static;
+  }
+}
