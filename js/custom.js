@@ -1,9 +1,8 @@
-/* HTML document is loaded. DOM is ready.
+/*P. Heiniger Design - For Brauerei Andermatt - 30.07.2025
 -------------------------------------------*/
 $(function(){
 
     /* start typed element */
-    //http://stackoverflow.com/questions/24874797/select-div-title-text-and-make-array-with-jquery
     var subElementArray = $.map($('.sub-element'), function(el) { return $(el).text(); });    
     $(".element").typed({
         strings: subElementArray,
@@ -15,8 +14,7 @@ $(function(){
     });
     /* end typed element */
 
-    /* Smooth scroll and Scroll spy (https://github.com/ChrisWojcik/single-page-nav)    
-    ---------------------------------------------------------------------------------*/ 
+    /* Smooth scroll and Scroll */ 
     $('.templatemo-nav').singlePageNav({
         offset: $(".templatemo-nav").height(),
         filter: ':not(.external)',
@@ -33,8 +31,7 @@ $(function(){
         }
     });
     
-    /* Hide mobile menu after clicking on a link
-    -----------------------------------------------*/
+    /* Hide mobile after link click*/
     $('.navbar-collapse a').click(function(){
         $(".navbar-collapse").collapse('hide');
     });
@@ -42,8 +39,7 @@ $(function(){
 
     $('body').bind('touchstart', function() {});
 
-    /* wow
-    -----------------*/
+    /* wow */
     new WOW().init();
 });
 
