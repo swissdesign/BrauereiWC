@@ -1,5 +1,5 @@
-/*P. Heiniger Design - For Brauerei Andermatt - 30.07.2025
--------------------------------------------*/
+// P. Heiniger Design - For Brauerei Andermatt - 30.07.2025
+
 $(function(){
 
     /* start typed element */
