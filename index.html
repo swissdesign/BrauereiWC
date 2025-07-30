@@ -1,396 +1,549 @@
 <!DOCTYPE html>
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <!-- Site made specifically for Brauerei Andermatt by P. Heiniger Design -->
-  <title>
-   Brauerei Andermatt
-  </title>
-  <meta content="" name="keywords"/>
-  <meta content="" name="description"/>
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <!-- Fonts and Styles -->
-  <link href="css/animate.min.css" rel="stylesheet"/>
-  <link href="css/font-awesome.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet"/>
-  <link href="css/core.css" rel="stylesheet"/>
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- Custom JS -->
-  <script src="js/SmoothScrollNav.js">
-  </script>
-  <script src="js/typeeffect.js">
-  </script>
-  <script src="js/wow.min.js">
-  </script>
-  <script src="js/custom.js">
-  </script>
- </head>
- <body id="top">
-  <!-- Updated scripts for Bootstrap 5 -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-  </script>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brauerei Andermatt</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Note: 'Klara' is a premium font and not on Google Fonts. I'll use a fallback. A real project would require a font license. -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <style>
+        /* Base Styles & Custom Properties */
+        :root {
+            --background: #f5f4f0;
+            --text: #333333;
+            --evergreen: #006341; /* Adjusted for better visibility */
+            --brick-red: #7f1e1c;
+            --sky-blue: #72c8dc;
+            --ipa-color: #2E8B57;
+            --ipa-bg: #eaf3ed;
+            --helles-color: #87CEEB;
+            --helles-bg: #f3f9fb;
+            --weizen-color: #FFD700;
+            --weizen-bg: #fffbe6;
+        }
+
+        /* Using a fallback for the premium font 'Klara' */
+        @font-face {
+            font-family: 'Klara';
+            src: url('https://assets.website-files.com/610d2ce039522802a8f23c99/610d2ce0395228833ff23d3c_Klaras-Display-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-klara {
+            font-family: 'Klara', serif;
+            font-weight: 700;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--evergreen);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            z-index: 9999;
+        }
+        .custom-cursor.hover {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 99, 65, 0.2);
+        }
+        .custom-cursor.text-hover {
+            width: 50px;
+            height: 50px;
+            border-color: var(--brick-red);
+            background-color: rgba(127, 30, 28, 0.2);
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        #preloader-logo {
+            width: 150px;
+            height: 150px;
+        }
+        
+        /* Beer Cards */
+        .beer-card {
+            transition: transform 0.4s ease;
+        }
+        .beer-card:hover {
+            transform: translateY(-15px) scale(1.03);
+        }
+
+        /* Horizontal Scroll Section */
+        #source-section {
+            overflow: hidden;
+        }
+        #source-track {
+            display: flex;
+            width: 400%; /* 100% per panel */
+        }
+        .source-panel {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Styled Google Map */
+        .map-container iframe {
+            filter: grayscale(100%) contrast(1.2) opacity(0.8);
+            transition: filter 0.3s;
+        }
+        .map-container:hover iframe {
+            filter: grayscale(0%) contrast(1) opacity(1);
+        }
+
+        /* Modal */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 5000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
-	<body id="top">
+<body class="antialiased">
 
-		<!-- start preloader -->
-		<div class="preloader">
-			<div class="sk-spinner sk-spinner-wave">
-     	 		<div class="sk-rect1"></div>
-       			<div class="sk-rect2"></div>
-       			<div class="sk-rect3"></div>
-      	 		<div class="sk-rect4"></div>
-      			<div class="sk-rect5"></div>
-     		</div>
-    	</div>
-    	<!-- end preloader -->
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
 
-        <!-- start header -->
-        <header>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-4 col-xs-12">
-                        <p><i class="fa fa-phone"></i><span> Phone</span>010-020-0340</p>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-12">
-                        <p><i class="fa fa-envelope-o"></i><span> Email</span><a href="#">awesome@company.com</a></p>
-                    </div>
-                    <div class="col-md-5 col-sm-4 col-xs-12">
-                        <ul class="social-icon">
-                            <li><span>Meet us on</span></li>
-                            <li><a href="#" class="fa fa-facebook"></a></li>
-                            <li><a href="#" class="fa fa-twitter"></a></li>
-                            <li><a href="#" class="fa fa-instagram"></a></li>
-                            <li><a href="#" class="fa fa-apple"></a></li>
-                        </ul>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="preloader-logo">
+            <!-- SVG Logo provided by user -->
+            <svg id="preloader-svg" viewBox="0 0 283.46 283.46">
+                <defs><path id="path" d="M248.7,142.57c1.56-59.02-45.03-108.14-104.05-109.69s-108.14,45.03-109.69,104.05c-1.56,59.02,45.03,108.14,104.05,109.69s108.14-45.03,109.69-104.05Z"/></defs>
+                <circle class="logo-circle-stroke" fill="none" stroke="var(--evergreen)" stroke-width="6" stroke-miterlimit="10" cx="141.82" cy="139.75" r="135"/>
+            </svg>
         </div>
     </div>
-                    </div>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <header id="hero" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+            <div id="hero-bg" class="absolute top-0 left-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1593351436158-a4da127d54d1?q=80&w=2940&auto=format&fit=crop');"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-black/30"></div>
+            <div id="hero-content" class="relative text-center text-white z-10 flex flex-col items-center">
+                <div class="w-48 h-48 mb-8">
+                    <!-- Inlined SVG Logo -->
+                    <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.46 283.46">
+                        <defs><path id="text-path" d="M248.7,142.57c1.56-59.02-45.03-108.14-104.05-109.69s-108.14,45.03-109.69,104.05c-1.56,59.02,45.03,108.14,104.05,109.69s108.14-45.03,109.69-104.05Z"/></defs>
+                        <style>.st-logo-text{font-family:Klara,serif;font-size:38px;fill:#f5f4f0;}.st-logo-stroke{fill:none;stroke:#f5f4f0;stroke-miterlimit:10;stroke-width:6px;}.st-logo-mountains{fill:#72c8dc;}</style>
+                        <circle class="st-logo-stroke" cx="141.82" cy="139.75" r="138"/>
+                        <path class="st-logo-mountains" d="M83,161.02l51.55-57.7,13.96,15.82-4.1,4.69-9.76-11.03-31.92,35.44s8.98-2.05,16.79-2.05c21.67,0,27.14,11.62,49.2,11.62,13.08,0,21.28-3.9,21.28-3.9l-28.31-31.14-18.45,20.31-8.69-10.26-8.79,9.67h-8.49l17.18-19.04,9.08,9.96,17.96-19.92,39.15,42.95s-14.94,7.42-31.34,7.42c-25.68,0-28.9-11.32-51.35-11.32-13.47,0-34.95,8.49-34.95,8.49Z"/>
+                        <text><textPath startOffset="33.47%" xlink:href="#text-path"><tspan class="st-logo-text">ANDERMATT</tspan></textPath></text>
+                    </svg>
                 </div>
+                <h1 id="hero-headline" class="text-5xl md:text-7xl font-klara mb-4">Probably the Best Beer on this Mountain.</h1>
+                <p id="hero-tagline" class="text-xl text-gray-200">Craft beer from the Urner Alps.</p>
+                <a href="#beers" id="hero-cta" class="mt-8 px-8 py-4 bg-white/20 text-white border-2 border-white rounded-full backdrop-blur-sm hover:bg-white/40 transition-colors duration-300 interactive">Meet Our Beers</a>
             </div>
         </header>
-        <!-- end header -->
 
-    	<!-- start navigation -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light templatemo-nav">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Awesome</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-						<li><a href="#top">HOME</a></li>
-						<li><a href="#about">ABOUT</a></li>
-						<li><a href="#team">TEAM</a></li>
-						<li><a href="#service">SERVICE</a></li>
-						<li><a href="#portfolio">PORTFOLIO</a></li>
-						<li><a href="#contact">CONTACT</a></li>
-					</ul>
-        </div>
-    </div>
-				</div>
-			</div>
-		</nav>
-		<!-- end navigation -->
-
-    	<!-- start home -->
-    	<section id="home">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-offset-2 col-md-8">
-    					<h1 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">We make templates that are <span>awesome</span></h1>
-    					<div class="element">
-                            <div class="sub-element">Hello, this is Typed.js</div>
-                            <div class="sub-element">Awesome Template is provided by templatemo.com website for everyone</div>
-                            <div class="sub-element">Download, edit and apply this awesome template for your websites</div>
+        <!-- Our Beers Section -->
+        <section id="beers" class="py-24 px-4 transition-colors duration-500">
+            <div class="container mx-auto text-center">
+                <h2 class="text-5xl mb-16 font-klara">Our Lineup</h2>
+                <div id="beer-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-16">
+                    <!-- IPA Card -->
+                    <article class="beer-card interactive cursor-pointer" data-beer="ipa">
+                        <div class="aspect-square rounded-full flex items-center justify-center p-8 border-8" style="border-color: var(--ipa-color);">
+                            <div class="text-center">
+                                <h3 class="text-4xl font-klara">IPA</h3>
+                                <p class="text-lg my-2">5.6% ABV</p>
+                                <p class="text-lg font-semibold">"More hops than a mountain goat."</p>
+                            </div>
                         </div>
-    					<a data-scroll href="#about" class="btn btn-default wow fadeInUp" data-wow-offset="50" data-wow-delay="0.6s">GET STARTED</a>
-    				</div>
-    			</div>
-    		</div>
-    	</section>
-    	<!-- end home -->
-
-    	<!-- start about -->
-		<section id="about">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-    					<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">WE ARE <span>AWESOME</span></h2>
-    				</div>
-					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.6s">
-						<div class="media">
-							<div class="media-heading-wrapper">
-								<div class="media-object pull-left">
-									<i class="fa fa-mobile"></i>
-								</div>
-								<h3 class="media-heading">FULLY RESPONSIVE</h3>
-							</div>
-							<div class="media-body">
-								<p>Awesome responsive template is provided by <a rel="nofollow" href="http://www.templatemo.com" target="_parent">templatemo</a> website. This is Bootstrap v3.3.2 layout built on HTML5 CSS3. You can use this for any purpose. Please tell your friends about it.</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.9s">
-						<div class="media">
-							<div class="media-heading-wrapper">
-								<div class="media-object pull-left">
-									<i class="fa fa-comment-o"></i>
-								</div>
-								<h3 class="media-heading">FREE SUPPORT</h3>
-							</div>
-							<div class="media-body">
-								<p>Credits go to <a rel="nofollow" href="http://pixabay.com">Pixabay</a> for homepage image and <a rel="nofollow" href="http://unsplash.com">Unsplash</a> for portfolio images. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
-						<div class="media">
-							<div class="media-heading-wrapper">
-								<div class="media-object pull-left">
-									<i class="fa fa-html5"></i>
-								</div>
-								<h3 class="media-heading">HTML5 &AMP; CSS3</h3>
-							</div>
-							<div class="media-body">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- end about -->
-
-    	<!-- start team -->
-    	<section id="team">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-12">
-    					<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>AWESOME</span> TEAM</h2>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">
-    					<div class="team-wrapper">
-    						<img src="images/team-img1.jpg" class="img-responsive" alt="team img 1">
-    							<div class="team-des">
-    								<h4>TRACY</h4>
-    								<span>Designer</span>
-    								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>
-    							</div>
-    					</div>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
-    					<div class="team-wrapper">
-    						<img src="images/team-img2.jpg" class="img-responsive" alt="team img 2">
-    							<div class="team-des">
-    								<h4>MARY</h4>
-    								<span>Developer</span>
-    								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>
-    							</div>
-    					</div>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">
-    					<div class="team-wrapper">
-    						<img src="images/team-img3.jpg" class="img-responsive" alt="team img 3">
-    							<div class="team-des">
-    								<h4>JULIA</h4>
-    								<span>Director</span>
-    								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>
-    							</div>
-    					</div>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">
-    					<div class="team-wrapper">
-    						<img src="images/team-img4.jpg" class="img-responsive" alt="team img 4">
-    							<div class="team-des">
-    								<h4>LINDA</h4>
-    								<span>Manager</span>
-    								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>
-    							</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</section>
-    	<!-- end team -->
-
-    	<!-- start service -->
-    	<section id="service">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-12">
-    					<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">OUR <span>AWESOME</span> THINGS</h2>
-    				</div>
-    				<div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-    					<i class="fa fa-laptop"></i>
-    					<h4>Web Design</h4>
-    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
-    				</div>
-    				<div class="col-md-4 active wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
-    					<i class="fa fa-cloud"></i>
-    					<h4>Cloud Computing</h4>
-    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
-    				</div>
-    				<div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-    					<i class="fa fa-cog"></i>
-    					<h4>UX Design</h4>
-    					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
-    				</div>
-    			</div>
-    		</div>
-    	</section>
-    	<!-- end servie -->
-
-    	<!-- start portfolio -->
-    	<section id="portfolio">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-12">
-    					<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>AWESOME</span> PORTFOLIO</h2>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-    					   <img src="images/portfolio-img1.jpg" class="img-responsive" alt="portfolio img 1">
-                                <div class="portfolio-overlay">
-                                    <h4>Project One</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
+                    </article>
+                    <!-- Helles Card -->
+                    <article class="beer-card interactive cursor-pointer" data-beer="helles">
+                        <div class="aspect-square rounded-full flex items-center justify-center p-8 border-8" style="border-color: var(--helles-color);">
+                            <div class="text-center">
+                                <h3 class="text-4xl font-klara">Helles</h3>
+                                <p class="text-lg my-2">5.0% ABV</p>
+                                <p class="text-lg font-semibold">"Crisper than the alpine air."</p>
+                            </div>
                         </div>
-    				</div>
-    				<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img2.jpg" class="img-responsive" alt="portfolio img 2">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Two</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
+                    </article>
+                    <!-- Weizen Card -->
+                    <article class="beer-card interactive cursor-pointer" data-beer="weizen">
+                        <div class="aspect-square rounded-full flex items-center justify-center p-8 border-8" style="border-color: var(--weizen-color);">
+                            <div class="text-center">
+                                <h3 class="text-4xl font-klara">Weizen</h3>
+                                <p class="text-lg my-2">5.0% ABV</p>
+                                <p class="text-lg font-semibold">"Cloudy, with a chance of genius."</p>
+                            </div>
                         </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Source Section -->
+        <section id="source-section" class="relative h-screen bg-black text-white">
+            <div id="source-track" class="relative h-full">
+                <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1598256922399-54c154373516?q=80&w=2940&auto=format&fit=crop');">
+                    <div class="text-center p-8 bg-black/50 rounded-lg">
+                        <h2 class="text-6xl font-klara">From the Earth.</h2>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img3.jpg" class="img-responsive" alt="portfolio img 3">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Three</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
+                </div>
+                <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1556909172-6ab63f18fd12?q=80&w=2940&auto=format&fit=crop');">
+                    <div class="text-center p-8 bg-black/50 rounded-lg">
+                        <h2 class="text-6xl font-klara">By Our Hands.</h2>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img4.jpg" class="img-responsive" alt="portfolio img 4">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Four</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
+                </div>
+                <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=2940&auto=format&fit=crop');">
+                    <div class="text-center p-8 bg-black/50 rounded-lg">
+                        <h2 class="text-6xl font-klara">With Alpine Water.</h2>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img3.jpg" class="img-responsive" alt="portfolio img 3">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Five</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img4.jpg" class="img-responsive" alt="portfolio img 4">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Six</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img1.jpg" class="img-responsive" alt="portfolio img 1">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Seven</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
-                        <div class="portfolio-thumb">
-                           <img src="images/portfolio-img2.jpg" class="img-responsive" alt="portfolio img 2">
-                                <div class="portfolio-overlay">
-                                    <h4>Project Eight</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
-                                    <a href="#" class="btn btn-default">DETAIL</a>
-                                </div>
-                        </div>
-                    </div>
-    			</div>
-    		</div>
-    	</section>
-    	<!-- end portfolio -->
-
-    	<!-- start contact -->
-    	<section id="contact">
-    		<div class="container">
-    			<div class="row">
-    				<div class="col-md-12">
-    					<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>AWESOME</span></h2>
-    				</div>
-    				<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">
-    					<form action="#" method="post">
-    						<label>NAME</label>
-    						<input name="fullname" type="text" class="form-control" id="fullname">
-   						  	
-                            <label>EMAIL</label>
-    						<input name="email" type="email" class="form-control" id="email">
-   						  	
-                            <label>MESSAGE</label>
-    						<textarea name="message" rows="4" class="form-control" id="message"></textarea>
-    						
-                            <input type="submit" class="form-control">
-    					</form>
-    				</div>
-    				<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">
-    					<address>
-    						<p class="address-title">OUR ADDRESS</p>
-    						<span>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</span>
-    						<p><i class="fa fa-phone"></i> 010-020-0340</p>
-    						<p><i class="fa fa-envelope-o"></i> awesome@company.com</p>
-    						<p><i class="fa fa-map-marker"></i> 663 New Walk Roadside, Birdeye View, GO 11020</p>
-    					</address>
-    					<ul class="social-icon">
-    						<li><h4>WE ARE SOCIAL</h4></li>
-    						<li><a href="#" class="fa fa-facebook"></a></li>
-    						<li><a href="#" class="fa fa-twitter"></a></li>
-    						<li><a href="#" class="fa fa-instagram"></a></li>
-    					</ul>
-        </div>
-    </div>
-    				</div>
-    			</div>
-    		</div>
-    	</section>
-    	<!-- end contact -->
-
-        <!-- start copyright -->
-        <footer id="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">
-                       	Copyright &copy; 2084 Company Name</p>
+                </div>
+                <div class="source-panel flex justify-center items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1604940500612-911042a09903?q=80&w=2832&auto=format&fit=crop');">
+                    <div class="text-center p-8 bg-black/50 rounded-lg">
+                        <h2 class="text-6xl font-klara">For the Urserntal.</h2>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- end copyright -->
+        </section>
 
-	</body>
-</html>" 
+        <!-- About Section -->
+        <section id="about" class="py-24 px-4 overflow-hidden">
+            <div class="container mx-auto text-center max-w-4xl">
+                <h2 class="text-5xl mb-8 font-klara about-anim">Born in Andermatt</h2>
+                <p class="text-xl mb-16 leading-relaxed about-anim">We didn't just build a brewery in the Urserntal; we're part of the mountains themselves. We use pure alpine water and a healthy dose of local pride to make beer that's as unapologetically bold as the landscape.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="about-anim text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 text-evergreen">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0-2.25l2.25 1.313M9 15.75V18m0-2.25h.008v.008H9v-.008zm0 0h.008v.008H9v-.008zm0 0h.008v.008H9v-.008zm.008 0H9.008v.008H9.008v-.008zm-3.008 0h.008v.008H6v-.008zm0 0h.008v.008H6v-.008zm0 0h.008v.008H6v-.008zm.008 0H6.008v.008H6.008v-.008zm6 0h.008v.008H12v-.008zm0 0h.008v.008H12v-.008zm0 0h.008v.008H12v-.008zm.008 0h-.008v.008h.008v-.008zm3-3h.008v.008H15v-.008zm0 0h.008v.008H15v-.008zm0 0h.008v.008H15v-.008zm.008 0h-.008v.008h.008v-.008z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-klara">Hand-picked hops</h3>
+                    </div>
+                    <div class="about-anim text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 text-evergreen">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-klara">Pride of the Urserntal</h3>
+                    </div>
+                    <div class="about-anim text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 text-evergreen">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.362-3.797z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.362-3.797zM15.362 5.214a1.5 1.5 0 012.122 0l4.146 4.146a1.5 1.5 0 010 2.122l-1.362 1.362M15.362 5.214L12 7.586 8.638 4.222l3.362-3.797a1.5 1.5 0 012.122 0z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-klara">Small-batch magic</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Contact & Map Section -->
+        <section id="contact" class="py-24 px-4 bg-gray-200/50">
+            <div class="container mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div>
+                        <h2 class="text-5xl mb-8 font-klara">Get in Touch</h2>
+                        <div class="space-y-4 text-lg mb-8">
+                            <p><a href="tel:+41123456789" class="interactive-text hover:text-brick-red transition-colors">+41 12 345 67 89</a></p>
+                            <p><a href="mailto:awesome@brauerei-andermatt.ch" class="interactive-text hover:text-brick-red transition-colors">awesome@brauerei-andermatt.ch</a></p>
+                        </div>
+                        <form id="contact-form">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" placeholder="Name" required class="p-3 border rounded-md bg-white/50 w-full">
+                                <input type="email" placeholder="Email" required class="p-3 border rounded-md bg-white/50 w-full">
+                                <input type="tel" placeholder="Phone" class="p-3 border rounded-md bg-white/50 w-full md:col-span-2">
+                                <select class="p-3 border rounded-md bg-white/50 w-full md:col-span-2">
+                                    <option>Order</option>
+                                    <option>Media/News</option>
+                                    <option>Info</option>
+                                    <option>B2B</option>
+                                </select>
+                                <textarea placeholder="Message" rows="5" class="p-3 border rounded-md bg-white/50 w-full md:col-span-2"></textarea>
+                                <!-- Honeypot -->
+                                <input type="text" name="honeypot" style="display:none;">
+                            </div>
+                            <button type="submit" class="interactive mt-6 bg-evergreen text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-80 transition-colors">Send It</button>
+                        </form>
+                        <div id="form-success" class="hidden text-2xl font-klara p-8 bg-evergreen/20 rounded-md">
+                            Thank you! We'll be in touch.
+                        </div>
+                    </div>
+                    <div class="w-full h-[500px]">
+                        <h3 class="text-2xl font-klara mb-4 text-center">Visit us in the heart of the Urserntal.</h3>
+                        <div class="map-container w-full h-full rounded-lg overflow-hidden shadow-lg">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2737.930432326756!2d8.59194461559815!3d46.63583337913233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47857a4e69623e7b%3A0x6b4e5b8e9b0d1e1a!2sGotthardstrasse%20163%2C%206490%20Andermatt%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1698178869123!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="py-12 bg-gray-800 text-white">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="interactive">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                </a>
+                <a href="#" class="interactive">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+            <div id="footer-accent" class="w-48 mx-auto my-4 text-gray-500">
+                <svg viewBox="0 0 100 20">
+                    <path d="M0 20 L10 10 L20 15 L30 5 L40 12 L50 8 L60 18 L70 10 L80 14 L90 8 L100 20" fill="none" stroke="currentColor" stroke-width="1"/>
+                </svg>
+            </div>
+            <p>&copy; <span id="current-year"></span> Brauerei Andermatt. Drink Responsibly.</p>
+        </div>
+    </footer>
+
+
+    <!-- Beer Modal -->
+    <div id="modal" class="hidden opacity-0">
+        <div id="modal-content" class="bg-background rounded-lg shadow-2xl w-11/12 max-w-2xl text-center p-8 relative transform scale-95">
+            <button id="modal-close" class="absolute top-4 right-4 text-3xl interactive">&times;</button>
+            <div id="modal-body">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        const beerData = {
+            ipa: {
+                name: 'IPA',
+                tagline: 'More hops than a mountain goat.',
+                abv: '5.6% ABV',
+                notes: 'Bright citrus, pine resin, and a crisp, bitter finish that echoes off the peaks.',
+                pairs: 'Spicy food, sharp cheddar, and summiting your goals.',
+                color: 'var(--ipa-color)',
+                bgColor: 'var(--ipa-bg)'
+            },
+            helles: {
+                name: 'Helles',
+                tagline: 'Crisper than the alpine air.',
+                abv: '5.0% ABV',
+                notes: 'Subtle malt sweetness with a clean, refreshing finish. The perfect reward after a long day.',
+                pairs: 'Bratwurst, pretzels, and lakeside afternoons.',
+                color: 'var(--helles-color)',
+                bgColor: 'var(--helles-bg)'
+            },
+            weizen: {
+                name: 'Weizen',
+                tagline: 'Cloudy, with a chance of genius.',
+                abv: '5.0% ABV',
+                notes: 'Classic notes of banana and clove with a soft, full-bodied mouthfeel.',
+                pairs: 'Weisswurst, salads, and sunny patios.',
+                color: 'var(--weizen-color)',
+                bgColor: 'var(--weizen-bg)'
+            }
+        };
+
+        // --- Custom Cursor ---
+        const cursor = document.querySelector('.custom-cursor');
+        window.addEventListener('mousemove', e => {
+            gsap.to(cursor, { duration: 0.2, x: e.clientX, y: e.clientY });
+        });
+
+        document.querySelectorAll('.interactive').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+        document.querySelectorAll('.interactive-text').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('text-hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('text-hover'));
+        });
+
+
+        // --- Preloader Animation ---
+        const preloader = document.getElementById('preloader');
+        const preloaderSVG = document.getElementById('preloader-svg').querySelector('circle');
+        const strokeLength = preloaderSVG.getTotalLength();
+        
+        gsap.set(preloaderSVG, { strokeDasharray: strokeLength, strokeDashoffset: strokeLength });
+
+        const preloaderTl = gsap.timeline();
+        preloaderTl
+            .to(preloaderSVG, { duration: 2, strokeDashoffset: 0, ease: 'power2.inOut' })
+            .to(preloaderSVG, { duration: 0.5, fill: 'var(--evergreen)', stroke: 'var(--evergreen)' }, "-=0.5")
+            .to('#preloader-logo', { duration: 0.5, scale: 1.1, ease: 'power1.inOut' })
+            .to(preloader, { duration: 1, opacity: 0, onComplete: () => preloader.style.display = 'none' });
+
+
+        // --- Hero Animations ---
+        preloaderTl.from('#hero-headline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.5");
+        preloaderTl.from('#hero-tagline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
+        preloaderTl.from('#hero-cta', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
+
+        gsap.to('#hero-bg', {
+            scrollTrigger: {
+                trigger: '#hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            yPercent: 30,
+            ease: 'none'
+        });
+
+        // --- Smooth Scrolling ---
+        document.querySelector('#hero-cta').addEventListener('click', (e) => {
+            e.preventDefault();
+            gsap.to(window, { duration: 1.5, scrollTo: '#beers', ease: 'power2.inOut' });
+        });
+
+        // --- Beer Section Interactions ---
+        const beersSection = document.getElementById('beers');
+        const beerCards = document.querySelectorAll('.beer-card');
+
+        beerCards.forEach(card => {
+            const beerType = card.dataset.beer;
+            card.addEventListener('mouseenter', () => {
+                gsap.to(beersSection, { duration: 0.5, backgroundColor: beerData[beerType].bgColor });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(beersSection, { duration: 0.5, backgroundColor: 'var(--background)' });
+            });
+            card.addEventListener('click', () => openModal(beerType));
+        });
+
+        // --- Modal Logic ---
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalBody = document.getElementById('modal-body');
+        const modalClose = document.getElementById('modal-close');
+
+        function openModal(beerType) {
+            const data = beerData[beerType];
+            modalBody.innerHTML = `
+                <div class="aspect-square w-48 h-48 mx-auto rounded-full flex items-center justify-center p-8 border-8 mb-6" style="border-color: ${data.color};">
+                    <h3 class="text-5xl font-klara">${data.name}</h3>
+                </div>
+                <p class="text-xl my-2">${data.abv}</p>
+                <p class="text-2xl font-semibold mb-6">"${data.tagline}"</p>
+                <div class="text-left max-w-md mx-auto space-y-4">
+                    <div>
+                        <h4 class="font-bold text-lg">Tasting Notes:</h4>
+                        <p>${data.notes}</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Pairs With:</h4>
+                        <p>${data.pairs}</p>
+                    </div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            gsap.to(modal, { duration: 0.3, opacity: 1 });
+            gsap.to(modalContent, { duration: 0.3, scale: 1, delay: 0.1 });
+        }
+
+        function closeModal() {
+            gsap.to(modal, { duration: 0.3, opacity: 0, onComplete: () => modal.classList.add('hidden') });
+            gsap.to(modalContent, { duration: 0.3, scale: 0.95 });
+        }
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // --- Horizontal Scroll ---
+        const sourceTrack = document.querySelector("#source-track");
+        const panels = gsap.utils.toArray(".source-panel");
+        gsap.to(panels, {
+            xPercent: -100 * (panels.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#source-section",
+                pin: true,
+                scrub: 1,
+                snap: 1 / (panels.length - 1),
+                end: () => "+=" + (sourceTrack.offsetWidth - window.innerWidth)
+            }
+        });
+
+        // --- About Section Animations ---
+        gsap.utils.toArray('.about-anim').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+        });
+
+        // --- Contact Form ---
+        const contactForm = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Simple honeypot check
+            if (e.target.honeypot.value) return;
+            gsap.to(contactForm, { duration: 0.5, opacity: 0, onComplete: () => contactForm.style.display = 'none' });
+            gsap.fromTo(formSuccess, { opacity: 0, display: 'block' }, { duration: 0.5, opacity: 1, delay: 0.5 });
+        });
+
+        // --- Footer ---
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        gsap.to('#footer-accent', {
+            duration: 2,
+            opacity: 0.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    });
+    </script>
+</body>
+</html>
