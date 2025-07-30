@@ -363,208 +363,200 @@
         </div>
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+   <script>
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        const beerData = {
-            ipa: {
-                name: 'IPA',
-                tagline: 'More hops than a mountain goat.',
-                abv: '5.6% ABV',
-                notes: 'Bright citrus, pine resin, and a crisp, bitter finish that echoes off the peaks.',
-                pairs: 'Spicy food, sharp cheddar, and summiting your goals.',
-                color: 'var(--ipa-color)',
-                bgColor: 'var(--ipa-bg)'
-            },
-            helles: {
-                name: 'Helles',
-                tagline: 'Crisper than the alpine air.',
-                abv: '5.0% ABV',
-                notes: 'Subtle malt sweetness with a clean, refreshing finish. The perfect reward after a long day.',
-                pairs: 'Bratwurst, pretzels, and lakeside afternoons.',
-                color: 'var(--helles-color)',
-                bgColor: 'var(--helles-bg)'
-            },
-            weizen: {
-                name: 'Weizen',
-                tagline: 'Cloudy, with a chance of genius.',
-                abv: '5.0% ABV',
-                notes: 'Classic notes of banana and clove with a soft, full-bodied mouthfeel.',
-                pairs: 'Weisswurst, salads, and sunny patios.',
-                color: 'var(--weizen-color)',
-                bgColor: 'var(--weizen-bg)'
-            }
-        };
-
-        // --- Custom Cursor ---
-        const cursor = document.querySelector('.custom-cursor');
-        window.addEventListener('mousemove', e => {
-            gsap.to(cursor, { duration: 0.2, x: e.clientX, y: e.clientY });
-        });
-
-        document.querySelectorAll('.interactive').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-        document.querySelectorAll('.interactive-text').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('text-hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('text-hover'));
-        });
-
-
-        // --- Preloader Animation ---
-        const beerFill = document.getElementById("beer-fill-rect");
-
-gsap.set(beerFill, { height: 0, y: 230 });
-
-preloaderTl.to(beerFill, {
-    duration: 2,
-    height: 220,
-    y: 10,
-    ease: "power2.inOut"
-});
-        const preloader = document.getElementById('preloader');
-        const preloaderSVG = document.getElementById('preloader-svg').querySelector('circle');
-        const strokeLength = preloaderSVG.getTotalLength();
-        
-        gsap.set(preloaderSVG, { strokeDasharray: strokeLength, strokeDashoffset: strokeLength });
-
-        const preloaderTl = gsap.timeline();
-        preloaderTl
-            .to(preloaderSVG, { duration: 2, strokeDashoffset: 0, ease: 'power2.inOut' })
-            .to(preloaderSVG, { duration: 0.5, fill: 'var(--evergreen)', stroke: 'var(--evergreen)' }, "-=0.5")
-            .to('#preloader-logo', { duration: 0.5, scale: 1.1, ease: 'power1.inOut' })
-            .to(preloader, { duration: 1, opacity: 0, onComplete: () => preloader.style.display = 'none' });
-
-
-        // --- Hero Animations ---
-        preloaderTl.from('#hero-headline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.5");
-        preloaderTl.from('#hero-tagline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
-        preloaderTl.from('#hero-cta', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
-
-        gsap.to('#hero-bg', {
-            scrollTrigger: {
-                trigger: '#hero',
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true
-            },
-            yPercent: 30,
-            ease: 'none'
-        });
-
-        // --- Smooth Scrolling ---
-        document.querySelector('#hero-cta').addEventListener('click', (e) => {
-            e.preventDefault();
-            gsap.to(window, { duration: 1.5, scrollTo: '#beers', ease: 'power2.inOut' });
-        });
-
-        // --- Beer Section Interactions ---
-        const beersSection = document.getElementById('beers');
-        const beerCards = document.querySelectorAll('.beer-card');
-
-        beerCards.forEach(card => {
-            const beerType = card.dataset.beer;
-            card.addEventListener('mouseenter', () => {
-                gsap.to(beersSection, { duration: 0.5, backgroundColor: beerData[beerType].bgColor });
-            });
-            card.addEventListener('mouseleave', () => {
-                gsap.to(beersSection, { duration: 0.5, backgroundColor: 'var(--background)' });
-            });
-            card.addEventListener('click', () => openModal(beerType));
-        });
-
-        // --- Modal Logic ---
-        const modal = document.getElementById('modal');
-        const modalContent = document.getElementById('modal-content');
-        const modalBody = document.getElementById('modal-body');
-        const modalClose = document.getElementById('modal-close');
-
-        function openModal(beerType) {
-            const data = beerData[beerType];
-            modalBody.innerHTML = `
-                <div class="aspect-square w-48 h-48 mx-auto rounded-full flex items-center justify-center p-8 border-8 mb-6" style="border-color: ${data.color};">
-                    <h3 class="text-5xl font-klara">${data.name}</h3>
-                </div>
-                <p class="text-xl my-2">${data.abv}</p>
-                <p class="text-2xl font-semibold mb-6">"${data.tagline}"</p>
-                <div class="text-left max-w-md mx-auto space-y-4">
-                    <div>
-                        <h4 class="font-bold text-lg">Tasting Notes:</h4>
-                        <p>${data.notes}</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-lg">Pairs With:</h4>
-                        <p>${data.pairs}</p>
-                    </div>
-                </div>
-            `;
-            modal.classList.remove('hidden');
-            gsap.to(modal, { duration: 0.3, opacity: 1 });
-            gsap.to(modalContent, { duration: 0.3, scale: 1, delay: 0.1 });
+    const beerData = {
+        ipa: {
+            name: 'IPA',
+            tagline: 'More hops than a mountain goat.',
+            abv: '5.6% ABV',
+            notes: 'Bright citrus, pine resin, and a crisp, bitter finish that echoes off the peaks.',
+            pairs: 'Spicy food, sharp cheddar, and summiting your goals.',
+            color: 'var(--ipa-color)',
+            bgColor: 'var(--ipa-bg)'
+        },
+        helles: {
+            name: 'Helles',
+            tagline: 'Crisper than the alpine air.',
+            abv: '5.0% ABV',
+            notes: 'Subtle malt sweetness with a clean, refreshing finish. The perfect reward after a long day.',
+            pairs: 'Bratwurst, pretzels, and lakeside afternoons.',
+            color: 'var(--helles-color)',
+            bgColor: 'var(--helles-bg)'
+        },
+        weizen: {
+            name: 'Weizen',
+            tagline: 'Cloudy, with a chance of genius.',
+            abv: '5.0% ABV',
+            notes: 'Classic notes of banana and clove with a soft, full-bodied mouthfeel.',
+            pairs: 'Weisswurst, salads, and sunny patios.',
+            color: 'var(--weizen-color)',
+            bgColor: 'var(--weizen-bg)'
         }
+    };
 
-        function closeModal() {
-            gsap.to(modal, { duration: 0.3, opacity: 0, onComplete: () => modal.classList.add('hidden') });
-            gsap.to(modalContent, { duration: 0.3, scale: 0.95 });
-        }
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
+    // --- Custom Cursor ---
+    const cursor = document.querySelector('.custom-cursor');
+    window.addEventListener('mousemove', e => {
+        gsap.to(cursor, { duration: 0.2, x: e.clientX, y: e.clientY });
+    });
 
-        // --- Horizontal Scroll ---
-        const sourceTrack = document.querySelector("#source-track");
-        const panels = gsap.utils.toArray(".source-panel");
-        gsap.to(panels, {
-            xPercent: -100 * (panels.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#source-section",
-                pin: true,
-                scrub: 1,
-                snap: 1 / (panels.length - 1),
-                end: () => "+=" + (sourceTrack.offsetWidth - window.innerWidth)
-            }
-        });
+    document.querySelectorAll('.interactive').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+    document.querySelectorAll('.interactive-text').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('text-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('text-hover'));
+    });
 
-        // --- About Section Animations ---
-        gsap.utils.toArray('.about-anim').forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
-                opacity: 0,
-                y: 50,
-                duration: 0.8,
-                ease: 'power3.out'
-            });
-        });
+    // --- Preloader Animation (Beer Fill) ---
+    const preloader = document.getElementById('preloader');
+    const beerFill = document.getElementById("beer-fill-rect");
 
-        // --- Contact Form ---
-        const contactForm = document.getElementById('contact-form');
-        const formSuccess = document.getElementById('form-success');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Simple honeypot check
-            if (e.target.honeypot.value) return;
-            gsap.to(contactForm, { duration: 0.5, opacity: 0, onComplete: () => contactForm.style.display = 'none' });
-            gsap.fromTo(formSuccess, { opacity: 0, display: 'block' }, { duration: 0.5, opacity: 1, delay: 0.5 });
-        });
+    const preloaderTl = gsap.timeline();
 
-        // --- Footer ---
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        gsap.to('#footer-accent', {
+    gsap.set(beerFill, { height: 0, y: 230 }); // Starting at bottom of can
+
+    preloaderTl
+        .to(beerFill, {
             duration: 2,
-            opacity: 0.5,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut'
+            height: 220,
+            y: 10,
+            ease: "power2.inOut"
+        })
+        .to('#preloader-logo', { duration: 0.5, scale: 1.1, ease: 'power1.inOut' }, "-=0.5")
+        .to(preloader, { duration: 1, opacity: 0, onComplete: () => preloader.style.display = 'none' });
+
+    // --- Hero Animations ---
+    preloaderTl.from('#hero-headline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.5");
+    preloaderTl.from('#hero-tagline', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
+    preloaderTl.from('#hero-cta', { duration: 1, y: 50, opacity: 0, ease: 'power3.out' }, "-=0.8");
+
+    gsap.to('#hero-bg', {
+        scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+        },
+        yPercent: 30,
+        ease: 'none'
+    });
+
+    // --- Smooth Scrolling ---
+    document.querySelector('#hero-cta').addEventListener('click', (e) => {
+        e.preventDefault();
+        gsap.to(window, { duration: 1.5, scrollTo: '#beers', ease: 'power2.inOut' });
+    });
+
+    // --- Beer Section Interactions ---
+    const beersSection = document.getElementById('beers');
+    const beerCards = document.querySelectorAll('.beer-card');
+
+    beerCards.forEach(card => {
+        const beerType = card.dataset.beer;
+        card.addEventListener('mouseenter', () => {
+            gsap.to(beersSection, { duration: 0.5, backgroundColor: beerData[beerType].bgColor });
+        });
+        card.addEventListener('mouseleave', () => {
+            gsap.to(beersSection, { duration: 0.5, backgroundColor: 'var(--background)' });
+        });
+        card.addEventListener('click', () => openModal(beerType));
+    });
+
+    // --- Modal Logic ---
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    const modalBody = document.getElementById('modal-body');
+    const modalClose = document.getElementById('modal-close');
+
+    function openModal(beerType) {
+        const data = beerData[beerType];
+        modalBody.innerHTML = `
+            <div class="aspect-square w-48 h-48 mx-auto rounded-full flex items-center justify-center p-8 border-8 mb-6" style="border-color: ${data.color};">
+                <h3 class="text-5xl font-klara">${data.name}</h3>
+            </div>
+            <p class="text-xl my-2">${data.abv}</p>
+            <p class="text-2xl font-semibold mb-6">"${data.tagline}"</p>
+            <div class="text-left max-w-md mx-auto space-y-4">
+                <div>
+                    <h4 class="font-bold text-lg">Tasting Notes:</h4>
+                    <p>${data.notes}</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg">Pairs With:</h4>
+                    <p>${data.pairs}</p>
+                </div>
+            </div>
+        `;
+        modal.classList.remove('hidden');
+        gsap.to(modal, { duration: 0.3, opacity: 1 });
+        gsap.to(modalContent, { duration: 0.3, scale: 1, delay: 0.1 });
+    }
+
+    function closeModal() {
+        gsap.to(modal, { duration: 0.3, opacity: 0, onComplete: () => modal.classList.add('hidden') });
+        gsap.to(modalContent, { duration: 0.3, scale: 0.95 });
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // --- Horizontal Scroll Section ---
+    const sourceTrack = document.querySelector("#source-track");
+    const panels = gsap.utils.toArray(".source-panel");
+    gsap.to(panels, {
+        xPercent: -100 * (panels.length - 1),
+        ease: "none",
+        scrollTrigger: {
+            trigger: "#source-section",
+            pin: true,
+            scrub: 1,
+            snap: 1 / (panels.length - 1),
+            end: () => "+=" + (sourceTrack.offsetWidth - window.innerWidth)
+        }
+    });
+
+    // --- About Section Animations ---
+    gsap.utils.toArray('.about-anim').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: 'power3.out'
         });
     });
-    </script>
+
+    // --- Contact Form Submission Animation ---
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (e.target.honeypot.value) return; // Anti-spam honeypot
+        gsap.to(contactForm, { duration: 0.5, opacity: 0, onComplete: () => contactForm.style.display = 'none' });
+        gsap.fromTo(formSuccess, { opacity: 0, display: 'block' }, { duration: 0.5, opacity: 1, delay: 0.5 });
+    });
+
+    // --- Footer Year & Accent Animation ---
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    gsap.to('#footer-accent', {
+        duration: 2,
+        opacity: 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+    });
+});
+</script>
 </body>
 </html>
