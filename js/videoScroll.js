@@ -1,5 +1,5 @@
 /*
- * Scroll‑scrubbing for the hero video and fade overlay.
+ * Scroll-scrubbing for the hero video and fade overlay.
  * Uses GSAP ScrollTrigger to tie video playback to scroll progress.
  */
 
@@ -8,45 +8,71 @@
   const video = document.getElementById('hero-video');
   const overlay = document.getElementById('hero-overlay');
   const heroSection = document.getElementById('hero');
-  if (!video || !overlay || !heroSection || !window.gsap) return;
+  const heroLogo = document.getElementById('hero-logo');
+  const heroTextContainer = document.getElementById('hero-text-container');
+  if (!video || !overlay || !heroSection || !heroLogo || !heroTextContainer || !window.gsap) return;
   gsap.registerPlugin(ScrollTrigger);
 
   // Wait for metadata to get correct duration
   function initTimeline() {
     const duration = video.duration || 5;
     /*
-      Tie the hero video playback and fade to scroll.  The hero section is pinned in place
-      while the user scrolls through a length greater than a single viewport.  During the
-      first portion of the scroll the video scrubs from beginning to end; during the final
-      portion the overlay fades from transparent to black.  This gives the impression that
-      the clip completes before the transition to the bar section begins.
-
-      We allocate 80% of the scroll distance to scrubbing the video and the last 20% to
-      fading to black.  Adjust `scrubPortion` below to fine‑tune the ratio.
+      Create a GSAP timeline to manage all animations tied to the scroll.
+      The total scroll duration is extended to twice the viewport height
+      to give the animations enough room to play out smoothly.
     */
-    const scrubPortion = 0.8;
-    ScrollTrigger.create({
-      trigger: heroSection,
-      start: 'top top',
-      // Extend the end point to add extra scroll length for the fade.  Using a multiple
-      // of the viewport height ensures consistent behaviour on different screen sizes.
-      end: () => '+=' + window.innerHeight * 1.25,
-      pin: true,
-      scrub: true,
-      onUpdate: (self) => {
-        const totalProgress = self.progress;
-        // Compute video progress relative to the scrubbing portion
-        const videoProgress = Math.min(totalProgress / scrubPortion, 1);
-        video.currentTime = duration * videoProgress;
-        // Fade the overlay only during the final part of the scroll
-        let opacity = 0;
-        if (totalProgress > scrubPortion) {
-          const fadeProgress = (totalProgress - scrubPortion) / (1 - scrubPortion);
-          opacity = Math.min(fadeProgress, 1);
-        }
-        overlay.style.opacity = opacity;
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: `+=${window.innerHeight * 2}`, // Extend scroll duration
+        pin: true,
+        scrub: true,
       },
     });
+
+    // Animate the video to play through its entire duration
+    tl.to(
+      video,
+      {
+        currentTime: duration,
+        ease: 'none',
+      },
+      0
+    );
+
+    // 1. Fade in the logo and keep it visible for the first half of the scroll
+    tl.to(
+      heroLogo,
+      {
+        opacity: 1,
+        ease: 'power1.inOut',
+        yoyo: true, // Fade in and then back out
+        repeat: 1, // Ensures it fades in and out once
+      },
+      0
+    );
+
+    // 2. Fade in the text and button during the second half of the scroll
+    tl.fromTo(
+      heroTextContainer,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        ease: 'power1.in',
+      },
+      '>-0.5' // Start this animation slightly before the logo finishes fading out
+    );
+
+    // 3. Fade to black at the end of the scroll
+    tl.to(
+      overlay,
+      {
+        opacity: 1,
+        ease: 'power1.in',
+      },
+      '>-0.2' // Overlap with the end of the text fade-in
+    );
   }
 
   // Some browsers may report duration 0 until playback starts
