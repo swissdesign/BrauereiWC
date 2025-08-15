@@ -3,6 +3,20 @@
  * On large screens, vertical scrolling moves the beer items horizontally.
  * On small screens, items stack vertically for a mobile‑friendly layout.
  */
+gsap.registerPlugin(ScrollTrigger);
+
+// Fade out overlay when beer carousel scrolls into view
+const overlay = document.querySelector('.page-overlay');
+if (overlay) {
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '#beer-carousel',
+      start: 'top center',
+      end: 'bottom center',
+      scrub: true,
+    }
+  }).to(overlay, { opacity: 0, ease: 'none' });
+}
 
 (() => {
   const section = document.getElementById('bar-section');
