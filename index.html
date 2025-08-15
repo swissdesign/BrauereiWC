@@ -4,27 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brauerei Andermatt – Home</title>
-    <!-- Tailwind CSS via CDN for rapid prototyping -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (self‑host in production for performance) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap"
       rel="stylesheet"
     />
-    <!-- Custom styles -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <!-- GSAP and plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
   </head>
   <body class="font-inter bg-background text-text antialiased overflow-x-hidden">
-    <!-- Preloader overlay with Andermatt logo.  The markup below was
-         ported from the provided onepager to achieve the complex
-         animation sequence defined in preloader.js. -->
     <div id="preloader">
       <div id="preloader-logo">
         <svg id="andermatt-logo" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46">
@@ -84,9 +77,7 @@
         </svg>
       </div>
     </div>
-    <!-- Page overlay used to fade from black into the beer carousel -->
-<div class="page-overlay"></div>
-    <!-- Hero section: scroll scrubs a video -->
+    <div class="page-overlay"></div>
     <section id="hero" class="relative h-screen w-screen overflow-hidden">
       <video
         id="hero-video"
@@ -95,19 +86,17 @@
         playsinline
         muted
       >
-        <!-- Use only the MP4 version of the hero clip to ensure quick loading and smooth scrubbing.  The
-             WebM source was removed because it was significantly larger and caused choppy playback. -->
         <source src="./media/video/hero.mp4" type="video/mp4" />
       </video>
-      <!-- Black overlay for fade to black -->
       <div
         id="hero-overlay"
         class="absolute inset-0 bg-black pointer-events-none opacity-0"
       ></div>
-      <!-- Headline and call to action inside hero -->
-      <div
-        class="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10"
-      >
+      <div id="hero-logo" class="absolute inset-0 flex items-center justify-center z-20 opacity-0">
+        <svg id="andermatt-logo-hero" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-48 h-48 text-white">
+          </svg>
+      </div>
+      <div id="hero-text-container" class="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10">
         <h1 id="hero-headline" class="text-5xl md:text-7xl font-playfair mb-4">
           Willkommen in Andermatt
         </h1>
@@ -122,24 +111,16 @@
         </button>
       </div>
     </section>
-    <!-- Bar showcase section -->
     <section
       id="bar-section"
       class="relative h-screen w-screen flex flex-col justify-end bg-cover bg-center"
       style="background-image: url('./media/images/backgrounds/bar.webp');"
     >
-      <!-- Partner logos marquee -->
-      <!--
-        Partner logos scroll slowly across the top of the bar section.  Making this element sticky
-        ensures it remains pinned to the top of the viewport as you transition from the hero into
-        the bar.  The absolute positioning was removed so that sticky positioning can take effect.
-      -->
       <div
         id="partner-marquee"
         class="sticky top-0 w-full flex overflow-hidden whitespace-nowrap py-2 bg-white/70 backdrop-blur-sm z-10"
       >
         <div class="flex space-x-8 animate-marquee">
-          <!-- Duplicate logos for seamless loop -->
           <img
             src="./media/images/logos/partner1.svg"
             alt="Partner 1"
@@ -160,20 +141,12 @@
             alt="Partner 4"
             class="h-8 logo"
           />
-          <!-- You can add more logos as needed -->
-        </div>
+          </div>
       </div>
-      <!-- Beer carousel container -->
       <div
         id="beer-carousel"
         class="relative flex"
       >
-        <!-- Each beer item is a full‑screen slide.  The flex container below centres
-             the can and its description within a semi‑transparent panel so that the bar
-             background remains visible behind it.  The `min-w-full` and `min-h-screen`
-             classes ensure each slide occupies the entire viewport.  See carousel.js for
-             the scroll‑driven horizontal animation. -->
-
         <div
           class="beer-item cursor-pointer flex items-center justify-center min-w-full min-h-screen px-8"
           data-beer="ipa"
@@ -234,7 +207,6 @@
           </div>
         </div>
       </div>
-      <!-- Link to the brewery section -->
       <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
         <button
           id="brewery-link"
@@ -244,7 +216,6 @@
         </button>
       </div>
     </section>
-    <!-- Latest diary posts -->
     <section id="latest-posts" class="py-16 px-4 bg-background">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-3xl font-playfair mb-8">Brewer’s Diary</h2>
@@ -252,8 +223,7 @@
           id="posts-container"
           class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
-          <!-- Posts inserted via JS -->
-        </div>
+          </div>
         <div class="text-center mt-8">
           <a
             href="blog.html"
@@ -263,14 +233,12 @@
         </div>
       </div>
     </section>
-    <!-- Contact whisper button -->
     <button
       id="whisper-btn"
       class="fixed bottom-4 right-4 bg-brick-red text-white p-4 rounded-full shadow-lg z-40"
     >
       Whisper
     </button>
-    <!-- Contact modal -->
     <div
       id="contact-modal"
       class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
@@ -327,7 +295,6 @@
               required
             ></textarea>
           </div>
-          <!-- Honeypot for spam bots -->
           <div class="hidden">
             <label for="honeypot">Leave this empty</label>
             <input type="text" id="honeypot" name="honeypot" />
@@ -344,7 +311,6 @@
         </form>
       </div>
     </div>
-    <!-- Product details modal (for beer items) -->
     <div
       id="product-modal"
       class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
@@ -361,7 +327,6 @@
         <div id="product-modal-body"></div>
       </div>
     </div>
-    <!-- Main JS bundle -->
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
