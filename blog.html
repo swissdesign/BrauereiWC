@@ -1,1 +1,119 @@
-
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brauerei Andermatt – Diary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body class="font-inter bg-background text-text antialiased">
+    <!-- Header/navigation -->
+    <header class="w-full bg-white/90 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
+      <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <a href="index.html" class="font-playfair text-2xl">Brauerei Andermatt</a>
+        <nav class="space-x-6 text-sm uppercase">
+          <a href="index.html" class="hover:text-evergreen">Home</a>
+          <a href="brewery.html" class="hover:text-evergreen">Die Brauerei</a>
+          <a href="blog.html" class="hover:text-evergreen font-bold">Diary</a>
+        </nav>
+      </div>
+    </header>
+    <main class="max-w-6xl mx-auto py-16 px-4">
+      <h1 class="text-4xl font-playfair mb-6">Brewers Diary</h1>
+      <div
+        id="blog-posts"
+        class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        <!-- Posts inserted via diary.js -->
+      </div>
+    </main>
+    <!-- Contact whisper button and modal reuse from index -->
+    <button
+      id="whisper-btn"
+      class="fixed bottom-4 right-4 bg-brick-red text-white p-4 rounded-full shadow-lg z-40"
+    >
+      Whisper
+    </button>
+    <div
+      id="contact-modal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
+    >
+      <div class="bg-background p-8 rounded-lg shadow-xl w-full max-w-lg relative">
+        <button
+          class="absolute top-2 right-2 text-2xl leading-none hover:text-brick-red close-btn"
+        >
+          ×
+        </button>
+        <h3 class="text-2xl font-playfair mb-4">Kontakt aufnehmen</h3>
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label for="name" class="block text-sm mb-1">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full border border-gray-300 p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm mb-1">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full border border-gray-300 p-2 rounded"
+              required
+            />
+          </div>
+          <div>
+            <label for="topic" class="block text-sm mb-1">Anliegen</label>
+            <select
+              id="topic"
+              name="topic"
+              class="w-full border border-gray-300 p-2 rounded"
+            >
+              <option value="b2b">B2B</option>
+              <option value="kegs">Fässer</option>
+              <option value="general">Allgemeine Anfrage</option>
+              <option value="events">Events</option>
+              <option value="other">Sonstiges</option>
+            </select>
+          </div>
+          <div>
+            <label for="message" class="block text-sm mb-1">Nachricht</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="w-full border border-gray-300 p-2 rounded"
+              required
+            ></textarea>
+          </div>
+          <div class="hidden">
+            <label for="honeypot">Leave this empty</label>
+            <input type="text" id="honeypot" name="honeypot" />
+          </div>
+          <button
+            type="submit"
+            class="bg-evergreen text-white px-4 py-2 rounded hover:bg-evergreen-dark"
+          >
+            Senden
+          </button>
+          <p id="form-success" class="hidden mt-4 text-evergreen">
+            Vielen Dank! Wir melden uns schnellstmöglich.
+          </p>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

@@ -1,1 +1,86 @@
+/*
+  Global styles and design tokens for the Brauerei Andermatt site.
+  Tailwind CSS handles most layout and spacing; this file defines
+  custom variables, colour themes, animations and minor overrides.
+*/
 
+:root {
+  --background: #f5f4f0;
+  --text: #333333;
+  --evergreen: #006341;
+  --evergreen-dark: #004d32;
+  --brick-red: #7f1e1c;
+  --brick-red-dark: #611514;
+  --sky-blue: #72c8dc;
+  --ipa-bg: #eaf3ed;
+  --helles-bg: #f3f9fb;
+  --weizen-bg: #fffbe6;
+}
+
+/* Dark mode automatically picks up system preference.  You can add a
+   toggle in JS by toggling the class `dark` on the html element. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0e0d0a;
+    --text: #e5e4e0;
+    --evergreen: #35a77e;
+    --brick-red: #c14945;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Playfair Display fallback for headings */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Simple marquee animation for partner logos */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Use the marquee animation on the container of the logos */
+.animate-marquee {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+/* Utility classes for colours defined via CSS variables */
+.bg-background {
+  background-color: var(--background);
+}
+.text-text {
+  color: var(--text);
+}
+.bg-evergreen {
+  background-color: var(--evergreen);
+}
+.bg-brick-red {
+  background-color: var(--brick-red);
+}
+.text-evergreen {
+  color: var(--evergreen);
+}
+.text-brick-red {
+  color: var(--brick-red);
+}
+.hover\:bg-evergreen-dark:hover {
+  background-color: var(--evergreen-dark);
+}
+.hover\:bg-brick-red-dark:hover {
+  background-color: var(--brick-red-dark);
+}
+
+/* Hide preloader after fade-out; this class is toggled via JS */
+#preloader.hidden {
+  display: none;
+}
