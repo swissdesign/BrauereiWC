@@ -125,6 +125,26 @@ body {
   transition: opacity 0.5s;
 }
 
+/*
+  Beer carousel customisation.
+
+  The product slides have transparent backgrounds and no backdrop blur.
+  Images scale responsively to occupy most of the viewport height while
+  preserving their aspect ratio.  These rules override any inline
+  Tailwind classes used in the markup.
+*/
+#beer-carousel .beer-item > div {
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+#beer-carousel .beer-item img {
+  /* Use up to 80% of the viewport height for product images */
+  max-height: 80vh;
+  height: 80vh;
+  width: auto;
+}
+
 /* Initially hide the hero text */
 #hero-text-container {
   opacity: 0;
