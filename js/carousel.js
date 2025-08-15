@@ -1,24 +1,21 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// Fade out overlay when beer carousel scrolls into view
+// Fade out the page overlay as the beer carousel scrolls into view.
+// The overlay will already be at full opacity (black) after the hero
+// sequence completes.  When the bar section enters the viewport, this
+// timeline gradually reduces the overlay opacity to reveal the bar.
 const overlay = document.querySelector('.page-overlay');
 if (overlay) {
-  // Initially set the overlay to be transparent
-  gsap.set(overlay, { opacity: 0 });
-
-  // Fade in the overlay
-  gsap.to(overlay, {
-    opacity: 1,
-    duration: 1, // Adjust the duration as you like
-    ease: 'power2.inOut'
-  });
-
   gsap.timeline({
     scrollTrigger: {
       trigger: '#beer-carousel',
-      start: 'top center',
-      end: 'bottom center',
+      start: 'top bottom', // begin fading just before the carousel enters
+      end: 'top top',     // finish fading when the top of the carousel reaches the top
       scrub: true,
-    }
-  }).to(overlay, { opacity: 0, ease: 'none' });
+    },
+  }).fromTo(
+    overlay,
+    { opacity: 1 },
+    { opacity: 0, ease: 'none' }
+  );
 }

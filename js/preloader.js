@@ -20,6 +20,17 @@
     const preloader = document.getElementById('preloader');
     const logo = document.getElementById('andermatt-logo');
     const overlay = document.querySelector('.page-overlay'); // Get the overlay element
+    // Copy the markup of the preloader logo into the hero logo.  The
+    // hero logo SVG is empty in the markup (index.html) so this
+    // dynamically duplicates the complex logo graphics without
+    // repeating the entire <svg> code.  Because IDs within the SVG are
+    // scoped to the document, there will be duplicate IDs, but they
+    // are not referenced outside of their immediate context so this
+    // should not conflict with any animations.
+    const heroLogoSvg = document.getElementById('andermatt-logo-hero');
+    if (heroLogoSvg && logo) {
+      heroLogoSvg.innerHTML = logo.innerHTML;
+    }
 
     // Bail early if the preloader or logo does not exist on this page.
     if (!preloader || !logo) return;

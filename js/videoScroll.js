@@ -6,7 +6,12 @@
 // Immediately invoked function expression to avoid polluting global scope
 (() => {
   const video = document.getElementById('hero-video');
-  const overlay = document.getElementById('hero-overlay');
+  // Use the global page overlay rather than the hero‑specific overlay so
+  // that the black fade can transition between sections.  The
+  // `.page-overlay` element is defined in index.html and used by
+  // preloader.js and carousel.js as well.  If it doesn't exist the
+  // script simply bails out.
+  const overlay = document.querySelector('.page-overlay');
   const heroSection = document.getElementById('hero');
   const heroLogo = document.getElementById('hero-logo');
   const heroTextContainer = document.getElementById('hero-text-container');
@@ -41,37 +46,55 @@
       0
     );
 
-    // 1. Fade in the logo and keep it visible for the first half of the scroll
+    // 1. Prepare the hero logo to be fully visible at the start of the
+    // scroll.  We'll then fade it out as the user begins to scroll.
+    gsap.set(heroLogo, { opacity: 1 });
+    // Fade the logo out over the first portion of the scroll.  The
+    // duration here defines how far into the timeline the fade out
+    // occurs relative to the other animations.
     tl.to(
       heroLogo,
       {
-        opacity: 1,
-        ease: 'power1.inOut',
-        yoyo: true, // Fade in and then back out
-        repeat: 1, // Ensures it fades in and out once
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.out',
       },
       0
     );
 
-    // 2. Fade in the text and button during the second half of the scroll
+    // 2. Fade in the hero text roughly halfway through the scroll and
+    // then fade it back out before the end.  Splitting the fade into
+    // two separate tweens provides more granular control over when
+    // each phase occurs.
     tl.fromTo(
       heroTextContainer,
       { opacity: 0 },
       {
         opacity: 1,
-        ease: 'power1.in',
+        duration: 1,
+        ease: 'power2.inOut',
       },
-      '>-0.5' // Start this animation slightly before the logo finishes fading out
+      1
+    );
+    tl.to(
+      heroTextContainer,
+      {
+        opacity: 0,
+        duration: 1,
+        ease: 'power2.inOut',
+      },
+      2
     );
 
-    // 3. Fade to black at the end of the scroll
+    // 3. Fade the page overlay to black near the end of the scroll.
     tl.to(
       overlay,
       {
         opacity: 1,
-        ease: 'power1.in',
+        duration: 1,
+        ease: 'power2.inOut',
       },
-      '>-0.2' // Overlap with the end of the text fade-in
+      3
     );
   }
 
