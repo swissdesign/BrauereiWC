@@ -124,3 +124,8 @@ body {
   pointer-events: none;
   transition: opacity 0.5s;
 }
+
+/* Initially hide the hero text */
+#hero-text-container {
+  opacity: 0;
+}
