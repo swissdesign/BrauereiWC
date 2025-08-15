@@ -93,7 +93,8 @@
         playsinline
         muted
       >
-        <source src="./media/video/hero.webm" type="video/webm" />
+        <!-- Use only the MP4 version of the hero clip to ensure quick loading and smooth scrubbing.  The
+             WebM source was removed because it was significantly larger and caused choppy playback. -->
         <source src="./media/video/hero.mp4" type="video/mp4" />
       </video>
       <!-- Black overlay for fade to black -->
@@ -123,12 +124,17 @@
     <section
       id="bar-section"
       class="relative h-screen w-screen flex flex-col justify-end bg-cover bg-center"
-      style="background-image: url('./media/images/backgrounds/bar.webp');"
+      style="background-image: url('./media/images/backgrounds/bar.jpg');"
     >
       <!-- Partner logos marquee -->
+      <!--
+        Partner logos scroll slowly across the top of the bar section.  Making this element sticky
+        ensures it remains pinned to the top of the viewport as you transition from the hero into
+        the bar.  The absolute positioning was removed so that sticky positioning can take effect.
+      -->
       <div
         id="partner-marquee"
-        class="absolute top-0 left-0 w-full flex overflow-hidden whitespace-nowrap py-2 bg-white/70 backdrop-blur-sm"
+        class="sticky top-0 w-full flex overflow-hidden whitespace-nowrap py-2 bg-white/70 backdrop-blur-sm z-10"
       >
         <div class="flex space-x-8 animate-marquee">
           <!-- Duplicate logos for seamless loop -->
@@ -158,49 +164,71 @@
       <!-- Beer carousel container -->
       <div
         id="beer-carousel"
-        class="relative flex items-end space-x-16 px-8 pb-24"
+        class="relative flex"
       >
-        <!-- Each beer item holds the can and a caption; dataset is used to identify type -->
+        <!-- Each beer item is a full‑screen slide.  The flex container below centres
+             the can and its description within a semi‑transparent panel so that the bar
+             background remains visible behind it.  The `min-w-full` and `min-h-screen`
+             classes ensure each slide occupies the entire viewport.  See carousel.js for
+             the scroll‑driven horizontal animation. -->
+
         <div
-          class="beer-item cursor-pointer flex flex-col items-center"
+          class="beer-item cursor-pointer flex items-center justify-center min-w-full min-h-screen px-8"
           data-beer="ipa"
         >
-          <img
-            src="./media/images/products/ipa.webp"
-            alt="IPA"
-            class="w-40 h-40 object-contain mb-4"
-          />
-          <div class="text-center">
-            <h3 class="font-playfair text-xl">IPA</h3>
-            <p class="text-sm">5.6 % ABV</p>
+          <div
+            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+          >
+            <img
+              src="./media/images/products/ipa.webp"
+              alt="IPA"
+              class="w-40 h-40 md:w-52 md:h-52 object-contain"
+            />
+            <div class="text-center md:text-left">
+              <h3 class="font-playfair text-4xl mb-2">IPA</h3>
+              <p class="text-xl mb-4">5.6 % ABV</p>
+              <p class="text-base max-w-md">More hops than a mountain goat.</p>
+            </div>
           </div>
         </div>
+
         <div
-          class="beer-item cursor-pointer flex flex-col items-center"
+          class="beer-item cursor-pointer flex items-center justify-center min-w-full min-h-screen px-8"
           data-beer="helles"
         >
-          <img
-            src="./media/images/products/helles.webp"
-            alt="Helles"
-            class="w-40 h-40 object-contain mb-4"
-          />
-          <div class="text-center">
-            <h3 class="font-playfair text-xl">Helles</h3>
-            <p class="text-sm">5.0 % ABV</p>
+          <div
+            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+          >
+            <img
+              src="./media/images/products/helles.webp"
+              alt="Helles"
+              class="w-40 h-40 md:w-52 md:h-52 object-contain"
+            />
+            <div class="text-center md:text-left">
+              <h3 class="font-playfair text-4xl mb-2">Helles</h3>
+              <p class="text-xl mb-4">5.0 % ABV</p>
+              <p class="text-base max-w-md">Crisper than the alpine air.</p>
+            </div>
           </div>
         </div>
+
         <div
-          class="beer-item cursor-pointer flex flex-col items-center"
+          class="beer-item cursor-pointer flex items-center justify-center min-w-full min-h-screen px-8"
           data-beer="weizen"
         >
-          <img
-            src="./media/images/products/weizen.webp"
-            alt="Weizen"
-            class="w-40 h-40 object-contain mb-4"
-          />
-          <div class="text-center">
-            <h3 class="font-playfair text-xl">Weizen</h3>
-            <p class="text-sm">5.0 % ABV</p>
+          <div
+            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+          >
+            <img
+              src="./media/images/products/weizen.webp"
+              alt="Weizen"
+              class="w-40 h-40 md:w-52 md:h-52 object-contain"
+            />
+            <div class="text-center md:text-left">
+              <h3 class="font-playfair text-4xl mb-2">Weizen</h3>
+              <p class="text-xl mb-4">5.0 % ABV</p>
+              <p class="text-base max-w-md">Cloudy with a chance of genius.</p>
+            </div>
           </div>
         </div>
       </div>
