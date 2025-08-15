@@ -92,23 +92,22 @@
         id="hero-overlay"
         class="absolute inset-0 bg-black pointer-events-none opacity-0"
       ></div>
-      <div id="hero-logo" class="absolute inset-0 flex items-center justify-center z-20 opacity-0">
-        <svg id="andermatt-logo-hero" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-48 h-48 text-white">
-          </svg>
+      <div id="hero-logo" class="absolute inset-0 flex items-center justify-center z-20">
+        <!-- The hero logo container should start visible.  The actual
+             graphics are injected via JavaScript (preloader.js) by
+             cloning the preloader logo markup into this SVG. -->
+        <svg id="andermatt-logo-hero" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-48 h-48 text-white"></svg>
       </div>
       <div id="hero-text-container" class="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10">
+        <!--
+          The hero headline now conveys the welcome message for the brewery.
+          We remove the tagline and call to action so that only this line
+          appears during the scroll‑scrubbing sequence.  The text will
+          fade in and out via GSAP in videoScroll.js.
+        -->
         <h1 id="hero-headline" class="text-5xl md:text-7xl font-playfair mb-4">
-          Willkommen in Andermatt
+          Welcome to the Brauerei Andermatt
         </h1>
-        <p id="hero-tagline" class="text-xl md:text-2xl max-w-xl">
-          Entdecke unsere Biere und die Geschichten dahinter
-        </p>
-        <button
-          id="hero-cta"
-          class="mt-8 px-6 py-3 bg-brick-red text-white rounded-full shadow-lg hover:bg-brick-red-dark transition-colors"
-        >
-          Zur Bar
-        </button>
       </div>
     </section>
     <section
@@ -147,12 +146,27 @@
         id="beer-carousel"
         class="relative flex"
       >
+        <!-- Introduction slide for the beer carousel.  This slide
+             contains only text to introduce visitors to the beers of
+             Brauerei Andermatt.  It will be visible first when
+             scrolling into the bar section. -->
+        <div
+          class="beer-item flex items-center justify-center min-w-full min-h-screen px-8"
+        >
+          <div class="text-center space-y-4 max-w-3xl mx-auto">
+            <h3 class="font-playfair text-5xl mb-4">Unsere Biere</h3>
+            <p class="text-xl md:text-2xl max-w-xl mx-auto">
+              Entdecke die Vielfalt der Brauerei Andermatt. Jeder Schluck
+              erzählt eine Geschichte aus den Alpen.
+            </p>
+          </div>
+        </div>
         <div
           class="beer-item cursor-pointer flex items-center justify-center min-w-full min-h-screen px-8"
           data-beer="ipa"
         >
           <div
-            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+            class="flex flex-col md:flex-row items-center justify-center p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
           >
             <img
               src="./media/images/products/ipa.webp"
@@ -172,7 +186,7 @@
           data-beer="helles"
         >
           <div
-            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+            class="flex flex-col md:flex-row items-center justify-center p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
           >
             <img
               src="./media/images/products/helles.webp"
@@ -192,7 +206,7 @@
           data-beer="weizen"
         >
           <div
-            class="flex flex-col md:flex-row items-center justify-center bg-white/60 backdrop-blur-md p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
+            class="flex flex-col md:flex-row items-center justify-center p-8 rounded-xl space-y-6 md:space-y-0 md:space-x-8 max-w-4xl"
           >
             <img
               src="./media/images/products/weizen.webp"
