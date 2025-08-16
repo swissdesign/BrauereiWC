@@ -89,7 +89,7 @@
         
         /* --- FIX FOR MOBILE VIEWPORT --- */
         .h-screen-dynamic { height: 100vh; height: calc(var(--vh, 1vh) * 100); }
-        .h-300vh-dynamic { height: 300vh; height: calc(var(--vh, 1vh) * 300); }
+        /* Removed h-300vh-dynamic as it's no longer needed for the animation logic */
 
     </style>
 </head>
@@ -128,7 +128,8 @@
     <main id="main-content" class="opacity-0">
 
         <!-- Section 1: Video Scrubbing Introduction -->
-        <section id="video-scrub-section" class="relative h-300vh-dynamic">
+        <!-- REMOVED h-300vh-dynamic to eliminate dead scroll space. Animation duration is now controlled in JS. -->
+        <section id="video-scrub-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
                 <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
                     <source src="./media/video/hero.mp4" type="video/mp4">
@@ -303,9 +304,7 @@
             }
 
             // --- 2. INITIALIZE ALL ANIMATIONS ON WINDOW LOAD ---
-            // This ensures all assets (images, videos) are loaded and have correct dimensions.
             window.addEventListener('load', () => {
-                // Fade out preloader and fade in main content
                 if(preloader) {
                     gsap.to(preloader, {
                         duration: 1,
@@ -314,7 +313,6 @@
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            // Fade out the initial black overlay to reveal the site
                             if(overlay) {
                                 gsap.to(overlay, {
                                     opacity: 0,
@@ -326,7 +324,6 @@
                     });
                 }
                 
-                // Initialize all scroll-based animations
                 initScrollAnimations();
             });
 
@@ -352,11 +349,12 @@
                     let videoScrubTL = gsap.timeline({
                         scrollTrigger: {
                             trigger: "#video-scrub-section",
+                            // Pin the sticky container inside the section, not the whole section
+                            pin: "#video-scrub-section .sticky", 
                             start: "top top",
-                            end: "bottom bottom",
-                            scrub: 1, 
-                            pin: true,
-                            anticipatePin: 1,
+                            // Animate over a scroll distance of 2x the viewport height
+                            end: "+=200%", 
+                            scrub: 1,
                             invalidateOnRefresh: true
                         }
                     });
@@ -366,6 +364,8 @@
                     videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                     videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
                     videoScrubTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, "0.9");
+                    // At the end of the video scrub, fade the main page overlay IN for the transition.
+                    videoScrubTL.to(overlay, { opacity: 1, ease: "power1.in" });
                 }
 
                 // --- 5. Bar Section Horizontal Scroll ---
@@ -382,13 +382,20 @@
                         }
                     });
 
-                    // Animate the carousel horizontally
+                    // Start by fading the overlay OUT to reveal the bar section.
+                    horizontalScrollTL.to(overlay, {
+                        opacity: 0,
+                        duration: 0.2,
+                        ease: 'power1.out'
+                    });
+
+                    // Animate the carousel horizontally at the same time as the fade out.
                     horizontalScrollTL.to(beerCarousel, {
                         x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                         ease: "none"
-                    });
+                    }, "<");
 
-                    // At the end of the scroll, fade IN the overlay for the transition
+                    // At the end of the horizontal scroll, fade the overlay back IN for the next transition.
                     horizontalScrollTL.to(overlay, {
                         opacity: 1,
                         duration: 0.2,
@@ -398,7 +405,7 @@
 
                 // --- 6. Brewery Section Fade In ---
                 if (brewerySection) {
-                     // As this section comes into view, fade OUT the overlay
+                     // As this section comes into view, fade OUT the overlay to reveal it.
                     gsap.to(overlay, {
                         scrollTrigger: {
                             trigger: brewerySection,
@@ -409,7 +416,7 @@
                         opacity: 0,
                     });
 
-                    // And fade IN the section content
+                    // And fade IN the section's content.
                     gsap.from(brewerySection, {
                         scrollTrigger: {
                             trigger: brewerySection,
