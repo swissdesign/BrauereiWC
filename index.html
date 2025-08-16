@@ -8,10 +8,12 @@
     <!-- Tailwind CSS for modern, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: 'Inter' for body, 'Dancing Script' for cursive text -->
+    <!-- Google Fonts: 'Inter' for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- NOTE: The conflicting 'styles.css' link has been removed. -->
 
     <style>
         /* Base styles and custom animations */
@@ -87,8 +89,6 @@
         }
         
         /* --- FIX FOR MOBILE VIEWPORT --- */
-        /* These classes use a CSS variable (--vh) set by JavaScript to ensure 
-           the height is correct even when mobile browser UI (like the address bar) appears or disappears. */
         .h-screen-dynamic { height: 100vh; height: calc(var(--vh, 1vh) * 100); }
         .h-300vh-dynamic { height: 300vh; height: calc(var(--vh, 1vh) * 300); }
 
@@ -132,7 +132,7 @@
         <section id="video-scrub-section" class="relative h-300vh-dynamic">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
                 <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
-                    <source src="media/video/hero.mp4" type="video/mp4">
+                    <source src="./media/video/hero.mp4" type="video/mp4">
                 </video>
 
                 <!-- Centered Logo SVG -->
@@ -183,7 +183,7 @@
                         <!-- Buffer element to create starting space -->
                         <div class="flex-shrink-0 w-[50vw]"></div>
                         
-                        <!-- BEER ITEM 1: UPDATED POSITIONING -->
+                        <!-- BEER ITEM 1 -->
                         <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                             <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">Helles</h2>
@@ -195,7 +195,7 @@
                         <!-- Buffer element for spacing between items -->
                         <div class="flex-shrink-0 w-[20vw]"></div>
 
-                        <!-- BEER ITEM 2: UPDATED POSITIONING -->
+                        <!-- BEER ITEM 2 -->
                         <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                             <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">IPA</h2>
@@ -207,7 +207,7 @@
                         <!-- Buffer element for spacing between items -->
                         <div class="flex-shrink-0 w-[20vw]"></div>
 
-                        <!-- BEER ITEM 3: UPDATED POSITIONING -->
+                        <!-- BEER ITEM 3 -->
                         <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                              <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">Weizen</h2>
@@ -266,12 +266,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             gsap.registerPlugin(ScrollTrigger);
 
+            // --- SCROLLING STABILIZATION ---
+            ScrollTrigger.normalizeScroll(true);
+            ScrollTrigger.config({ ignoreMobileResize: true });
+
+
             // --- MOBILE VIEWPORT HEIGHT FIX ---
             const setVh = () => {
                 document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
             };
             window.addEventListener('resize', setVh);
-            setVh(); // Set the value on initial load
+            setVh(); 
 
             // --- 1. Preloader Animation ---
             function initPreloader() {
@@ -323,9 +328,10 @@
                     event.preventDefault();
                     const targetElement = document.querySelector(event.target.hash);
                     if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
+                        gsap.to(window, {
+                            scrollTo: { y: targetElement.offsetTop, autoKill: false },
+                            duration: 1.5,
+                            ease: "power2.inOut"
                         });
                     }
                 }
@@ -381,8 +387,8 @@
                 { opacity: 1 }, 
                 { 
                     opacity: 0, 
-                    duration: 0.1, 
-                    ease: "power1.inOut",
+                    duration: 0.2, 
+                    ease: "power1.out",
                     onStart: () => pageOverlay.style.pointerEvents = 'none',
                     onReverseComplete: () => pageOverlay.style.pointerEvents = 'auto'
                 }
