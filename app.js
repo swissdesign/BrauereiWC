@@ -218,24 +218,26 @@ function initCarouselFade() {
   const carousel = document.getElementById("beer-carousel");
   if (!overlay || !carousel) return;
   gsap.timeline({
-    scrollTrigger: {
-      trigger: carousel,
-      start: "top bottom",
-      end: "top top",
-      scrub: true,
+  scrollTrigger: {
+    trigger: carousel,
+    start: "top bottom",
+    end: "top top",
+    scrub: true,
+  },
+}).fromTo(
+  overlay,
+  { opacity: 1 },
+  {
+    opacity: 0,
+    ease: "none",
+    // Important: do NOT set the start state until the trigger actually starts
+    immediateRender: false,
+    overwrite: "auto",
+    onStart: () => {
+      overlay.style.pointerEvents = "none";
     },
-  }).fromTo(
-    overlay,
-    { opacity: 1 },
-    {
-      opacity: 0,
-      ease: "none",
-      // keep pointer events disabled during fade
-      onStart: () => {
-        overlay.style.pointerEvents = "none";
-      },
-    }
-  );
+  }
+);
 }
 
 /* ===== SECTION: Product Modal ===== */
