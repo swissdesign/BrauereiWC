@@ -112,7 +112,7 @@
         <!-- Section 1: Video Scrubbing Introduction -->
         <section id="video-scrub-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
-                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
+                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline autoplay>
                     <source src="./media/video/hero.mp4" type="video/mp4">
                 </video>
 
@@ -353,6 +353,13 @@
             function initScrollAnimations() {
                 // --- 4. Video Scrubbing and FADE logic ---
                 if (video) {
+                    // This "kickstarts" the video on mobile devices to make it scrubbable.
+                    video.play().then(() => {
+                        video.pause();
+                    }).catch((error) => {
+                        console.log("Video autoplay failed, but that's okay for scrubbing.", error);
+                    });
+
                     let videoScrubTL = gsap.timeline({
                         scrollTrigger: {
                             trigger: "#video-scrub-section",
@@ -424,5 +431,4 @@
 
 </body>
 </html>
-
 
