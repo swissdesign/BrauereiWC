@@ -177,7 +177,9 @@
 
                 <!-- Beer Carousel -->
                 <div class="absolute inset-0 flex items-center">
-                    <div id="beer-carousel" class="beer-carousel-container flex items-center gap-16 md:gap-32 lg:gap-64 pl-12 md:pl-24">
+                    <div id="beer-carousel" class="beer-carousel-container flex items-center gap-16 md:gap-32 lg:gap-64">
+                        <!-- UPDATED: Added buffer element -->
+                        <div class="flex-shrink-0 w-[60vw]"></div>
                         <!-- Beer Item 1 -->
                         <div class="flex-shrink-0 flex items-center gap-8 w-[80vw] md:w-[60vw] lg:w-[50vw] h-[80vh]">
                             <img src="./media/images/products/helles.webp" onerror="this.onerror=null;this.src='https://placehold.co/400x700/1a1a1a/ffffff?text=Helles';" alt="Helles Beer" class="h-full w-auto object-contain drop-shadow-2xl">
@@ -316,8 +318,9 @@
                         trigger: "#video-scrub-section",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: 1, // Smoother scrub
+                        scrub: 1, 
                         pin: true,
+                        anticipatePin: 1 // Helps prevent jumps
                     }
                 });
                 videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
@@ -325,38 +328,42 @@
                 videoScrubTL.to("#welcome-overlay", { opacity: 1, ease: "power1.inOut" }, "0.66");
                 videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.70");
                 
-                // Instead of fading out the welcome text, fade in the MAIN page overlay to black
+                // At the end of the video scrub, fade the MAIN page overlay to black
                 videoScrubTL.to(pageOverlay, { 
                     opacity: 1, 
                     ease: "power1.inOut",
-                    onStart: () => pageOverlay.style.pointerEvents = 'auto' // Make it visible
-                }, ">-0.2"); // Start slightly before the text would have faded out
+                    onStart: () => pageOverlay.style.pointerEvents = 'auto',
+                    onReverseComplete: () => pageOverlay.style.pointerEvents = 'none'
+                }, ">-0.5");
             };
 
             // --- 4. Bar Section Fade In & Horizontal Scroll ---
             const beerCarousel = document.getElementById('beer-carousel');
             const barSection = document.getElementById('bar-section');
 
-            // This timeline handles both the fade-in and the horizontal scroll
             let barSectionTL = gsap.timeline({
                 scrollTrigger: {
                     trigger: barSection,
                     start: "top top",
                     scrub: 1,
                     pin: true,
-                    // The end is calculated dynamically based on the carousel's width
                     end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
-                    invalidateOnRefresh: true, // Recalculate on resize
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1 // Helps prevent jumps
                 }
             });
 
             // First, fade the page overlay out to reveal the bar section
-            barSectionTL.to(pageOverlay, { 
-                opacity: 0, 
-                duration: 0.5, // A quick but smooth fade
-                ease: "power1.inOut",
-                onComplete: () => pageOverlay.style.pointerEvents = 'none' // Make it clickable through
-            });
+            barSectionTL.fromTo(pageOverlay, 
+                { opacity: 1 }, 
+                { 
+                    opacity: 0, 
+                    duration: 0.5, 
+                    ease: "power1.inOut",
+                    onStart: () => pageOverlay.style.pointerEvents = 'none',
+                    onReverseComplete: () => pageOverlay.style.pointerEvents = 'auto'
+                }
+            );
 
             // Then, perform the horizontal scroll of the beer carousel
             barSectionTL.to(beerCarousel, {
