@@ -133,14 +133,15 @@ function initHeroScroll() {
   function buildTimeline() {
     const duration = video.duration || 5;
     const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: heroSection,
-        start: "top top",
-        end: `+=${window.innerHeight * 2}`,
-        pin: true,
-        scrub: true,
-      },
-    });
+     scrollTrigger: {
+       trigger: heroSection,
+       start: "top top",
+       end: `+=${window.innerHeight * 2}`,
+       pin: true,
+       scrub: true,
+       anticipatePin: 1
+     },
+   });
     // Play the video through its duration as you scroll
     tl.to(
       video,
@@ -181,27 +182,23 @@ function initHeroScroll() {
       },
       2
     );
-    // Fade the overlay back to black near the end of the scroll
-    tl.to(
-      overlay,
-      {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.inOut",
-        // Keep pointer events disabled so the overlay does not block input
-        onStart: () => {
-          overlay.style.pointerEvents = "none";
-        },
-      },
-      3
-    );
-  }
+   // when fading the overlay to black near the end:
+tl.to(overlay, {
+  opacity: 1,
+  duration: 1,
+  ease: "power2.inOut",
+  overwrite: "auto",
+  onStart: () => { overlay.style.pointerEvents = "none"; },
+}, 3);
+     ScrollTrigger.refresh();
+}
   // Some browsers do not report video.duration until metadata is loaded
-  if (video.readyState >= 1) {
+if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+  buildTimeline();
+} else {
+  video.addEventListener('loadedmetadata', () => {
     buildTimeline();
-  } else {
-    video.addEventListener("loadedmetadata", buildTimeline);
-  }
+  }, { once: true });
 }
 
 /* ===== SECTION: Bar / Beer Carousel & Partner Marquee ===== */
