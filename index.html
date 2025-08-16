@@ -22,14 +22,14 @@
             overscroll-behavior: none;
         }
 
-        /* --- NEW Preloader Styles (from your styles.css) --- */
+        /* --- Preloader Styles --- */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000; /* Matched to site background */
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,22 +48,17 @@
             width: 100%;
             height: 100%;
             background: #000;
-            opacity: 1; /* Starts opaque */
+            opacity: 1;
             z-index: 9999;
-            pointer-events: none; /* Allows clicks to pass through when transparent */
+            pointer-events: none;
         }
 
-        /* --- Vertical Contact Button --- */
-        .contact-whisper {
-            position: fixed;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%) rotate(180deg);
-            z-index: 50;
+        /* --- Vertical Side Navigation --- */
+        .side-nav-button {
             background-color: rgba(255, 255, 255, 0.9);
             color: #1a1a1a;
             padding: 1rem 0.5rem;
-            border-radius: 0 8px 8px 0;
+            border-radius: 8px 0 0 8px; /* Rounded corners on the left side */
             writing-mode: vertical-rl;
             text-orientation: mixed;
             font-size: 0.875rem;
@@ -73,7 +68,7 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
-        .contact-whisper:hover {
+        .side-nav-button:hover {
             background-color: #f0f0f0;
         }
 
@@ -102,14 +97,13 @@
 </head>
 <body class="bg-black">
 
-    <!-- Preloader Section - UPDATED with your full logo and structure -->
+    <!-- Preloader Section -->
     <div id="preloader">
       <div id="preloader-logo">
-        <svg id="andermatt-logo-preloader" xmlns="http://www.w.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="text-white">
+        <svg id="andermatt-logo-preloader" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="text-white">
           <defs>
             <style>
               .st0{fill:#006341} .st1{fill:#72c8dc} .st2{fill:#7f1e1c}
-              /* Override fill with currentColor to make it white for the preloader */
               #andermatt-logo-preloader .st0, #andermatt-logo-preloader .st1, #andermatt-logo-preloader .st2 { fill: currentColor; }
             </style>
           </defs>
@@ -122,11 +116,15 @@
         </svg>
       </div>
     </div>
-    <!-- ADDED this overlay div, which is required by the new preloader script -->
+    
     <div class="page-overlay"></div>
 
-    <!-- Vertical "Contact Us" Button -->
-    <a class="contact-whisper">Contact Us</a>
+    <!-- Side Navigation - UPDATED -->
+    <div id="side-nav" class="fixed top-1/2 right-0 transform -translate-y-1/2 z-50 flex flex-col gap-2">
+        <a href="#brewery-section" class="side-nav-button">Brauerei</a>
+        <a href="#beer-diaries-section" class="side-nav-button">Beer Diarys</a>
+        <a href="#contact-section" class="side-nav-button">Contact Us</a>
+    </div>
 
     <!-- Main content starts here after loader fades out -->
     <main id="main-content" class="opacity-0">
@@ -138,7 +136,7 @@
                     <source src="./media/video/hero.mp4" type="video/mp4">
                 </video>
 
-                <!-- Centered Logo SVG - UPDATED with your official logo -->
+                <!-- Centered Logo SVG -->
                 <div id="logo-container" class="absolute inset-0 flex items-center justify-center">
                     <svg id="andermatt-logo" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-2/3 max-w-xs md:max-w-sm text-white">
                         <defs>
@@ -214,7 +212,7 @@
         </section>
 
         <!-- Section 3: Brewery Info -->
-        <section class="brewery-section bg-gray-100 text-gray-800 py-20 md:py-32 px-6 md:px-10">
+        <section id="brewery-section" class="brewery-section bg-gray-100 text-gray-800 py-20 md:py-32 px-6 md:px-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-3xl md:text-5xl font-bold mb-6">Our Brewery</h2>
                 <p class="text-lg md:text-xl leading-relaxed">
@@ -225,7 +223,7 @@
         </section>
 
         <!-- Section 4: Beer Diaries (Blog) -->
-        <section class="beer-diaries-section bg-black text-white py-20 md:py-32 px-6 md:px-10">
+        <section id="beer-diaries-section" class="beer-diaries-section bg-black text-white py-20 md:py-32 px-6 md:px-10">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Beer Diaries</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -235,6 +233,16 @@
                 </div>
             </div>
         </section>
+
+        <!-- Section 5: Footer / Contact -->
+        <footer id="contact-section" class="bg-gray-900 text-white py-16 px-6 md:px-10">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-lg text-gray-400 mb-8">We'd love to hear from you. Visit us or drop us a line.</p>
+                <p class="text-lg">Brauerei Andermatt, Gotthardstrasse 2, 6490 Andermatt</p>
+                <p class="text-lg">info@brauereiandermatt.ch</p>
+            </div>
+        </footer>
 
     </main>
 
@@ -246,37 +254,34 @@
         document.addEventListener('DOMContentLoaded', function() {
             gsap.registerPlugin(ScrollTrigger);
 
-            // --- 1. NEW Preloader Animation (from your app.js) ---
+            // --- 1. Preloader Animation ---
             function initPreloader() {
                 const preloader = document.getElementById("preloader");
                 const logo = document.getElementById("andermatt-logo-preloader");
                 const overlay = document.querySelector(".page-overlay");
                 const mainContent = document.getElementById('main-content');
-
                 if (!preloader || !logo || !overlay) return;
-
                 gsap.set(logo, { transformOrigin: "50% 50%" });
-                gsap.set(["#logo-text-top", "#logo-text-bottom", "#logo-hops-left", "#logo-hops-right", "#logo-river", "#logo-ring"], { transformOrigin: "50% 50%" });
-
+                gsap.set(logo.querySelectorAll('g'), { transformOrigin: "50% 50%" });
                 const tl = gsap.timeline();
-                tl.to("#logo-text-top", { duration: 1, y: -80, opacity: 0, ease: "power2.out" })
-                    .to("#logo-text-bottom", { duration: 1, y: 80, opacity: 0, ease: "power2.out" }, "<")
-                    .to("#logo-hops-left", { duration: 1, x: -60, opacity: 0, ease: "power2.out" }, "<")
-                    .to("#logo-hops-right", { duration: 1, x: 60, opacity: 0, ease: "power2.out" }, "<")
-                    .to("#logo-river", { duration: 1, scale: 0.8, opacity: 0.5, ease: "power2.out" }, "<")
+                tl.to(logo.querySelector("#logo-text-top"), { duration: 1, y: -80, opacity: 0, ease: "power2.out" })
+                    .to(logo.querySelector("#logo-text-bottom"), { duration: 1, y: 80, opacity: 0, ease: "power2.out" }, "<")
+                    .to(logo.querySelector("#logo-hops-left"), { duration: 1, x: -60, opacity: 0, ease: "power2.out" }, "<")
+                    .to(logo.querySelector("#logo-hops-right"), { duration: 1, x: 60, opacity: 0, ease: "power2.out" }, "<")
+                    .to(logo.querySelector("#logo-river"), { duration: 1, scale: 0.8, opacity: 0.5, ease: "power2.out" }, "<")
                     .to(logo, { duration: 2.5, rotation: 360, ease: "power1.inOut" }, "<")
-                    .to("#logo-text-top", { duration: 1, y: 0, opacity: 1, ease: "power2.in" }, "-=1")
-                    .to("#logo-text-bottom", { duration: 1, y: 0, opacity: 1, ease: "power2.in" }, "<")
-                    .to("#logo-hops-left", { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
-                    .to("#logo-hops-right", { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
-                    .to("#logo-river", { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<")
+                    .to(logo.querySelector("#logo-text-top"), { duration: 1, y: 0, opacity: 1, ease: "power2.in" }, "-=1")
+                    .to(logo.querySelector("#logo-text-bottom"), { duration: 1, y: 0, opacity: 1, ease: "power2.in" }, "<")
+                    .to(logo.querySelector("#logo-hops-left"), { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
+                    .to(logo.querySelector("#logo-hops-right"), { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
+                    .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<")
                     .to(preloader, {
                         duration: 1,
                         opacity: 0,
                         delay: 0.5,
                         onComplete: () => {
                             preloader.style.display = "none";
-                            gsap.to(mainContent, { opacity: 1, duration: 0.5 }); // Fade in main content
+                            gsap.to(mainContent, { opacity: 1, duration: 0.5 });
                             if (overlay) {
                                 gsap.to(overlay, {
                                     opacity: 0,
@@ -287,16 +292,24 @@
                                     },
                                 });
                             }
-                            ScrollTrigger.refresh(); // Refresh GSAP calculations
+                            ScrollTrigger.refresh();
                         },
                     });
             }
-            
-            // Run the new preloader on window load
             window.addEventListener('load', initPreloader);
 
+            // --- 2. Side Navigation Smooth Scroll ---
+            document.getElementById('side-nav').addEventListener('click', function(event) {
+                if (event.target.tagName === 'A' && event.target.hash) {
+                    event.preventDefault();
+                    const targetElement = document.querySelector(event.target.hash);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
 
-            // --- 2. Video Scrubbing and Text Animation ---
+            // --- 3. Video Scrubbing and Text Animation ---
             const video = document.getElementById('hero-video');
             video.onloadedmetadata = function() {
                 let videoScrubTL = gsap.timeline({
@@ -308,7 +321,6 @@
                         pin: true,
                     }
                 });
-
                 videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
                 videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.66");
                 videoScrubTL.to("#welcome-overlay", { opacity: 1, ease: "power1.inOut" }, "0.66");
@@ -317,10 +329,9 @@
                 videoScrubTL.to("#welcome-text", { opacity: 0, ease: "power1.inOut" }, "0.90");
             };
 
-            // --- 3. Horizontal Beer Carousel ---
+            // --- 4. Horizontal Beer Carousel ---
             const beerCarousel = document.getElementById('beer-carousel');
             const getScrollDistance = () => beerCarousel.scrollWidth - window.innerWidth;
-
             gsap.to(beerCarousel, {
                 x: () => -getScrollDistance(),
                 ease: "none",
