@@ -306,15 +306,17 @@
                 }
             });
 
-            // --- 3. Video Scrubbing and Text Animation ---
+            // --- 3. Video Scrubbing and FADE logic ---
             const video = document.getElementById('hero-video');
+            const pageOverlay = document.querySelector('.page-overlay');
+
             video.onloadedmetadata = function() {
                 let videoScrubTL = gsap.timeline({
                     scrollTrigger: {
                         trigger: "#video-scrub-section",
                         start: "top top",
                         end: "bottom bottom",
-                        scrub: true,
+                        scrub: 1, // Smoother scrub
                         pin: true,
                     }
                 });
@@ -322,25 +324,45 @@
                 videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.66");
                 videoScrubTL.to("#welcome-overlay", { opacity: 1, ease: "power1.inOut" }, "0.66");
                 videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.70");
-                videoScrubTL.to("#welcome-overlay", { opacity: 0, ease: "power1.inOut" }, "0.90");
-                videoScrubTL.to("#welcome-text", { opacity: 0, ease: "power1.inOut" }, "0.90");
+                
+                // Instead of fading out the welcome text, fade in the MAIN page overlay to black
+                videoScrubTL.to(pageOverlay, { 
+                    opacity: 1, 
+                    ease: "power1.inOut",
+                    onStart: () => pageOverlay.style.pointerEvents = 'auto' // Make it visible
+                }, ">-0.2"); // Start slightly before the text would have faded out
             };
 
-            // --- 4. Horizontal Beer Carousel ---
+            // --- 4. Bar Section Fade In & Horizontal Scroll ---
             const beerCarousel = document.getElementById('beer-carousel');
-            const getScrollDistance = () => beerCarousel.scrollWidth - window.innerWidth;
-            gsap.to(beerCarousel, {
-                x: () => -getScrollDistance(),
-                ease: "none",
+            const barSection = document.getElementById('bar-section');
+
+            // This timeline handles both the fade-in and the horizontal scroll
+            let barSectionTL = gsap.timeline({
                 scrollTrigger: {
-                    trigger: "#bar-section",
+                    trigger: barSection,
                     start: "top top",
-                    end: () => `+=${getScrollDistance()}`,
                     scrub: 1,
                     pin: true,
-                    invalidateOnRefresh: true,
+                    // The end is calculated dynamically based on the carousel's width
+                    end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
+                    invalidateOnRefresh: true, // Recalculate on resize
                 }
             });
+
+            // First, fade the page overlay out to reveal the bar section
+            barSectionTL.to(pageOverlay, { 
+                opacity: 0, 
+                duration: 0.5, // A quick but smooth fade
+                ease: "power1.inOut",
+                onComplete: () => pageOverlay.style.pointerEvents = 'none' // Make it clickable through
+            });
+
+            // Then, perform the horizontal scroll of the beer carousel
+            barSectionTL.to(beerCarousel, {
+                x: () => -(beerCarousel.scrollWidth - window.innerWidth),
+                ease: "none"
+            }, 0); // Start this animation at the same time as the fade
 
             window.addEventListener('resize', () => {
                 ScrollTrigger.refresh();
@@ -350,4 +372,3 @@
 
 </body>
 </html>
-
