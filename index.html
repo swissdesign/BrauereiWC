@@ -129,9 +129,7 @@
     <main id="main-content" class="opacity-0">
 
         <!-- Section 1: Video Scrubbing Introduction -->
-        <!-- UPDATED: Using custom class for mobile-friendly viewport height -->
         <section id="video-scrub-section" class="relative h-300vh-dynamic">
-            <!-- UPDATED: Using custom class for mobile-friendly viewport height -->
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
                 <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
                     <source src="./media/video/hero.mp4" type="video/mp4">
@@ -166,7 +164,6 @@
         </section>
 
         <!-- Section 2: The Bar & Beer Carousel -->
-        <!-- UPDATED: Using custom class for mobile-friendly viewport height -->
         <section id="bar-section" class="relative bg-black h-screen-dynamic">
             <div class="sticky top-0 h-full w-full overflow-hidden">
                 <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./media/images/backgrounds/bar.webp');"></div>
@@ -184,43 +181,43 @@
                 <div class="absolute inset-0 flex items-center">
                     <div id="beer-carousel" class="beer-carousel-container flex items-center gap-16 md:gap-32 lg:gap-64">
                         <!-- Buffer element to create starting space -->
-                        <div class="flex-shrink-0 w-[100vw]"></div>
+                        <div class="flex-shrink-0 w-[50vw]"></div>
                         
-                        <!-- BEER ITEM 1: RESTRUCTURED FOR VERTICAL LAYOUT -->
-                        <div class="flex-shrink-0 flex flex-col items-center justify-center text-center gap-4 w-[80vw] h-screen-dynamic">
+                        <!-- BEER ITEM 1: UPDATED POSITIONING -->
+                        <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                             <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">Helles</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">A crisp, clean, and refreshing lager. Perfectly balanced with a subtle malty sweetness.</p>
                             </div>
-                            <img src="./media/images/products/helles.webp" alt="Helles Beer" class="h-1/2 max-h-[70vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="./media/images/products/helles.webp" alt="Helles Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
 
                         <!-- Buffer element for spacing between items -->
-                        <div class="flex-shrink-0 w-[70vw]"></div>
+                        <div class="flex-shrink-0 w-[20vw]"></div>
 
-                        <!-- BEER ITEM 2: RESTRUCTURED FOR VERTICAL LAYOUT -->
-                        <div class="flex-shrink-0 flex flex-col items-center justify-center text-center gap-4 w-[80vw] h-screen-dynamic">
+                        <!-- BEER ITEM 2: UPDATED POSITIONING -->
+                        <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                             <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">IPA</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">Boldly hopped with citrus and pine notes. A modern classic for hop lovers.</p>
                             </div>
-                            <img src="./media/images/products/ipa.webp" alt="IPA Beer" class="h-1/2 max-h-[70vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="./media/images/products/ipa.webp" alt="IPA Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
                         
                         <!-- Buffer element for spacing between items -->
-                        <div class="flex-shrink-0 w-[70vw]"></div>
+                        <div class="flex-shrink-0 w-[20vw]"></div>
 
-                        <!-- BEER ITEM 3: RESTRUCTURED FOR VERTICAL LAYOUT -->
-                        <div class="flex-shrink-0 flex flex-col items-center justify-center text-center gap-4 w-[80vw] h-screen-dynamic">
+                        <!-- BEER ITEM 3: UPDATED POSITIONING -->
+                        <div class="flex-shrink-0 flex flex-col items-center justify-end text-center gap-4 w-[80vw] h-screen-dynamic pb-[5vh]">
                              <div class="text-white">
                                 <h2 class="text-3xl md:text-5xl font-bold">Weizen</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">A traditional wheat beer with notes of banana and clove. Smooth and satisfying.</p>
                             </div>
-                            <img src="./media/images/products/weizen.webp" alt="Weizen Beer" class="h-1/2 max-h-[70vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="./media/images/products/weizen.webp" alt="Weizen Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
 
                         <!-- Buffer element to create ending space -->
-                        <div class="flex-shrink-0 w-[100vw]"></div>
+                        <div class="flex-shrink-0 w-[50vw]"></div>
                     </div>
                 </div>
             </div>
@@ -270,8 +267,6 @@
             gsap.registerPlugin(ScrollTrigger);
 
             // --- MOBILE VIEWPORT HEIGHT FIX ---
-            // This function calculates the actual inner height of the window and sets it as a CSS variable.
-            // This prevents layout jumps on mobile when the browser UI (like the address bar) hides or shows.
             const setVh = () => {
                 document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
             };
@@ -328,7 +323,6 @@
                     event.preventDefault();
                     const targetElement = document.querySelector(event.target.hash);
                     if (targetElement) {
-                        // Use GSAP for smoother scrolling if desired, or stick with native
                         window.scrollTo({
                             top: targetElement.offsetTop,
                             behavior: 'smooth'
@@ -357,12 +351,8 @@
                 videoScrubTL.to("#welcome-overlay", { opacity: 1, ease: "power1.inOut" }, "0.66");
                 videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.70");
                 
-                // --- FIX FOR WELCOME TEXT ---
-                // Fade out the welcome text and its overlay towards the end of the scroll section.
-                // This creates a clean transition before the main page overlay fades in for the next section.
                 videoScrubTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, 0.95);
 
-                // This animation creates the fade-to-black transition INTO the next section.
                 videoScrubTL.to(pageOverlay, { 
                     opacity: 1, 
                     ease: "power1.inOut",
@@ -387,25 +377,22 @@
                 }
             });
 
-            // This animation fades FROM black, revealing the bar section.
             barSectionTL.fromTo(pageOverlay, 
                 { opacity: 1 }, 
                 { 
                     opacity: 0, 
-                    duration: 0.1, 
+                    duration: 0.25, 
                     ease: "power1.inOut",
                     onStart: () => pageOverlay.style.pointerEvents = 'none',
                     onReverseComplete: () => pageOverlay.style.pointerEvents = 'auto'
                 }
             );
 
-            // Then, perform the horizontal scroll of the beer carousel
             barSectionTL.to(beerCarousel, {
                 x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                 ease: "none"
-            }, 0); // Start this animation at the same time as the fade
+            }, 0); 
 
-            // Refresh ScrollTrigger on window resize to ensure calculations are correct.
             window.addEventListener('resize', () => {
                 ScrollTrigger.refresh();
             });
