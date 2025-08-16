@@ -40,20 +40,6 @@
             height: 300px;
         }
         
-        /* Full‑screen black overlay for transitions */
-        .page-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            opacity: 1;
-            z-index: 9999;
-            /* CRITICAL FIX: Prevents the overlay from capturing mouse/scroll events */
-            pointer-events: none; 
-        }
-
         /* --- Vertical Side Navigation --- */
         .side-nav-button {
             background-color: rgba(255, 255, 255, 0.9);
@@ -89,7 +75,6 @@
         
         /* --- FIX FOR MOBILE VIEWPORT --- */
         .h-screen-dynamic { height: 100vh; height: calc(var(--vh, 1vh) * 100); }
-        /* Removed h-300vh-dynamic as it's no longer needed for the animation logic */
 
     </style>
 </head>
@@ -115,8 +100,6 @@
       </div>
     </div>
     
-    <div class="page-overlay"></div>
-
     <!-- Side Navigation -->
     <div id="side-nav" class="fixed top-1/2 right-0 transform -translate-y-1/2 z-50 flex flex-col gap-2">
         <a href="#brewery-section" class="side-nav-button">Brauerei</a>
@@ -128,7 +111,6 @@
     <main id="main-content" class="opacity-0">
 
         <!-- Section 1: Video Scrubbing Introduction -->
-        <!-- REMOVED h-300vh-dynamic to eliminate dead scroll space. Animation duration is now controlled in JS. -->
         <section id="video-scrub-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
                 <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
@@ -267,7 +249,6 @@
             // --- CACHE DOM ELEMENTS ---
             const preloader = document.getElementById("preloader");
             const logo = document.getElementById("andermatt-logo-preloader");
-            const overlay = document.querySelector(".page-overlay");
             const mainContent = document.getElementById('main-content');
             const sideNav = document.getElementById('side-nav');
             const video = document.getElementById('hero-video');
@@ -313,13 +294,6 @@
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            if(overlay) {
-                                gsap.to(overlay, {
-                                    opacity: 0,
-                                    duration: 1.5,
-                                    ease: "power2.inOut"
-                                });
-                            }
                         }
                     });
                 }
@@ -349,10 +323,8 @@
                     let videoScrubTL = gsap.timeline({
                         scrollTrigger: {
                             trigger: "#video-scrub-section",
-                            // Pin the sticky container inside the section, not the whole section
                             pin: "#video-scrub-section .sticky", 
                             start: "top top",
-                            // Animate over a scroll distance of 2x the viewport height
                             end: "+=200%", 
                             scrub: 1,
                             invalidateOnRefresh: true
@@ -364,8 +336,6 @@
                     videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                     videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
                     videoScrubTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, "0.9");
-                    // At the end of the video scrub, fade the main page overlay IN for the transition.
-                    videoScrubTL.to(overlay, { opacity: 1, ease: "power1.in" });
                 }
 
                 // --- 5. Bar Section Horizontal Scroll ---
@@ -374,7 +344,7 @@
                         scrollTrigger: {
                             trigger: barSection,
                             start: "top top",
-                            end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
+                            end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth + window.innerHeight), // Add viewport height to scroll duration
                             scrub: 1,
                             pin: true,
                             invalidateOnRefresh: true,
@@ -382,41 +352,23 @@
                         }
                     });
 
-                    // Start by fading the overlay OUT to reveal the bar section.
-                    horizontalScrollTL.to(overlay, {
-                        opacity: 0,
-                        duration: 0.2,
-                        ease: 'power1.out'
-                    });
-
-                    // Animate the carousel horizontally at the same time as the fade out.
+                    // Animate the carousel horizontally
                     horizontalScrollTL.to(beerCarousel, {
                         x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                         ease: "none"
-                    }, "<");
+                    });
 
-                    // At the end of the horizontal scroll, fade the overlay back IN for the next transition.
-                    horizontalScrollTL.to(overlay, {
-                        opacity: 1,
-                        duration: 0.2,
-                        ease: 'power1.in'
+                    // At the end of the horizontal scroll, fade the ENTIRE BAR SECTION out
+                    horizontalScrollTL.to(barSection, {
+                        opacity: 0,
+                        ease: 'power1.inOut',
+                        duration: 0.5
                     });
                 }
 
                 // --- 6. Brewery Section Fade In ---
                 if (brewerySection) {
-                     // As this section comes into view, fade OUT the overlay to reveal it.
-                    gsap.to(overlay, {
-                        scrollTrigger: {
-                            trigger: brewerySection,
-                            start: "top bottom",
-                            end: "top center",
-                            scrub: true
-                        },
-                        opacity: 0,
-                    });
-
-                    // And fade IN the section's content.
+                    // Fade IN the section's content as it comes into view.
                     gsap.from(brewerySection, {
                         scrollTrigger: {
                             trigger: brewerySection,
@@ -439,3 +391,4 @@
 
 </body>
 </html>
+
