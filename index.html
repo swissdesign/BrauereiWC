@@ -221,39 +221,31 @@
     <!-- GSAP (GreenSock Animation Platform) for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-
+    <!-- NOTE: Removed ScrollToPlugin as it's not needed for this fix -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Register GSAP plugins
-            gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
-            // --- SCROLLING STABILIZATION ---
-            // These settings help prevent jumps and inconsistent behavior, especially on mobile.
-            ScrollTrigger.normalizeScroll(true);
-            ScrollTrigger.config({ ignoreMobileResize: true });
-
+            gsap.registerPlugin(ScrollTrigger);
 
             // --- MOBILE VIEWPORT HEIGHT FIX ---
-            // This ensures that 100vh is always the true inner height of the viewport.
             const setVh = () => {
                 document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
             };
             window.addEventListener('resize', setVh);
             setVh(); 
 
-            // --- 1. Preloader Animation ---
-            function initPreloader() {
-                const preloader = document.getElementById("preloader");
-                const logo = document.getElementById("andermatt-logo-preloader");
-                const overlay = document.querySelector(".page-overlay");
-                const mainContent = document.getElementById('main-content');
-                if (!preloader || !logo || !overlay) return;
+            // --- 1. PRELOADER LOGIC (REVISED) ---
+            const preloader = document.getElementById("preloader");
+            const logo = document.getElementById("andermatt-logo-preloader");
+            const overlay = document.querySelector(".page-overlay");
+            const mainContent = document.getElementById('main-content');
+
+            // This timeline controls the logo animation. It starts immediately.
+            const preloaderAnim = gsap.timeline();
+            if (logo) {
                 gsap.set(logo, { transformOrigin: "50% 50%" });
                 gsap.set(logo.querySelectorAll('g'), { transformOrigin: "50% 50%" });
-                const tl = gsap.timeline();
-                tl.to(logo.querySelector("#logo-text-top"), { duration: 1, y: -80, opacity: 0, ease: "power2.out" })
+                preloaderAnim.to(logo.querySelector("#logo-text-top"), { duration: 1, y: -80, opacity: 0, ease: "power2.out" })
                     .to(logo.querySelector("#logo-text-bottom"), { duration: 1, y: 80, opacity: 0, ease: "power2.out" }, "<")
                     .to(logo.querySelector("#logo-hops-left"), { duration: 1, x: -60, opacity: 0, ease: "power2.out" }, "<")
                     .to(logo.querySelector("#logo-hops-right"), { duration: 1, x: 60, opacity: 0, ease: "power2.out" }, "<")
@@ -263,52 +255,45 @@
                     .to(logo.querySelector("#logo-text-bottom"), { duration: 1, y: 0, opacity: 1, ease: "power2.in" }, "<")
                     .to(logo.querySelector("#logo-hops-left"), { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
                     .to(logo.querySelector("#logo-hops-right"), { duration: 1, x: 0, opacity: 1, ease: "power2.in" }, "<")
-                    .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<")
-                    .to(preloader, {
-                        duration: 1,
-                        opacity: 0,
-                        delay: 0.5,
-                        onComplete: () => {
-                            preloader.style.display = "none";
-                            gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            if (overlay) {
-                                // This overlay fades out to reveal the very first section.
-                                gsap.to(overlay, {
-                                    opacity: 0,
-                                    duration: 1.5,
-                                    ease: "power2.inOut",
-                                    onComplete: () => {
-                                        overlay.style.pointerEvents = "none";
-                                    },
-                                });
-                            }
-                            // Refresh ScrollTrigger once everything is visible to get correct dimensions.
-                            ScrollTrigger.refresh();
-                        },
-                    });
+                    .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<");
             }
-            window.addEventListener('load', initPreloader);
 
-            // --- 2. Side Navigation Smooth Scroll (using GSAP's ScrollToPlugin) ---
+            // This event listener waits for all content (images, video) to load.
+            // Then, it fades out the preloader and fades in the main content.
+            window.addEventListener('load', () => {
+                gsap.to(preloader, {
+                    duration: 1,
+                    opacity: 0,
+                    delay: 0.5,
+                    onComplete: () => {
+                        preloader.style.display = "none";
+                        gsap.to(mainContent, { opacity: 1, duration: 0.5 });
+                        gsap.to(overlay, {
+                            opacity: 0,
+                            duration: 1.5,
+                            ease: "power2.inOut",
+                            onComplete: () => {
+                                overlay.style.pointerEvents = "none";
+                                ScrollTrigger.refresh(); // Refresh now that everything is visible
+                            }
+                        });
+                    }
+                });
+            });
+
+            // --- 2. Side Navigation Smooth Scroll (Reverted to native) ---
             document.getElementById('side-nav').addEventListener('click', function(event) {
                 if (event.target.tagName === 'A' && event.target.hash) {
                     event.preventDefault();
                     const targetElement = document.querySelector(event.target.hash);
                     if (targetElement) {
-                        gsap.to(window, {
-                            duration: 1.5,
-                            scrollTo: { y: targetElement, autoKill: false },
-                            ease: "power2.inOut"
-                        });
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             });
 
             // --- 3. Video Scrubbing and FADE logic ---
             const video = document.getElementById('hero-video');
-            const pageOverlay = document.querySelector('.page-overlay');
-
-            // Wait until the video can play to set up the animation.
             video.addEventListener('canplay', () => {
                 let videoScrubTL = gsap.timeline({
                     scrollTrigger: {
@@ -321,66 +306,75 @@
                     }
                 });
                 
-                // Animate the video's currentTime property as we scroll.
                 videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
-                
-                // Fade out the main logo halfway through the scroll.
                 videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.5");
-                
-                // Fade in the welcome text and its dark overlay for readability.
                 videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                 videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
-                
-                // Fade out the welcome text and its overlay towards the end.
                 videoScrubTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, "0.9");
-
-                // IMPORTANT FIX: This timeline is NO LONGER responsible for fading to black.
-                // The next section's timeline will handle the fade-in from black.
             });
 
-            // --- 4. Bar Section Fade In & Horizontal Scroll ---
+            // --- 4. Bar Section Fade In & Horizontal Scroll (REVISED) ---
             const beerCarousel = document.getElementById('beer-carousel');
             const barSection = document.getElementById('bar-section');
 
-            let barSectionTL = gsap.timeline({
+            // This master timeline will handle the transition between sections.
+            let masterTimeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: barSection,
                     start: "top top",
+                    end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
                     scrub: 1,
                     pin: true,
-                    end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
                     invalidateOnRefresh: true,
                     anticipatePin: 1
                 }
             });
 
-            // This timeline now CONTROLS the transition. It starts with the overlay at full opacity
-            // and fades it out to reveal the bar section. This solves the "stuck on black" issue.
-            barSectionTL.fromTo(pageOverlay, 
-                { opacity: 1, pointerEvents: 'auto' }, 
-                { 
-                    opacity: 0, 
-                    pointerEvents: 'none',
-                    duration: 0.2, 
-                    ease: "power1.out"
-                }
-            );
+            // FADE FROM BLACK to reveal bar section
+            masterTimeline.to(overlay, { 
+                opacity: 0, 
+                pointerEvents: 'none',
+                duration: 0.2, 
+                ease: "power1.out"
+            });
 
-            // The horizontal scroll happens at the same time as the fade-in.
-            barSectionTL.to(beerCarousel, {
+            // HORIZONTAL SCROLL of the beer carousel
+            masterTimeline.to(beerCarousel, {
                 x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                 ease: "none"
-            }, 0); 
+            }, 0); // Start at the same time as the fade
 
-            // When the horizontal scroll is finished, fade back to black before the next section.
-            barSectionTL.to(pageOverlay, {
+            // FADE TO BLACK before the next section
+            masterTimeline.to(overlay, {
                 opacity: 1,
                 pointerEvents: 'auto',
                 duration: 0.2,
                 ease: 'power1.in'
             });
 
-            // Refresh ScrollTrigger on window resize to ensure all calculations are correct.
+            // --- 5. Final Section Fade In ---
+            // This ensures the content after the carousel fades in from the black overlay.
+            gsap.from("#brewery-section", {
+                scrollTrigger: {
+                    trigger: "#brewery-section",
+                    start: "top center",
+                    toggleActions: "play none none reverse"
+                },
+                opacity: 0,
+                duration: 1
+            });
+
+            gsap.to(overlay, {
+                scrollTrigger: {
+                    trigger: "#brewery-section",
+                    start: "top bottom",
+                    end: "top top",
+                    scrub: true
+                },
+                opacity: 0,
+                pointerEvents: 'none'
+            });
+
             window.addEventListener('resize', () => {
                 ScrollTrigger.refresh();
             });
