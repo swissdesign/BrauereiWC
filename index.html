@@ -87,11 +87,7 @@
         }
         
         /* --- Video --- */
-        video {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
+        /* The object-cover property is now handled by Tailwind classes on the element */
 
     </style>
 </head>
@@ -119,7 +115,7 @@
     
     <div class="page-overlay"></div>
 
-    <!-- Side Navigation - UPDATED -->
+    <!-- Side Navigation -->
     <div id="side-nav" class="fixed top-1/2 right-0 transform -translate-y-1/2 z-50 flex flex-col gap-2">
         <a href="#brewery-section" class="side-nav-button">Brauerei</a>
         <a href="#beer-diaries-section" class="side-nav-button">Beer Diarys</a>
@@ -132,7 +128,8 @@
         <!-- Section 1: Video Scrubbing Introduction -->
         <section id="video-scrub-section" class="relative h-[300vh]">
             <div class="sticky top-0 h-screen w-full overflow-hidden">
-                <video id="hero-video" preload="auto" muted playsinline>
+                <!-- VIDEO UPDATED: Added classes to ensure it covers the viewport -->
+                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
                     <source src="./media/video/hero.mp4" type="video/mp4">
                 </video>
 
