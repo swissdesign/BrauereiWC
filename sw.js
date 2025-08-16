@@ -9,11 +9,15 @@ const OFFLINE_URL = '/index.html';
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
+      // Cache the core assets required for the app to run offline.  The CSS and
+      // JavaScript paths were updated during the refactor to a single
+      // stylesheet and a single script.  Additional pages (e.g. brewery.html,
+      // blog.html) can be added to this array if needed.
       return cache.addAll([
         '/',
         '/index.html',
-        '/css/styles.css',
-        '/js/main.js',
+        '/styles.css',
+        '/app.js',
       ]);
     })
   );
