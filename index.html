@@ -113,7 +113,7 @@
         <!-- Section 1: Video Scrubbing Introduction -->
         <section id="video-scrub-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
-                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline>
+                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline autoplay>
                     <source src="./media/video/hero.mp4" type="video/mp4">
                 </video>
 
@@ -320,21 +320,38 @@
                     .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<");
             }
 
-            // --- 2. INITIALIZE ALL ANIMATIONS ON WINDOW LOAD ---
-            window.addEventListener('load', () => {
+            // --- 2. INITIALIZE SITE AFTER VIDEO IS READY ---
+            function initializeSite() {
                 if(preloader) {
                     gsap.to(preloader, {
                         duration: 1,
                         opacity: 0,
-                        delay: 3, // Increased delay to ensure animation completes
+                        delay: 3, 
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
+                            // The video element now has autoplay, so this explicit play call is a fallback.
+                            if (video) video.play().catch(() => {}); 
+                            initScrollAnimations();
                         }
                     });
+                } else {
+                    if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
+                    if (video) video.play().catch(() => {});
+                    initScrollAnimations();
                 }
-                
-                initScrollAnimations();
+            }
+
+            window.addEventListener('load', () => {
+                // This is crucial for mobile. It ensures video.duration is available before setting up the animation.
+                if (video && video.readyState >= 3) { // 3 = HAVE_FUTURE_DATA
+                    initializeSite();
+                } else if (video) {
+                    video.addEventListener('canplay', initializeSite, { once: true });
+                } else {
+                    // Fallback if there's no video
+                    initializeSite();
+                }
             });
 
             // --- 3. Side Navigation Smooth Scroll ---
@@ -367,7 +384,7 @@
                         }
                     });
                     
-                    videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
+                    videoScrubTL.to(video, { currentTime: video.duration || 0, ease: "none" }, 0);
                     videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.5");
                     videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                     videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
