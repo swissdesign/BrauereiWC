@@ -110,13 +110,11 @@
     <!-- Main content starts here after loader fades out -->
     <main id="main-content" class="opacity-0">
 
-        <!-- Section 1: Video Scrubbing Introduction -->
-        <section id="video-scrub-section" class="relative">
+        <!-- Section 1: Hero Image with Parallax -->
+        <section id="hero-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
-                <!-- IMPORTANT: `muted` and `playsinline` are critical for autoplay on mobile -->
-                <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline autoplay>
-                    <source src="./media/video/hero.mp4" type="video/mp4">
-                </video>
+                <!-- Parallax Background Image -->
+                <div id="hero-image" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('./media/images/hero.webp');"></div>
 
                 <!-- Centered Logo SVG -->
                 <div id="logo-container" class="absolute inset-0 flex items-center justify-center">
@@ -288,7 +286,8 @@
             const logo = document.getElementById("andermatt-logo-preloader");
             const mainContent = document.getElementById('main-content');
             const sideNav = document.getElementById('side-nav');
-            const video = document.getElementById('hero-video');
+            const heroSection = document.getElementById('hero-section');
+            const heroImage = document.getElementById('hero-image');
             const beerCarousel = document.getElementById('beer-carousel');
             const barSection = document.getElementById('bar-section');
             const brewerySection = document.getElementById('brewery-section');
@@ -321,50 +320,28 @@
                     .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<");
             }
 
-            // --- 2. ROBUST SITE INITIALIZATION LOGIC ---
-            let isInitialized = false;
+            // --- 2. SITE INITIALIZATION LOGIC ---
             function initializeSite() {
-                // This flag ensures the initialization logic only runs once.
-                if (isInitialized) return;
-                isInitialized = true;
-
                 console.log("Initializing site...");
-
                 if(preloader) {
                     gsap.to(preloader, {
                         duration: 1,
                         opacity: 0,
-                        delay: 3, 
+                        delay: 3, // Delay from preloader animation
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            if (video) video.play().catch(() => {}); 
                             initScrollAnimations();
                         }
                     });
                 } else {
                     if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                    if (video) video.play().catch(() => {});
                     initScrollAnimations();
                 }
             }
-
-            // --- WAIT FOR THE PAGE AND VIDEO TO BE READY ---
-            if (video) {
-                // 'canplay' is a more reliable event for knowing the video is ready to start.
-                video.addEventListener('canplay', initializeSite, { once: true });
-
-                // SAFETY NET: If the video fails to load or takes too long,
-                // this timeout will force the site to initialize after 10 seconds.
-                setTimeout(() => {
-                    console.log("Initialization timeout reached. Forcing site initialization.");
-                    initializeSite();
-                }, 10000);
-
-            } else {
-                // If there's no video, just initialize when the window is fully loaded.
-                window.addEventListener('load', initializeSite);
-            }
+            
+            // Initialize after the window and all assets are fully loaded.
+            window.addEventListener('load', initializeSite);
 
 
             // --- 3. Side Navigation Smooth Scroll ---
@@ -385,24 +362,40 @@
 
             // --- MAIN SCROLL ANIMATION SETUP ---
             function initScrollAnimations() {
-                // --- 4. Video Scrubbing and FADE logic ---
-                if (video && video.duration) {
-                    let videoScrubTL = gsap.timeline({
+                // --- 4. Hero Image Parallax and Fade Logic ---
+                if (heroSection) {
+                    // Timeline for pinning and text fades
+                    let heroPinTL = gsap.timeline({
                         scrollTrigger: {
-                            trigger: "#video-scrub-section",
-                            pin: "#video-scrub-section .sticky", 
+                            trigger: heroSection,
+                            pin: "#hero-section .sticky",
                             start: "top top",
-                            end: "+=200%", 
+                            end: "+=150%", // Controls how long the section stays pinned
                             scrub: 1,
                             invalidateOnRefresh: true
                         }
                     });
                     
-                    videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
-                    videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.5");
-                    videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
-                    videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
-                    videoScrubTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, "0.9");
+                    // Add the fade animations to the timeline
+                    heroPinTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, 0.5);
+                    heroPinTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, 0.6);
+                    heroPinTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, 0.65);
+                    heroPinTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, 0.9);
+
+                    // Parallax effect for the background image
+                    if (heroImage) {
+                        gsap.to(heroImage, {
+                            backgroundPosition: "50% 100%", // Moves the image vertically
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: heroSection,
+                                start: "top top",
+                                end: "bottom top",
+                                scrub: true, // Links the animation to scroll position
+                                invalidateOnRefresh: true
+                            }
+                        });
+                    }
                 }
 
                 // --- 5. Bar Section Horizontal Scroll ---
@@ -452,4 +445,3 @@
 
 </body>
 </html>
-
