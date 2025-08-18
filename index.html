@@ -321,10 +321,15 @@
                     .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<");
             }
 
-            // --- 2. SITE INITIALIZATION LOGIC ---
-            // This function handles fading out the preloader and starting the main content animations.
-            // It's called only when we're sure the video is ready.
+            // --- 2. ROBUST SITE INITIALIZATION LOGIC ---
+            let isInitialized = false;
             function initializeSite() {
+                // This flag ensures the initialization logic only runs once.
+                if (isInitialized) return;
+                isInitialized = true;
+
+                console.log("Initializing site...");
+
                 if(preloader) {
                     gsap.to(preloader, {
                         duration: 1,
@@ -333,15 +338,11 @@
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            // The video has autoplay, but we'll try to play it again just in case.
-                            // The .catch() prevents errors if the browser blocks it.
                             if (video) video.play().catch(() => {}); 
-                            // IMPORTANT: Initialize scroll-based animations AFTER the preloader is gone.
                             initScrollAnimations();
                         }
                     });
                 } else {
-                    // Fallback if there is no preloader
                     if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
                     if (video) video.play().catch(() => {});
                     initScrollAnimations();
@@ -349,20 +350,19 @@
             }
 
             // --- WAIT FOR THE PAGE AND VIDEO TO BE READY ---
-            // Using 'loadedmetadata' is more reliable for getting video duration than 'canplay' or 'load'.
             if (video) {
-                video.addEventListener('loadedmetadata', () => {
-                    console.log("Video metadata loaded. Duration:", video.duration);
+                // 'canplay' is a more reliable event for knowing the video is ready to start.
+                video.addEventListener('canplay', initializeSite, { once: true });
+
+                // SAFETY NET: If the video fails to load or takes too long,
+                // this timeout will force the site to initialize after 10 seconds.
+                setTimeout(() => {
+                    console.log("Initialization timeout reached. Forcing site initialization.");
                     initializeSite();
-                }, { once: true });
-                // Fallback for browsers that might not fire 'loadedmetadata' correctly after a cache
-                window.addEventListener('load', () => {
-                    if (video.duration) {
-                        initializeSite();
-                    }
-                });
+                }, 10000);
+
             } else {
-                // If there's no video, just initialize on window load.
+                // If there's no video, just initialize when the window is fully loaded.
                 window.addEventListener('load', initializeSite);
             }
 
@@ -384,10 +384,9 @@
             }
 
             // --- MAIN SCROLL ANIMATION SETUP ---
-            // This function is now only called by initializeSite()
             function initScrollAnimations() {
                 // --- 4. Video Scrubbing and FADE logic ---
-                if (video && video.duration) { // Double-check that video and its duration are available
+                if (video && video.duration) {
                     let videoScrubTL = gsap.timeline({
                         scrollTrigger: {
                             trigger: "#video-scrub-section",
@@ -399,10 +398,7 @@
                         }
                     });
                     
-                    // Animate the video's currentTime from 0 to its full duration
                     videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
-                    
-                    // Fade animations for the logo and welcome text, timed relative to the scroll
                     videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.5");
                     videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                     videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
@@ -423,26 +419,26 @@
                         }
                     });
 
-                    // Animate the carousel horizontally
                     horizontalScrollTL.to(beerCarousel, {
                         x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                         ease: "none"
                     });
                 }
 
-                // --- 6. Brewery Section Fade In ---
+                // --- 6. Brewery Section Fade In (Refined) ---
                 if (brewerySection) {
-                    gsap.from(brewerySection.children, {
+                    // Target the specific content elements inside the section for a better stagger effect
+                    gsap.from("#brewery-section .max-w-4xl > *", {
                         scrollTrigger: {
                             trigger: brewerySection,
-                            start: "top 80%", // Start animation when 80% of the section is visible
-                            end: "bottom 90%",
-                            scrub: 1.5
+                            start: "top 80%",
+                            toggleActions: "play none none reverse" // Use toggleActions for a cleaner one-time animation
                         },
                         opacity: 0,
                         y: 50,
-                        duration: 1,
-                        stagger: 0.2 // Animate children one by one
+                        duration: 0.8,
+                        ease: "power2.out",
+                        stagger: 0.2
                     });
                 }
 
