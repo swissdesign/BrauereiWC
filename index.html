@@ -116,8 +116,11 @@
                 <!-- Parallax Background Image -->
                 <div id="hero-image" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('./media/images/backgrounds/hero.webp');"></div>
 
+                <!-- Black Overlay for Welcome Text Readability -->
+                <div id="welcome-overlay" class="absolute inset-0 bg-black opacity-70"></div>
+
                 <!-- Centered Logo SVG -->
-                <div id="logo-container" class="absolute inset-0 flex items-center justify-center">
+                <div id="logo-container" class="absolute inset-0 flex items-center justify-center z-10">
                     <svg id="andermatt-logo" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46" class="w-2/3 max-w-xs md:max-w-sm">
                         <defs>
                             <style>
@@ -133,11 +136,8 @@
                     </svg>
                 </div>
 
-                <!-- Black Overlay for Welcome Text Readability -->
-                <div id="welcome-overlay" class="absolute inset-0 bg-black opacity-70"></div>
-
                 <!-- "Welcome" Text -->
-                <div id="welcome-text" class="absolute inset-0 flex items-center justify-center opacity-0">
+                <div id="welcome-text" class="absolute inset-0 flex items-center justify-center opacity-0 z-10">
                     <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-center px-4">Welcome to the<br>Brauerei Andermatt</h1>
                 </div>
             </div>
