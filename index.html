@@ -114,7 +114,7 @@
         <section id="hero-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
                 <!-- Parallax Background Image -->
-                <div id="hero-image" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('./media/images/backgrounds/hero.webp');"></div>
+                <div id="hero-image" class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('./media/images/hero.webp');"></div>
 
                 <!-- Centered Logo SVG -->
                 <div id="logo-container" class="absolute inset-0 flex items-center justify-center">
@@ -134,7 +134,7 @@
                 </div>
 
                 <!-- Black Overlay for Welcome Text Readability -->
-                <div id="welcome-overlay" class="absolute inset-0 bg-black opacity-0"></div>
+                <div id="welcome-overlay" class="absolute inset-0 bg-black opacity-70"></div>
 
                 <!-- "Welcome" Text -->
                 <div id="welcome-text" class="absolute inset-0 flex items-center justify-center opacity-0">
@@ -376,11 +376,12 @@
                         }
                     });
                     
-                    // Add the fade animations to the timeline
-                    heroPinTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, 0.5);
-                    heroPinTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, 0.6);
-                    heroPinTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, 0.65);
-                    heroPinTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, 0.9);
+                    // The overlay is already visible via its CSS class.
+                    // We just need to define the scroll-based animations.
+                    heroPinTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, 0.3);
+                    heroPinTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, 0.5);
+                    heroPinTL.to(["#welcome-text", "#welcome-overlay"], { opacity: 0, ease: "power1.inOut" }, 0.8);
+
 
                     // Parallax effect for the background image
                     if (heroImage) {
