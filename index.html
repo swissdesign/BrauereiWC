@@ -113,8 +113,9 @@
         <!-- Section 1: Video Scrubbing Introduction -->
         <section id="video-scrub-section" class="relative">
             <div class="sticky top-0 h-screen-dynamic w-full overflow-hidden">
+                <!-- IMPORTANT: `muted` and `playsinline` are critical for autoplay on mobile -->
                 <video id="hero-video" class="absolute inset-0 w-full h-full object-cover" preload="auto" muted playsinline autoplay>
-                    <source src="./media/video/hero.mp4" type="video/mp4">
+                    <source src="https://github.com/BenWyss/Brauerei_Andermatt/raw/main/media/video/hero.mp4" type="video/mp4">
                 </video>
 
                 <!-- Centered Logo SVG -->
@@ -147,7 +148,7 @@
         <!-- Section 2: The Bar & Beer Carousel -->
         <section id="bar-section" class="relative bg-black h-screen-dynamic">
             <div class="sticky top-0 h-full w-full overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./media/images/backgrounds/bar.webp');"></div>
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://github.com/BenWyss/Brauerei_Andermatt/raw/main/media/images/backgrounds/bar.webp');"></div>
                 <div class="absolute inset-0 bg-black/50"></div>
 
                 <!-- Partner Marquee -->
@@ -170,7 +171,7 @@
                                 <h2 class="text-3xl md:text-5xl font-bold">Helles</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">A crisp, clean, and refreshing lager. Perfectly balanced with a subtle malty sweetness.</p>
                             </div>
-                            <img src="./media/images/products/helles.webp" alt="Helles Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="https://github.com/BenWyss/Brauerei_Andermatt/raw/main/media/images/products/helles.webp" alt="Helles Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
 
                         <!-- Buffer element for spacing between items -->
@@ -182,7 +183,7 @@
                                 <h2 class="text-3xl md:text-5xl font-bold">IPA</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">Boldly hopped with citrus and pine notes. A modern classic for hop lovers.</p>
                             </div>
-                            <img src="./media/images/products/ipa.webp" alt="IPA Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="https://github.com/BenWyss/Brauerei_Andermatt/raw/main/media/images/products/ipa.webp" alt="IPA Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
                         
                         <!-- Buffer element for spacing between items -->
@@ -194,7 +195,7 @@
                                 <h2 class="text-3xl md:text-5xl font-bold">Weizen</h2>
                                 <p class="mt-4 text-base md:text-lg max-w-md mx-auto">A traditional wheat beer with notes of banana and clove. Smooth and satisfying.</p>
                             </div>
-                            <img src="./media/images/products/weizen.webp" alt="Weizen Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
+                            <img src="https://github.com/BenWyss/Brauerei_Andermatt/raw/main/media/images/products/weizen.webp" alt="Weizen Beer" class="h-1/2 max-h-[60vh] w-auto object-contain drop-shadow-2xl">
                         </div>
 
                         <!-- Buffer element to create ending space -->
@@ -268,8 +269,8 @@
                 </form>
 
                 <div class="mt-12 border-t border-gray-800 pt-8">
-                     <p class="text-base text-gray-400">&copy; 2024 Brauerei Andermatt. All rights reserved.</p>
-                     <p class="text-sm text-gray-500 mt-2">Gotthardstrasse 2, 6490 Andermatt | info@brauereiandermatt.ch</p>
+                       <p class="text-base text-gray-400">&copy; 2024 Brauerei Andermatt. All rights reserved.</p>
+                       <p class="text-sm text-gray-500 mt-2">Gotthardstrasse 2, 6490 Andermatt | info@brauereiandermatt.ch</p>
                 </div>
             </div>
         </footer>
@@ -320,7 +321,9 @@
                     .to(logo.querySelector("#logo-river"), { duration: 1, scale: 1, opacity: 1, ease: "power2.in" }, "<");
             }
 
-            // --- 2. INITIALIZE SITE AFTER VIDEO IS READY ---
+            // --- 2. SITE INITIALIZATION LOGIC ---
+            // This function handles fading out the preloader and starting the main content animations.
+            // It's called only when we're sure the video is ready.
             function initializeSite() {
                 if(preloader) {
                     gsap.to(preloader, {
@@ -330,29 +333,39 @@
                         onComplete: () => {
                             preloader.style.display = "none";
                             if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
-                            // The video element now has autoplay, so this explicit play call is a fallback.
+                            // The video has autoplay, but we'll try to play it again just in case.
+                            // The .catch() prevents errors if the browser blocks it.
                             if (video) video.play().catch(() => {}); 
+                            // IMPORTANT: Initialize scroll-based animations AFTER the preloader is gone.
                             initScrollAnimations();
                         }
                     });
                 } else {
+                    // Fallback if there is no preloader
                     if(mainContent) gsap.to(mainContent, { opacity: 1, duration: 0.5 });
                     if (video) video.play().catch(() => {});
                     initScrollAnimations();
                 }
             }
 
-            window.addEventListener('load', () => {
-                // This is crucial for mobile. It ensures video.duration is available before setting up the animation.
-                if (video && video.readyState >= 3) { // 3 = HAVE_FUTURE_DATA
+            // --- WAIT FOR THE PAGE AND VIDEO TO BE READY ---
+            // Using 'loadedmetadata' is more reliable for getting video duration than 'canplay' or 'load'.
+            if (video) {
+                video.addEventListener('loadedmetadata', () => {
+                    console.log("Video metadata loaded. Duration:", video.duration);
                     initializeSite();
-                } else if (video) {
-                    video.addEventListener('canplay', initializeSite, { once: true });
-                } else {
-                    // Fallback if there's no video
-                    initializeSite();
-                }
-            });
+                }, { once: true });
+                // Fallback for browsers that might not fire 'loadedmetadata' correctly after a cache
+                window.addEventListener('load', () => {
+                    if (video.duration) {
+                        initializeSite();
+                    }
+                });
+            } else {
+                // If there's no video, just initialize on window load.
+                window.addEventListener('load', initializeSite);
+            }
+
 
             // --- 3. Side Navigation Smooth Scroll ---
             if(sideNav) {
@@ -370,9 +383,11 @@
                 });
             }
 
+            // --- MAIN SCROLL ANIMATION SETUP ---
+            // This function is now only called by initializeSite()
             function initScrollAnimations() {
                 // --- 4. Video Scrubbing and FADE logic ---
-                if (video) {
+                if (video && video.duration) { // Double-check that video and its duration are available
                     let videoScrubTL = gsap.timeline({
                         scrollTrigger: {
                             trigger: "#video-scrub-section",
@@ -384,7 +399,10 @@
                         }
                     });
                     
-                    videoScrubTL.to(video, { currentTime: video.duration || 0, ease: "none" }, 0);
+                    // Animate the video's currentTime from 0 to its full duration
+                    videoScrubTL.to(video, { currentTime: video.duration, ease: "none" }, 0);
+                    
+                    // Fade animations for the logo and welcome text, timed relative to the scroll
                     videoScrubTL.to("#logo-container", { opacity: 0, ease: "power1.inOut" }, "0.5");
                     videoScrubTL.to("#welcome-overlay", { opacity: 0.7, ease: "power1.inOut" }, "0.6");
                     videoScrubTL.to("#welcome-text", { opacity: 1, ease: "power1.inOut" }, "0.65");
@@ -397,7 +415,7 @@
                         scrollTrigger: {
                             trigger: barSection,
                             start: "top top",
-                            end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth + window.innerHeight), // Add viewport height to scroll duration
+                            end: () => "+=" + (beerCarousel.scrollWidth - window.innerWidth),
                             scrub: 1,
                             pin: true,
                             invalidateOnRefresh: true,
@@ -410,27 +428,21 @@
                         x: () => -(beerCarousel.scrollWidth - window.innerWidth),
                         ease: "none"
                     });
-
-                    // At the end of the horizontal scroll, fade the ENTIRE BAR SECTION out
-                    horizontalScrollTL.to(barSection, {
-                        opacity: 0,
-                        ease: 'power1.inOut',
-                        duration: 0.5
-                    });
                 }
 
                 // --- 6. Brewery Section Fade In ---
                 if (brewerySection) {
-                    // Fade IN the section's content as it comes into view.
-                    gsap.from(brewerySection, {
+                    gsap.from(brewerySection.children, {
                         scrollTrigger: {
                             trigger: brewerySection,
-                            start: "top 70%",
-                            toggleActions: "play none none reverse"
+                            start: "top 80%", // Start animation when 80% of the section is visible
+                            end: "bottom 90%",
+                            scrub: 1.5
                         },
                         opacity: 0,
                         y: 50,
-                        duration: 1
+                        duration: 1,
+                        stagger: 0.2 // Animate children one by one
                     });
                 }
 
@@ -444,3 +456,4 @@
 
 </body>
 </html>
+
