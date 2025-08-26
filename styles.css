@@ -1,0 +1,157 @@
+/* =========================================
+   styles.css — Brauerei Andermatt (LLM Build)
+   Single stylesheet for rapid prototyping
+   ========================================= */
+
+/* ===== SECTION: CSS Variables & Theme (light/dark) ===== */
+
+/*
+  Global styles and design tokens for the Brauerei Andermatt site.
+  Tailwind CSS handles most layout and spacing; this file defines
+  custom variables, colour themes, animations and minor overrides.
+*/
+
+:root {
+  --background: #f5f4f0;
+  --text: #333333;
+  --evergreen: #006341;
+  --evergreen-dark: #004d32;
+  --brick-red: #7f1e1c;
+  --brick-red-dark: #611514;
+  --sky-blue: #72c8dc;
+  --ipa-bg: #eaf3ed;
+  --helles-bg: #f3f9fb;
+  --weizen-bg: #fffbe6;
+}
+
+/* Dark mode automatically picks up system preference.  You can add a
+   toggle in JS by toggling the class `dark` on the html element. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0e0d0a;
+    --text: #e5e4e0;
+    --evergreen: #35a77e;
+    --brick-red: #c14945;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Playfair Display fallback for headings */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Simple marquee animation for partner logos */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Use the marquee animation on the container of the logos */
+.animate-marquee {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+/* Utility classes for colours defined via CSS variables */
+.bg-background {
+  background-color: var(--background);
+}
+.text-text {
+  color: var(--text);
+}
+.bg-evergreen {
+  background-color: var(--evergreen);
+}
+.bg-brick-red {
+  background-color: var(--brick-red);
+}
+.text-evergreen {
+  color: var(--evergreen);
+}
+.text-brick-red {
+  color: var(--brick-red);
+}
+.hover\:bg-evergreen-dark:hover {
+  background-color: var(--evergreen-dark);
+}
+.hover\:bg-brick-red-dark:hover {
+  background-color: var(--brick-red-dark);
+}
+
+/* Hide preloader after fade-out; this class is toggled via JS */
+#preloader.hidden {
+  display: none;
+}
+
+/*
+  Preloader overlay styles.
+
+  The preloader is a full‑screen overlay that centres the Andermatt logo
+  during the initial load.  The background colour pulls from the
+  --background CSS variable defined in :root so that light and dark
+  modes remain consistent.  The width/height of the logo container
+  mirror the proportions used in the onepager design.
+*/
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+#preloader-logo {
+  width: 300px;
+  height: 300px;
+}
+
+/* Full‑screen black overlay */
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 1;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/*
+  Beer carousel customisation.
+
+  The product slides have transparent backgrounds and no backdrop blur.
+  Images scale responsively to occupy most of the viewport height while
+  preserving their aspect ratio.  These rules override any inline
+  Tailwind classes used in the markup.
+*/
+#beer-carousel .beer-item > div {
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+#beer-carousel .beer-item img {
+  /* Use up to 80% of the viewport height for product images */
+  max-height: 80vh;
+  height: 80vh;
+  width: auto;
+}
+
+/* Initially hide the hero text */
+#hero-text-container {
+  opacity: 0;
+}
