@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-de="Brauerei Andermatt | Ziemlich hochwertiges Bier" data-en="Brauerei Andermatt | Pretty High-Quality Beer"></title>
+    <meta name="description" content="Bier aus Andermatt. Gebraut in den Schweizer Alpen. Entdecke unsere Biere und unsere Philosophie.">
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+</head>
+<body class="bg-stone-100 text-stone-800 font-sans">
+
+    <!-- Header & Navigation -->
+    <header id="main-header" class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-2xl font-bold text-stone-900" title="Brauerei Andermatt Home">
+                    <!-- SVG Logo -->
+                    <svg class="h-10 w-auto" width="200" height="40" viewBox="0 0 200 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <text x="0" y="30" font-family="Inter, sans-serif" font-size="24" font-weight="bold">BRAUEREI</text>
+                        <text x="125" y="30" font-family="Inter, sans-serif" font-size="24" font-weight="400">ANDERMATT</text>
+                    </svg>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <ul class="hidden md:flex items-center space-x-6">
+                    <li><a href="beers.html" class="hover:text-amber-600 transition-colors" data-de="Biere" data-en="Beers">Biere</a></li>
+                    <li><a href="brewery.html" class="hover:text-amber-600 transition-colors" data-de="Brauerei" data-en="Brewery">Brauerei</a></li>
+                    <li><a href="philosophy.html" class="hover:text-amber-600 transition-colors" data-de="Philosophie" data-en="Philosophy">Philosophie</a></li>
+                    <li><a href="diary.html" class="hover:text-amber-600 transition-colors" data-de="Tagebuch" data-en="Diary">Tagebuch</a></li>
+                    <li><a href="contact.html" class="hover:text-amber-600 transition-colors" data-de="Kontakt" data-en="Contact">Kontakt</a></li>
+                </ul>
+
+                <!-- Language & Mobile Toggle -->
+                <div class="flex items-center">
+                    <div id="lang-switcher" class="text-sm font-medium cursor-pointer">
+                        <span class="lang-de font-bold">DE</span>
+                        <span class="mx-1">|</span>
+                        <span class="lang-en text-stone-400">EN</span>
+                    </div>
+                    <button id="mobile-menu-btn" class="md:hidden ml-4 p-2 text-stone-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <!-- Mobile Navigation Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md">
+            <ul class="flex flex-col items-center py-4 space-y-4">
+                 <li><a href="beers.html" class="block py-2 text-lg" data-de="Biere" data-en="Beers">Biere</a></li>
+                 <li><a href="brewery.html" class="block py-2 text-lg" data-de="Brauerei" data-en="Brewery">Brauerei</a></li>
+                 <li><a href="philosophy.html" class="block py-2 text-lg" data-de="Philosophie" data-en="Philosophy">Philosophie</a></li>
+                 <li><a href="diary.html" class="block py-2 text-lg" data-de="Tagebuch" data-en="Diary">Tagebuch</a></li>
+                 <li><a href="contact.html" class="block py-2 text-lg" data-de="Kontakt" data-en="Contact">Kontakt</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[60vh] md:h-[80vh] w-full flex items-center justify-center text-white text-center overflow-hidden">
+            <div class="absolute inset-0 bg-black/50 z-10"></div>
+            <picture class="absolute inset-0 h-full w-full object-cover">
+                <source srcset="assets/img/bg/hero.webp" type="image/webp">
+                <source srcset="assets/img/bg/hero.jpg" type="image/jpeg">
+                <img src="assets/img/bg/hero.jpg" alt="View of the Swiss Alps in Andermatt" class="h-full w-full object-cover">
+            </picture>
+            <div class="relative z-20 p-4">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight" data-de="Bier aus Andermatt." data-en="Beer from Andermatt.">Bier aus Andermatt.</h1>
+                <p class="text-2xl md:text-4xl font-light mt-2" data-de="Ziemlich hochwertig." data-en="Pretty high quality.">Ziemlich hochwertig.</p>
+            </div>
+        </section>
+
+        <!-- Featured Beers Section -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-de="Unsere Biere" data-en="Our Beers">Unsere Biere</h2>
+                
+                <!-- Horizontal Scroll Container -->
+                <div class="flex overflow-x-auto space-x-6 md:space-x-8 pb-6 -mx-4 px-4" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
+                    
+                    <!-- Product Card 1: Lager -->
+                    <div class="flex-shrink-0 w-72 md:w-80 bg-stone-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-80 flex items-center justify-center p-8 bg-gradient-to-br from-amber-100 to-amber-200">
+                           <img src="assets/img/products/lager.png" alt="Lager Beer Bottle" class="h-full object-contain drop-shadow-2xl">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold">Urner Lager</h3>
+                            <p class="text-stone-500 mt-2" data-de="Chill it. Drink it. Don't overthink it." data-en="Chill it. Drink it. Don't overthink it.">Kalt stellen. Trinken. Nicht zu viel nachdenken.</p>
+                            <div class="flex justify-center mt-4 text-amber-500">
+                                <!-- Stylized stars -->
+                                ★★★☆☆
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2: Pale Ale -->
+                    <div class="flex-shrink-0 w-72 md:w-80 bg-stone-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-80 flex items-center justify-center p-8 bg-gradient-to-br from-green-100 to-green-200">
+                           <img src="assets/img/products/pale-ale.png" alt="Pale Ale Beer Bottle" class="h-full object-contain drop-shadow-2xl">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold">Gotthard Pale Ale</h3>
+                            <p class="text-stone-500 mt-2" data-de="Für Gipfelstürmer und solche, die es werden wollen." data-en="For summiteers and those who want to be.">Für Gipfelstürmer und solche, die es werden wollen.</p>
+                            <div class="flex justify-center mt-4 text-amber-500">
+                                ★★★★☆
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3: Weizen -->
+                    <div class="flex-shrink-0 w-72 md:w-80 bg-stone-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-80 flex items-center justify-center p-8 bg-gradient-to-br from-stone-200 to-stone-300">
+                           <img src="assets/img/products/weizen.png" alt="Weizen Beer Bottle" class="h-full object-contain drop-shadow-2xl">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold">Alpen Weizen</h3>
+                            <p class="text-stone-500 mt-2" data-de="Nebel im Tal? Besser als Nebel im Kopf." data-en="Fog in the valley? Better than fog in the head.">Nebel im Tal? Besser als Nebel im Kopf.</p>
+                            <div class="flex justify-center mt-4 text-amber-500">
+                                ★★★☆☆
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4: Keg -->
+                    <div class="flex-shrink-0 w-72 md:w-80 bg-stone-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="h-80 flex items-center justify-center p-8 bg-gradient-to-br from-stone-700 to-stone-800">
+                           <img src="assets/img/products/keg.png" alt="Beer Keg" class="h-3/4 object-contain drop-shadow-2xl">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold" data-de="Das Fass" data-en="The Keg">Das Fass</h3>
+                            <p class="text-stone-500 mt-2" data-de="Für grosse Pläne. Oder grossen Durst." data-en="For big plans. Or a big thirst.">Für grosse Pläne. Oder grossen Durst.</p>
+                             <div class="flex justify-center mt-4 text-amber-500">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center mt-12">
+                    <a href="beers.html" class="inline-block bg-amber-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-amber-600 transition-colors" data-de="Alle Biere ansehen" data-en="See All Beers">Alle Biere ansehen</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Snippet -->
+        <section class="py-16 md:py-24 bg-stone-100">
+            <div class="container mx-auto px-4 text-center max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-de="Unsere Geschichte. Kurz." data-en="Our Story. Briefly.">Unsere Geschichte. Kurz.</h2>
+                <p class="text-lg md:text-xl leading-relaxed" data-de="Wir mögen Berge. Wir mögen Bier. Also brauen wir Bier in den Bergen. Einfach." data-en="We like mountains. We like beer. So we brew beer in the mountains. Simple.">Wir mögen Berge. Wir mögen Bier. Also brauen wir Bier in den Bergen. Einfach.</p>
+                <a href="brewery.html" class="inline-block mt-8 text-amber-600 font-bold hover:underline" data-de="Mehr über uns erfahren" data-en="Learn more about us">Mehr über uns erfahren &rarr;</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-300 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; <span id="year"></span> Brauerei Andermatt. Alle Rechte vorbehalten.</p>
+            <div class="mt-4 text-sm">
+                <a href="#" class="hover:text-white" data-de="Impressum" data-en="Imprint">Impressum</a>
+                <span class="mx-2">|</span>
+                <a href="#" class="hover:text-white" data-de="Datenschutz" data-en="Privacy Policy">Datenschutz</a>
+            </div>
+             <p class="text-xs text-stone-500 mt-6" data-de="Bitte verantwortungsvoll geniessen." data-en="Please enjoy responsibly.">Bitte verantwortungsvoll geniessen.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
