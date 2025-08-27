@@ -74,11 +74,14 @@
 
         /* --- Bottom Partner Marquee --- */
         #bottom-marquee {
-            position: fixed;
+            height: 60px;   /* increase this value */
+            width: auto;    /* keeps proportions */
+            margin: 0 1rem; /* optional: spacing between logos */
+            position: center;
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(240, 240, 240, 0.9); /* Transparent off-white */
+            background-color: rgba(240, 240, 240, 0.1); /* Transparent off-white */
             color: #1a1a1a;
             padding: 0.5rem 0;
             z-index: 100;
