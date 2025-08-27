@@ -83,9 +83,17 @@
             padding: 0.5rem 0;
             z-index: 100;
         }
-        .marquee-track {
-            animation: marquee 30s linear infinite;
-        }
+ .marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+/* override when you don’t want scrolling */
+.marquee-track.no-scroll {
+  animation: none;
+  justify-content: center;
+  gap: 2rem;
+}
         @keyframes marquee {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); }
@@ -353,37 +361,12 @@
     
     <!-- Bottom Partner Marquee -->
  <div id="bottom-marquee" class="overflow-hidden whitespace-nowrap">
-    <div class="marquee-track inline-block">
+    <div class="marquee-track inline-block no-scroll">
         <a href="https://www.pinte-andermatt.ch/" target="Pinte - Pub and Club" rel="noopener noreferrer" class="Pinte Pub and Club Logo">
             <img src="media/images/partners/vino.svg" alt="Pinte Pub and Club Logo" class="inline-block h-8 mx-8 my-auto"/>
         </a>
-        <a href="https://www.partnerb.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-b-logo.svg" alt="Partner B" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnerc.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-c-logo.svg" alt="Partner C" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnerd.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-d-logo.svg" alt="Partner D" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnere.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-e-logo.svg" alt="Partner E" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-
-        <a href="https://www.partnera.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-a-logo.svg" alt="Partner A" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnerb.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-b-logo.svg" alt="Partner B" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnerc.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-c-logo.svg" alt="Partner C" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnerd.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-d-logo.svg" alt="Partner D" class="inline-block h-8 mx-8 my-auto"/>
-        </a>
-        <a href="https://www.partnere.com" target="_blank" rel="noopener noreferrer" class="partner-logo">
-            <img src="path/to/partner-e-logo.svg" alt="Partner E" class="inline-block h-8 mx-8 my-auto"/>
+        <a href="https://www.baeren-andermatt.ch/" target="Hote Restaurant Bären" rel="noopener noreferrer" class="partner-logo">
+            <img src="media/images/partners/baren.svg" alt="Partner B" class="inline-block h-8 mx-8 my-auto"/>
         </a>
     </div>
 </div>

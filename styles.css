@@ -55,10 +55,17 @@ body {
   }
 }
 
-/* Use the marquee animation on the container of the logos */
+/* scrolling version */
 .animate-marquee {
   display: flex;
   animation: marquee 30s linear infinite;
+}
+
+/* non-scrolling override */
+.animate-marquee.no-scroll {
+  animation: none;
+  justify-content: center;
+  gap: 2rem;
 }
 
 /* Utility classes for colours defined via CSS variables */
