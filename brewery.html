@@ -36,10 +36,14 @@
 
     /* Utility for mobile vh */
     .h-screen-dynamic{ height:100vh; height:calc(var(--vh, 1vh) * 100); }
+      /* Parallax backgrounds */
+    .parallax-wrap{ position:relative; overflow:hidden; }
+    .parallax-bg{ position:absolute; inset:-10% -5%; background-position:center; background-size:cover; background-repeat:no-repeat; filter:brightness(0.6); will-change:transform; }
+    .parallax-content{ position:relative; z-index:1; }
   </style>
 </head>
 <body class="bg-black">
-<!-- Preloader Section -->
+  <!-- Preloader Section -->
     <div id="preloader">
       <div id="preloader-logo">
         <svg id="andermatt-logo-preloader" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 283.46 283.46">
@@ -58,7 +62,7 @@
       </div>
     </div>
 
-   <!-- Top Left Corner Logo -->
+  <!-- Top Left Corner Logo -->
     <div id="top-left-logo">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 433.33" aria-hidden="true" focusable="false"><path d="M239.06 238.6l92.62-102.89c15.49 13.65 28.17 30.42 42.33 45.44 1.41 1.49 5.99 7.06 8.02 6.03l95.49-105.51 210.47 232.89c-11.78 4.08-23.01 9.52-34.75 13.76-61.96 22.37-126.98 31.26-192.56 21.08-67.47-10.48-121.2-49.76-190.15-55.81-73.33-6.43-147.53 21.13-215.45 44.98L332.55 26.7l75.04 86.91-22.05 25-51.99-58.95-169.48 187.92c12.94-1.74 25.69-5.09 38.64-6.84 37.88-5.13 78.13-4.73 115.35 4.35 40.34 9.84 76.46 31.07 115.98 42.99 61.93 18.67 135.17 15.5 194.94-8.99L478.53 188l-99.12 107.87-46.86-53.89-46.99 50.96h-46.49z"/><polygon points="1979.81 395.54 1979.81 412.53 8.1 412.53 21.59 395.54 1979.81 395.54"/><polygon points="1489.38 213.61 1527.89 296.57 1567.37 213.61 1601.86 213.61 1601.86 353.56 1575.87 353.56 1575.87 253.59 1536.71 338.4 1521.33 338.63 1478.88 249.59 1478.88 353.56 1453.89 353.56 1453.89 213.61 1489.38 213.61"/><path d="M689.5 27.67c20.01 1.51 41.72 10.8 43.53 33.45 1.15 14.41-4.25 26.1-17 33.06l-8.03 3.45c35.62 5.56 36.75 52.33 4.97 65.47-3.74 1.55-13.81 4.52-17.48 4.52h-66.49V27.67h60.49zm-35.5 58.98h38.49c.66 0 6.41-2.85 7.43-3.56 11.26-7.83 9.51-26.32-3.64-31.22-1.4-.52-7.8-2.21-8.79-2.21H654v36.99zm0 58.98h36.49c1.58 0 8.79-2.48 10.45-3.55 10.75-6.91 9.53-25.53-2.26-30.63-4.01-1.73-12.54-2.58-17.14-2.85-9.04-.54-18.47.48-27.54.04v36.99z"/><polygon points="976.95 309.57 976.95 213.61 1001.95 213.61 1001.95 353.56 976.45 353.56 912.96 255.59 912.96 353.56 887.97 353.56 887.97 213.61 914.46 213.61 976.95 309.57"/><path d="M1041.95 353.56V213.61c32.56 1.07 68.53-5.82 95 17.48 29.66 26.11 28.43 82.66-2.53 107.45-8.33 6.67-27.4 15.02-37.97 15.02h-54.49zm24.99-23h28.5c3.11 0 11.99-4.16 15.03-5.97 35.33-21.02 23.47-88-21.02-88h-22.5v93.97z"/><path d="M767.99 27.67c26.93 2.25 70.91-7.29 91.88 13.6 22.35 22.27 11.15 64.18-20.89 69.86l37.99 56.48h-34l-30.5-53.98h-19.5v53.98h-25V27.67zm24.99 68.98h26.5c4.2 0 13.86-3.01 17.43-5.56 12.13-8.65 11.21-31.69-2.71-38.15-1.63-.76-9.46-3.27-10.73-3.27h-30.5v46.98z"/><path d="M1315.91 27.67c26.93 2.25 70.91-7.29 91.88 13.6 22.35 22.27 11.15 64.18-20.89 69.86l37.99 56.48h-34l-30.5-53.98h-19.5v53.98h-25V27.67zm24.99 68.98h26.5c4.2 0 13.86-3.01 17.43-5.56 12.13-8.65 11.21-31.69-2.71-38.15-1.63-.76-9.46-3.27-10.73-3.27h-30.5v46.98z"/><path d="M1315.91 213.61c26.93 2.25 70.91-7.29 91.88 13.6 22.35 22.27 11.15 64.18-20.89 69.86l37.99 56.48h-34l-30.5-53.98h-19.5v53.98h-25V213.61zm24.99 68.97h26.5c4.2 0 13.86-3.01 17.43-5.56 12.13-8.65 11.21-31.69-2.71-38.15-1.63-.76-9.46-3.27-10.73-3.27h-30.5v46.98z"/><path d="M891.97 167.62l47.09-139.85 30.44-.17 47.45 140.02h-27l-9.09-29.89-52.29-.16-9.61 30.05h-27zm81.99-48.98l-19.99-58.98-19.01 58.98h38.99z"/><path d="M738.99 353.56l47.09-139.85 30.44-.17 47.45 140.02h-27l-9.09-29.89-52.29-.16-9.61 30.05h-27zm81.99-48.99l-19.99-58.98-19.01 58.98h38.99z"/><path d="M1626.86 353.56l47.09-139.85 30.44-.17 47.45 140.02h-27l-9.09-29.89-52.29-.16-9.61 30.05h-27zm81.99-48.99l-19.99-58.98-19.01 58.98h38.99z"/><path d="M1063.94 27.67v92.47c0 2.01 2.5 10.27 3.5 12.49 9.37 20.73 49.18 20.07 56.96-3.03.72-2.15 2.53-9.65 2.53-11.47V27.67h25v95.47c0 54.25-89.85 65.74-108.75 16.76-1.01-2.63-4.24-12.64-4.24-14.76V27.67h25z"/><polygon points="1279.91 27.67 1279.91 49.67 1214.92 49.67 1214.92 86.65 1275.91 86.65 1275.91 108.64 1214.92 108.64 1214.92 145.63 1279.91 145.63 1279.91 167.62 1189.92 167.62 1189.92 27.67 1279.91 27.67"/><polygon points="1543.87 27.67 1543.87 49.67 1478.88 49.67 1478.88 86.65 1539.87 86.65 1539.87 108.64 1478.88 108.64 1478.88 145.63 1543.87 145.63 1543.87 167.62 1453.89 167.62 1453.89 27.67 1543.87 27.67"/><polygon points="1279.91 213.61 1279.91 235.6 1214.92 235.6 1214.92 272.58 1275.91 272.58 1275.91 294.58 1214.92 294.58 1214.92 331.56 1279.91 331.56 1279.91 353.56 1189.92 353.56 1189.92 213.61 1279.91 213.61"/><polygon points="1860.83 213.61 1860.83 235.6 1817.83 235.6 1817.83 353.56 1792.84 353.56 1792.84 235.6 1748.84 235.6 1748.84 213.61 1860.83 213.61"/><polygon points="1979.81 213.61 1979.81 235.6 1936.81 235.6 1936.81 353.56 1911.82 353.56 1911.82 235.6 1867.83 235.6 1867.83 213.61 1979.81 213.61"/><rect x="1579.87" y="27.67" width="25" height="139.95"/></svg>
     </div>
@@ -75,13 +79,13 @@
   <main id="main-content" class="opacity-0">
     <!-- HERO -->
     <section id="brewery-hero" class="relative h-screen-dynamic w-full overflow-hidden">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('./media/images/backgrounds/brewerybg.webp');"></div>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('media/images/backgrounds/brewery.webp');"></div>
       <div class="absolute inset-0 bg-black/60"></div>
       <div class="relative z-10 h-full max-w-5xl mx-auto flex items-center px-6">
         <div>
-          <h1 class="text-4xl md:text-6xl font-bold">Modern Brewery & Techniques<br>to deliver Hoppy Goodness</h1>
+          <h1 class="text-4xl md:text-6xl font-bold">Modern Brewery & Techniques<br>to deliver Beer Goodness</h1>
           <p class="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl">
-            30 years of home brewing — a lifelong passion. Now fulfilling a dream to bring you only the best craft beers, brewed in the heart of the Urner Alps.
+            30 years of home brewing — a lifelong passion. Now fulfilling a dream to bring you only the best craft beers, brewed in the heart of Andermatt.
           </p>
         </div>
       </div>
@@ -111,43 +115,45 @@
       </div>
     </section>
 
-<!-- WHY CANS (SUSTAINABILITY & QUALITY) -->
-<section id="why-cans" class="bg-black text-white py-20 md:py-28 px-6 md:px-10">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center max-w-3xl mx-auto">
-      <h2 class="text-3xl md:text-5xl font-bold">Why Cans? A No-Brainer.</h2>
-      <p class="mt-6 text-lg text-gray-300">Cans are the most misunderstood upgrade in craft beer. They are better for the planet and better for your beer — period.</p>
-    </div>
+    <!-- WHY CANS (SUSTAINABILITY & QUALITY) -->
+    <section id="why-cans" class="bg-black text-white py-20 md:py-28 px-6 md:px-10 parallax-wrap">
+      <!-- Parallax background image -->
+      <div class="parallax-bg" style="background-image:url('media/images/backgrounds/brewery.webp');"></div>
 
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Sustainability -->
-      <div class="bg-gray-900 rounded-2xl p-8">
-        <h3 class="text-2xl font-bold">Sustainability</h3>
-        <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
-          <li><strong>Superior recyclability:</strong> Cans contain 3×–20× more recycled content than bottles, with highly efficient recovery systems (<a href="https://www.craftbrewingbusiness.com/packaging-distribution/aluminum-cans-vs-glass-bottles-which-one-is-the-most-sustainable-beer-package/" target="_blank" rel="noopener noreferrer" class="underline">Craft Brewing Business</a>).</li>
-          <li><strong>Low energy use:</strong> Recycling aluminum saves up to 95 % energy compared to producing new metal (<a href="https://en.wikipedia.org/wiki/Aluminium_recycling" target="_blank" rel="noopener noreferrer" class="underline">Wikipedia</a>).</li>
-          <li><strong>Lower carbon footprint:</strong> Life-cycle studies show cans emit less CO₂ per litre than glass (<a href="https://www.aluminum.org/aluminum-cans-leading-way-limit-carbon-impact" target="_blank" rel="noopener noreferrer" class="underline">Aluminum Association</a>).</li>
-          <li><strong>Proven circularity:</strong> In Switzerland, 90 % of cans are recycled (<a href="https://help.nomoq.com/cans-vs-bottles" target="_blank" rel="noopener noreferrer" class="underline">NomOQ</a>).</li>
-        </ul>
-      </div>
+      <div class="parallax-content max-w-6xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-5xl font-bold">Why Cans? A No‑Brainer.</h2>
+          <p class="mt-6 text-lg text-gray-300">Cans are the most misunderstood upgrade in craft beer. They are better for the planet and better for your beer — period.</p>
+        </div>
 
-      <!-- Quality & Freshness -->
-      <div class="bg-gray-900 rounded-2xl p-8">
-        <h3 class="text-2xl font-bold">Quality & Freshness</h3>
-        <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
-          <li><strong>No light-strike:</strong> Cans fully block UV, preventing skunky off-flavours (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
-          <li><strong>Less oxygen pickup:</strong> Modern canning reduces O₂ ingress compared to bottles (<a href="https://www.cheer-glass-bottles.com/info/aluminum-cans-vs-glass-bottles-which-packagi-102853070.html" target="_blank" rel="noopener noreferrer" class="underline">Cheer Glass</a>).</li>
-          <li><strong>Faster chilling:</strong> Aluminum cools more quickly, ideal for real-world serving (<a href="https://www.foodandwine.com/beer-cans-history-8640701" target="_blank" rel="noopener noreferrer" class="underline">Food & Wine</a>).</li>
-          <li><strong>Portable & safe:</strong> Cans go anywhere — with no glass risks (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
-        </ul>
-      </div>
-    </div>
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-gray-900/90 rounded-2xl p-8 backdrop-blur-sm">
+            <h3 class="text-2xl font-bold">Sustainability</h3>
+            <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
+              <li><span class="font-semibold">Lower transport emissions:</span> lighter and stackable → fewer trucks per litre.</li>
+              <li><span class="font-semibold">Highest recycling efficiency:</span> aluminium is infinitely recyclable with strong EU/CH collection loops.</li>
+              <li><span class="font-semibold">Less breakage & waste:</span> cans don’t shatter and need less protective packaging.</li>
+              <li><span class="font-semibold">Compact storage:</span> reduced warehouse footprint and energy per unit.</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-900/90 rounded-2xl p-8 backdrop-blur-sm">
+            <h3 class="text-2xl font-bold">Quality & Freshness</h3>
+            <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
+              <li><span class="font-semibold">No light‑strike:</span> zero UV exposure prevents skunky off‑flavours.</li>
+              <li><span class="font-semibold">Lower oxygen pickup:</span> modern canning lines minimise dissolved O₂ for longer shelf life.</li>
+              <li><span class="font-semibold">Faster chilling:</span> aluminium cools quicker for perfect serving temperature.</li>
+              <li><span class="font-semibold">Portable & safe:</span> cans go anywhere — trails, events, poolside — with no glass risks.</li>
+            </ul>
+          </div>
+        </div>
 
         <div class="mt-10 text-center text-gray-300 max-w-3xl mx-auto">
-      <p>Bottles might look classic, but if you care about flavour stability and sustainability, cans win in every metric that truly matters.</p>
-    </div>
-  </div>
-</section>
+          <p>Bottles look classic. But if you care about flavour stability and footprint, cans win in every real‑world metric. That’s why our flagship range is canned on site within hours of packaging approval.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- PROCESS (SHORT TOUR) -->
     <section id="process" class="bg-white text-gray-900 py-20 md:py-28 px-6 md:px-10">
@@ -273,12 +279,29 @@
       }
 
       function initScroll(){
-        // Pin/transition hero subtly
+        // HERO subtle parallax + pin
         if(hero){
           const heroImg = hero.querySelector('div[style*="background-image"]');
           gsap.to(heroImg, {
             scale:1.1,
             scrollTrigger:{ trigger: hero, start:'top top', end:'+=80%', scrub:true, pin:true }
+          });
+        }
+
+        // WHY-CANS parallax (no pin) — background translates while content scrolls
+        const cans = document.querySelector('#why-cans .parallax-bg');
+        if(cans){
+          gsap.fromTo(cans, { yPercent:-5, scale:1.05 }, {
+            yPercent:-25,
+            scale:1.1,
+            ease:'none',
+            scrollTrigger:{ trigger:'#why-cans', start:'top bottom', end:'bottom top', scrub:true }
+          });
+        }
+
+        ScrollTrigger.refresh();
+        window.addEventListener('resize', ()=> ScrollTrigger.refresh());
+      }
           });
         }
         ScrollTrigger.refresh();
