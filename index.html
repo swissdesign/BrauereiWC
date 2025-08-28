@@ -89,12 +89,16 @@
   animation: marquee 30s linear infinite;
 }
 
-/* override when you don’t want scrolling */
 .marquee-track.no-scroll {
   animation: none;
-  justify-content: center;
-  gap: 4rem;
-}
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically within the 100px bar */
+  gap: 4rem;                 /* space between logos */
+  width: 100%;               /* ensure it spans the viewport */
+  height: 100%;              /* vertically center inside #bottom-marquee */
+    }
+        
         @keyframes marquee {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); }
