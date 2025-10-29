@@ -340,29 +340,88 @@ function initDiary() {
     }
   }
 
-  function createPostCard(post) {
+  const slugify = (value = "") =>
+    value
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
+
+  function createPostCard(post, variant = "grid") {
     const card = document.createElement("article");
-    card.className =
-      "border rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800";
-    card.innerHTML = `
-      <div class="h-48 w-full overflow-hidden">
-        <img src="${post.image}" alt="${post.name}" class="w-full h-full object-cover" loading="lazy" />
-      </div>
-      <div class="p-4">
-        <h3 class="font-playfair text-xl mb-1">${post.name}</h3>
-        <time class="block text-xs text-gray-500 mb-2" datetime="${post.date}">${new Date(
-          post.date
-        ).toLocaleDateString("de-CH")}</time>
-        <p class="text-sm">${post.caption}</p>
-      </div>
-    `;
+    const slug = post.slug || slugify(post.name || "");
+    const date = new Date(post.date);
+    const displayDate = isNaN(date)
+      ? post.date
+      : date.toLocaleDateString("de-CH", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+    const imageAlt = post.imageAlt || post.name || "Diary entry";
+    card.id = slug;
+    card.setAttribute("role", "listitem");
+
+    if (variant === "slider") {
+      card.className =
+        "flex-shrink-0 snap-center min-w-[85%] sm:min-w-[320px] md:min-w-[360px] " +
+        "overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur shadow-2xl " +
+        "transition-transform duration-300 hover:-translate-y-1 focus-within:-translate-y-1";
+      card.innerHTML = `
+        <a
+          href="blog.html#${slug}"
+          class="group flex h-full flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        >
+          <div class="relative h-48 w-full overflow-hidden">
+            <img
+              src="${post.image}"
+              alt="${imageAlt}"
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="flex flex-1 flex-col gap-3 p-5 text-white">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">${displayDate}</p>
+              <h3 class="mt-2 font-playfair text-2xl leading-snug">${post.name}</h3>
+            </div>
+            <p class="text-sm text-gray-100/90">
+              ${post.caption}
+            </p>
+            <span class="mt-auto text-sm font-semibold text-amber-300 transition-colors group-hover:text-amber-200">Read the diary →</span>
+          </div>
+        </a>
+      `;
+    } else {
+      card.className =
+        "overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-md transition-transform " +
+        "duration-300 hover:-translate-y-1 focus-within:-translate-y-1 dark:border-gray-700 dark:bg-gray-900";
+      card.innerHTML = `
+        <div class="h-52 w-full overflow-hidden">
+          <img
+            src="${post.image}"
+            alt="${imageAlt}"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="space-y-3 p-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600">${displayDate}</p>
+          <h3 class="font-playfair text-2xl leading-snug">${post.name}</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">${post.caption}</p>
+        </div>
+      `;
+    }
+
     return card;
   }
 
   fetchPosts().then((posts) => {
     if (latestContainer) {
-      posts.slice(0, 3).forEach((post) => {
-        latestContainer.appendChild(createPostCard(post));
+      posts.slice(0, 4).forEach((post) => {
+        latestContainer.appendChild(createPostCard(post, "slider"));
       });
     }
     if (blogContainer) {
