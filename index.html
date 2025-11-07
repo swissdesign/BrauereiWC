@@ -576,6 +576,27 @@
               class="journal-scroll-container"
             ></div>
             <div
+              class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 sm:px-4"
+              aria-hidden="true"
+            >
+              <button
+                id="posts-scroll-left"
+                type="button"
+                class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-xl text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Scroll beer diaries left"
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <button
+                id="posts-scroll-right"
+                type="button"
+                class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-xl text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Scroll beer diaries right"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <div
               class="pointer-events-none absolute inset-y-0 left-0 hidden w-16 bg-gradient-to-r from-black via-black/70 to-transparent sm:block"
             ></div>
             <div

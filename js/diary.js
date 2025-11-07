@@ -270,7 +270,13 @@
     if (!pageType) return;
 
     if (pageType === PAGE_TYPES.INDEX) {
-      loadJournalScroller("posts-container", pageType, { limit: 6 });
+      loadJournalScroller("posts-container", pageType, {
+        limit: 6,
+        scrollNav: {
+          leftId: "posts-scroll-left",
+          rightId: "posts-scroll-right",
+        },
+      });
       return;
     }
 
