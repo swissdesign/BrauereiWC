@@ -576,6 +576,46 @@
               class="journal-scroll-container"
             ></div>
             <div
+              class="pointer-events-none absolute inset-0 z-10 flex items-center justify-between px-2 sm:px-4"
+            >
+              <button
+                id="posts-scroll-left"
+                type="button"
+                class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Scroll beer diaries left"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4m7 7l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                id="posts-scroll-right"
+                type="button"
+                class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Scroll beer diaries right"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="h-6 w-6"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 12h16m-7-7l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            <div
               class="pointer-events-none absolute inset-y-0 left-0 hidden w-16 bg-gradient-to-r from-black via-black/70 to-transparent sm:block"
             ></div>
             <div

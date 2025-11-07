@@ -184,7 +184,16 @@
     }
     container.dataset.navBound = "true";
 
-    const scrollAmount = () => Math.max(container.clientWidth * 0.9, 320);
+    const scrollAmount = () => {
+      const card = container.querySelector(".journal-card");
+      if (!card) {
+        return Math.max(container.clientWidth * 0.9, 320);
+      }
+
+      const containerStyle = window.getComputedStyle(container);
+      const gap = parseFloat(containerStyle.gap) || 0;
+      return card.offsetWidth + gap;
+    };
 
     const updateDisabled = () => {
       if (left) {
@@ -270,7 +279,13 @@
     if (!pageType) return;
 
     if (pageType === PAGE_TYPES.INDEX) {
-      loadJournalScroller("posts-container", pageType, { limit: 6 });
+      loadJournalScroller("posts-container", pageType, {
+        limit: 6,
+        scrollNav: {
+          leftId: "posts-scroll-left",
+          rightId: "posts-scroll-right",
+        },
+      });
       return;
     }
 
