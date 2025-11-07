@@ -162,7 +162,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
-    animation-duration: 1ms;
+    animation: none;
   }
 }
 
