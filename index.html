@@ -8,6 +8,8 @@
     <!-- Tailwind CSS for modern, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <script src="./js/diary.js" defer></script>
+
     <!-- Google Fonts: 'Inter' for body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -309,9 +311,12 @@
                     </a>
                 </div>
                 <div class="relative">
-                    <div id="posts-container" role="list" aria-label="Latest diary entries" class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-6">
-                        <!-- Diary cards injected via app.js -->
-                    </div>
+                    <div
+                        id="posts-container"
+                        role="list"
+                        aria-label="Latest diary entries"
+                        class="journal-scroll-container"
+                    ></div>
                     <div class="pointer-events-none absolute inset-y-0 left-0 hidden w-16 bg-gradient-to-r from-black via-black/70 to-transparent sm:block"></div>
                     <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-16 bg-gradient-to-l from-black via-black/70 to-transparent sm:block"></div>
                 </div>

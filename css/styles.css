@@ -175,3 +175,65 @@ body {
 #hero-text-container {
   opacity: 0;
 }
+
+/* =========================================
+   Journal scroller + grid helpers
+   ========================================= */
+
+.journal-scroll-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(18rem, 21rem);
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.journal-scroll-container > * {
+  scroll-snap-align: start;
+}
+
+.journal-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.journal-scroll-container {
+  scrollbar-width: none;
+}
+
+.journal-scroll-fade {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .journal-scroll-fade {
+    display: block;
+  }
+}
+
+.journal-scroll-fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--background), rgba(245, 244, 240, 0));
+}
+
+.journal-scroll-fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--background), rgba(245, 244, 240, 0));
+}
+
+@media (prefers-color-scheme: dark) {
+  .journal-scroll-fade--left {
+    background: linear-gradient(to right, rgba(14, 13, 10, 0.95), rgba(14, 13, 10, 0));
+  }
+
+  .journal-scroll-fade--right {
+    background: linear-gradient(to left, rgba(14, 13, 10, 0.95), rgba(14, 13, 10, 0));
+  }
+}

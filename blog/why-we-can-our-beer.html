@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brauerei Andermatt – Cans, Bottles, and the Honest Choice</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/diary.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body class="font-inter bg-background text-text antialiased">
@@ -118,6 +119,51 @@
           </li>
         </ul>
       </div>
+
+      <section class="mt-16 border-t border-black/10 pt-12 dark:border-white/10">
+        <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <h2 id="more-from-journal" class="text-2xl font-playfair text-gray-900 dark:text-white">
+            More from the Journal
+          </h2>
+          <div class="hidden items-center gap-3 md:flex">
+            <button
+              id="journal-scroll-left"
+              type="button"
+              class="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-xl text-gray-800 transition hover:bg-evergreen hover:text-white disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/20 dark:text-white/80 dark:hover:bg-amber-300 dark:hover:text-black"
+              aria-label="Scroll journal entries left"
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+            <button
+              id="journal-scroll-right"
+              type="button"
+              class="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-xl text-gray-800 transition hover:bg-evergreen hover:text-white disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/20 dark:text-white/80 dark:hover:bg-amber-300 dark:hover:text-black"
+              aria-label="Scroll journal entries right"
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="journal-scroll-fade journal-scroll-fade--left" aria-hidden="true"></div>
+          <div class="journal-scroll-fade journal-scroll-fade--right" aria-hidden="true"></div>
+          <div
+            id="journal-scroll-container"
+            class="journal-scroll-container"
+            role="list"
+            aria-labelledby="more-from-journal"
+          ></div>
+        </div>
+        <div class="mt-6 text-right">
+          <a
+            href="../blog.html"
+            class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-evergreen transition hover:text-evergreen-dark dark:text-amber-300 dark:hover:text-amber-200"
+          >
+            View all entries
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
     </main>
     <button
       id="whisper-btn"
