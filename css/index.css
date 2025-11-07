@@ -1,0 +1,185 @@
+/**
+ * index.css — Landing page specific styles for Brauerei Andermatt.
+ * Tailwind handles most layout; these rules provide resilient,
+ * accessible refinements and component-level styling.
+ */
+
+:root {
+  /* Used by the JavaScript viewport height fix */
+  --vh: 1vh;
+}
+
+.site-body {
+  font-family: "Inter", sans-serif;
+  background-color: #000;
+  color: #f0f0f0;
+  overscroll-behavior: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.site-body.is-loading {
+  overflow: hidden;
+}
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  z-index: 10000;
+}
+
+.preloader__logo {
+  width: 300px;
+  height: 300px;
+}
+
+.preloader--hidden {
+  display: none;
+}
+
+.site-logo {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+}
+
+.site-logo svg {
+  width: 120px;
+  height: auto;
+  fill: #ffffff;
+}
+
+.side-nav {
+  pointer-events: auto;
+}
+
+.side-nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-nav__link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  border-radius: 8px 0 0 8px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.side-nav__link:hover,
+.side-nav__link:focus-visible {
+  background-color: #f0f0f0;
+}
+
+.hero-section__image {
+  background-image: url("../media/images/backgrounds/hero.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-section__overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.hero-section__logo svg {
+  display: block;
+  height: auto;
+}
+
+.bar-section {
+  background-image: url("../media/images/backgrounds/bar.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.partner-marquee {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem 0;
+  background-color: rgba(240, 240, 240, 0.1);
+  z-index: 100;
+}
+
+.partner-marquee__track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.partner-marquee__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-marquee__image {
+  height: 5rem;
+  width: auto;
+  margin: 0 5rem;
+}
+
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track--static {
+  animation: none;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-duration: 1ms;
+  }
+}
+
+.beer-carousel-container {
+  will-change: transform;
+}
+
+.h-screen-dynamic {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.journal-scroll-container {
+  scroll-behavior: smooth;
+}
+
+.hero-section__logo svg,
+.partner-marquee__image {
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.45));
+}
