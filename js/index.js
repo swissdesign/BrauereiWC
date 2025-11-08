@@ -87,29 +87,6 @@
     return timeline;
   }
 
-  function fadeOutPreloader(elements, onComplete) {
-    if (!gsapInstance) {
-      onComplete();
-      return;
-    }
-
-    const { preloader } = elements;
-    if (!preloader) {
-      onComplete();
-      return;
-    }
-
-    gsapInstance.to(preloader, {
-      duration: 1,
-      opacity: 0,
-      delay: 0.5,
-      onComplete: () => {
-        preloader.classList.add("preloader--hidden");
-        onComplete();
-      },
-    });
-  }
-
   function revealContent(elements) {
     const { body, mainContent } = elements;
 
@@ -117,15 +94,65 @@
       body.classList.remove("is-loading");
     }
 
-    if (gsapInstance && mainContent) {
-      gsapInstance.to(mainContent, {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power1.out",
-      });
-    } else if (mainContent) {
+    if (mainContent) {
+      mainContent.classList.remove("opacity-0");
       mainContent.style.opacity = "1";
+      mainContent.style.visibility = "visible";
     }
+  }
+
+  function playPreloaderExit(elements) {
+    const { preloader, mainContent, body } = elements;
+
+    return new Promise((resolve) => {
+      const complete = () => {
+        revealContent(elements);
+        resolve();
+      };
+
+      if (!preloader || !mainContent || !gsapInstance) {
+        if (preloader) {
+          preloader.classList.add("preloader--hidden");
+          preloader.style.opacity = "0";
+          preloader.style.visibility = "hidden";
+          preloader.style.pointerEvents = "none";
+        }
+
+        complete();
+        return;
+      }
+
+      const timeline = gsapInstance.timeline({
+        defaults: { duration: 0.5, ease: "power2.out" },
+        onComplete: complete,
+      });
+
+      timeline
+        .set(mainContent, { autoAlpha: 0 })
+        .to(preloader, {
+          autoAlpha: 0,
+          onStart: () => {
+            preloader.style.pointerEvents = "none";
+          },
+          onComplete: () => {
+            preloader.classList.add("preloader--hidden");
+            if (body) {
+              body.classList.remove("is-loading");
+            }
+          },
+        })
+        .to(
+          mainContent,
+          {
+            autoAlpha: 1,
+            clearProps: "opacity,visibility",
+            onStart: () => {
+              mainContent.classList.remove("opacity-0");
+            },
+          },
+          "<",
+        );
+    });
   }
 
   function bindSideNavigation(elements) {
@@ -262,14 +289,17 @@
   function startSite() {
     const elements = queryElements();
 
-    gsapInstance.normalizeScroll(true);
+    if (gsapInstance && typeof gsapInstance.normalizeScroll === "function") {
+      gsapInstance.normalizeScroll(true);
+    }
 
     if (!registerPlugins()) {
-      if (elements.mainContent) {
-        elements.mainContent.style.opacity = "1";
-      }
-      if (elements.body) {
-        elements.body.classList.remove("is-loading");
+      revealContent(elements);
+      if (elements.preloader) {
+        elements.preloader.classList.add("preloader--hidden");
+        elements.preloader.style.opacity = "0";
+        elements.preloader.style.visibility = "hidden";
+        elements.preloader.style.pointerEvents = "none";
       }
       return;
     }
@@ -288,12 +318,11 @@
       createPreloaderTimeline(elements.preloaderLogo);
     }
 
-    const finishSetup = () => {
-      revealContent(elements);
-      initScrollAnimations(elements);
+    const finalize = () => {
+      playPreloaderExit(elements).then(() => {
+        initScrollAnimations(elements);
+      });
     };
-
-    const finalize = () => fadeOutPreloader(elements, finishSetup);
 
     if (document.readyState === "complete") {
       finalize();
