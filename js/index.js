@@ -274,6 +274,13 @@
       return;
     }
 
+    if (
+      window.ScrollTrigger &&
+      typeof window.ScrollTrigger.normalizeScroll === "function"
+    ) {
+      window.ScrollTrigger.normalizeScroll(true);
+    }
+
     bindViewportUpdates();
     bindSideNavigation(elements);
 
