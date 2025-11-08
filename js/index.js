@@ -219,7 +219,6 @@
         scrub: 1,
         pin: true,
         invalidateOnRefresh: true,
-        anticipatePin: 1,
       },
     });
   }
@@ -262,6 +261,8 @@
 
   function startSite() {
     const elements = queryElements();
+
+    gsapInstance.normalizeScroll(true);
 
     if (!registerPlugins()) {
       if (elements.mainContent) {
