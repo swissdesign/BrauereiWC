@@ -219,7 +219,6 @@
         scrub: 1,
         pin: true,
         invalidateOnRefresh: true,
-        anticipatePin: 1,
       },
     });
   }
@@ -271,6 +270,13 @@
         elements.body.classList.remove("is-loading");
       }
       return;
+    }
+
+    if (
+      window.ScrollTrigger &&
+      typeof window.ScrollTrigger.normalizeScroll === "function"
+    ) {
+      window.ScrollTrigger.normalizeScroll(true);
     }
 
     bindViewportUpdates();
