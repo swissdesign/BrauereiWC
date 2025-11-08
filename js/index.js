@@ -262,6 +262,8 @@
   function startSite() {
     const elements = queryElements();
 
+    gsapInstance.normalizeScroll(true);
+
     if (!registerPlugins()) {
       if (elements.mainContent) {
         elements.mainContent.style.opacity = "1";
