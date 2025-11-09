@@ -123,17 +123,22 @@ function runInitializers() {
       preloader.classList.add('preloader--hidden');
     });
 
-    const handleTransitionEnd = () => {
-      preloader.removeEventListener('transitionend', handleTransitionEnd);
+    let preloaderHandled = false;
+    const handlePreloaderFinish = () => {
+      if (preloaderHandled) {
+        return;
+      }
+      preloaderHandled = true;
+      preloader.removeEventListener('transitionend', handlePreloaderFinish);
       if (preloader.parentElement) {
         preloader.parentElement.removeChild(preloader);
       }
     };
 
-    preloader.addEventListener('transitionend', handleTransitionEnd);
+    preloader.addEventListener('transitionend', handlePreloaderFinish);
 
     // Fallback in case the transition event does not fire
-    window.setTimeout(handleTransitionEnd, 800);
+    window.setTimeout(handlePreloaderFinish, 800);
   }
 }
 
