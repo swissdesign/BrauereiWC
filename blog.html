@@ -11,25 +11,29 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
     <script src="./js/diary.js" defer></script>
   </head>
-  <body data-base-path="." class="font-inter bg-background text-text antialiased">
+  <body data-base-path="." class="site-body is-loading font-inter antialiased">
     <div data-include="preloader"></div>
     <div data-include="header"></div>
 
-    <main class="max-w-6xl mx-auto py-16 px-4">
-      <div class="mb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-playfair text-evergreen">Brautagebuch</h1>
-        <p class="mt-4 text-lg text-gray-600">
+    <main class="blog-page" id="main-content">
+      <div class="blog-page__intro">
+        <span class="blog-page__eyebrow">Beer Diaries</span>
+        <h1 class="blog-page__title">Brautagebuch</h1>
+        <p class="blog-page__description">
           Geschichten aus unserer Brauerei in Andermatt – frisch gezapft und direkt aus dem Sudhaus erzählt.
         </p>
       </div>
 
-      <div id="blog-posts" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+      <section class="blog-page__grid" aria-labelledby="blog-heading">
+        <h2 id="blog-heading" class="sr-only">Alle Tagebuch-Einträge</h2>
+        <div id="blog-posts"></div>
+      </section>
     </main>
 
     <div data-include="contact-modal"></div>

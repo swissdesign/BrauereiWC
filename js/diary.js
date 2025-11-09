@@ -67,13 +67,10 @@
   }
 
   function createPostCard(post, pathPrefix = ".") {
-    const article = document.createElement("article");
-    article.className = "post-card group";
-    article.setAttribute("role", "listitem");
-
     const link = document.createElement("a");
-    link.className = "post-card__link";
+    link.className = "post-card group";
     link.href = buildPostUrl(post?.slug, pathPrefix);
+    link.setAttribute("role", "listitem");
     link.setAttribute("aria-label", post?.name || "Read entry");
 
     const imageWrapper = document.createElement("div");
@@ -103,12 +100,14 @@
 
     const cta = document.createElement("span");
     cta.className = "post-card__cta";
-    cta.textContent = "Read entry";
+    const ctaLabel = document.createElement("span");
+    ctaLabel.className = "post-card__cta-label";
+    ctaLabel.textContent = "Read entry";
     const arrow = document.createElement("span");
+    arrow.className = "post-card__cta-arrow";
     arrow.setAttribute("aria-hidden", "true");
     arrow.textContent = "→";
-    cta.appendChild(document.createTextNode(" "));
-    cta.appendChild(arrow);
+    cta.append(ctaLabel, arrow);
 
     body.append(date, title);
     if (caption.textContent.trim().length > 0) {
@@ -116,8 +115,8 @@
     }
     body.appendChild(cta);
 
-    article.append(imageWrapper, body, link);
-    return article;
+    link.append(imageWrapper, body);
+    return link;
   }
 
   function setupScroller(containerId, leftId, rightId) {

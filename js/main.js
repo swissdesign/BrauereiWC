@@ -111,6 +111,35 @@ function runInitializers() {
   initMobileNav();
   initLanguageToggle();
   initDynamicYear();
+
+  const body = document.body;
+  if (body && body.classList.contains('is-loading')) {
+    body.classList.remove('is-loading');
+  }
+
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    requestAnimationFrame(() => {
+      preloader.classList.add('preloader--hidden');
+    });
+
+    let preloaderHandled = false;
+    const handlePreloaderFinish = () => {
+      if (preloaderHandled) {
+        return;
+      }
+      preloaderHandled = true;
+      preloader.removeEventListener('transitionend', handlePreloaderFinish);
+      if (preloader.parentElement) {
+        preloader.parentElement.removeChild(preloader);
+      }
+    };
+
+    preloader.addEventListener('transitionend', handlePreloaderFinish);
+
+    // Fallback in case the transition event does not fire
+    window.setTimeout(handlePreloaderFinish, 800);
+  }
 }
 
 document.addEventListener('partials:loaded', runInitializers);
