@@ -30,7 +30,7 @@ function initMobileNav() {
 
     const iconPath = isActive
       ? 'M6 18L18 6M6 6l12 12'
-      : 'M4 6h16M4 12h16m-7 6h7';
+      : 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12';
     const icon = menuButton.querySelector('svg path');
     if (icon) {
       icon.setAttribute('d', iconPath);
