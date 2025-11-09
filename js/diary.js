@@ -1,198 +1,146 @@
 /* =========================================
-   diary.js — dynamic journal rendering
-   Mirrors DTA journal behaviour for BrauereiWC
+   diary.js — unified Beer Diary rendering
+   Populates index slider, blog grid, and related posts
    ========================================= */
 
 (function () {
-  const manifestCache = { data: null };
+  const manifestCache = new Map();
 
-  const PAGE_TYPES = {
-    INDEX: "index",
-    GRID: "grid",
-    POST: "post",
-  };
-
-  function detectPageType() {
-    if (document.getElementById("blog-posts")) {
-      return PAGE_TYPES.GRID;
+  function normalisePrefix(prefix = ".") {
+    if (!prefix || prefix === ".") {
+      return ".";
     }
-    if (document.getElementById("journal-scroll-container")) {
-      return PAGE_TYPES.POST;
-    }
-    if (document.getElementById("posts-container")) {
-      return PAGE_TYPES.INDEX;
-    }
-    return null;
+    return prefix.replace(/\/?$/, "");
   }
 
-  function manifestPathFor(pageType) {
-    switch (pageType) {
-      case PAGE_TYPES.POST:
-        return "../data/posts.json";
-      default:
-        return "./data/posts.json";
-    }
+  function normaliseSlug(slug = "") {
+    return slug.replace(/^\.?\/?/, "");
   }
 
-  async function getManifest(pageType) {
-    if (manifestCache.data) {
-      return manifestCache.data;
+  function buildPostUrl(slug, prefix = ".") {
+    const safeSlug = normaliseSlug(slug);
+    if (!safeSlug) {
+      return "#";
     }
-    const path = manifestPathFor(pageType);
-    try {
-      const response = await fetch(path, { cache: "no-cache" });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch manifest (${response.status})`);
-      }
-      const data = await response.json();
-      manifestCache.data = Array.isArray(data) ? data : [];
-    } catch (error) {
-      console.error("diary.js: unable to load posts.json", error);
-      manifestCache.data = [];
+    const safePrefix = normalisePrefix(prefix);
+    if (!safePrefix || safePrefix === ".") {
+      return `./${safeSlug}`;
     }
-    return manifestCache.data;
-  }
-
-  function entryHref(slug, pageType) {
-    if (!slug) return "#";
-    if (pageType === PAGE_TYPES.POST) {
-      const parts = slug.split("/");
-      return `./${parts[parts.length - 1]}`;
-    }
-    return `./${slug}`;
-  }
-
-  function entryImageSrc(imagePath, pageType) {
-    if (!imagePath) return "";
-    if (/^https?:/i.test(imagePath)) {
-      return imagePath;
-    }
-    if (pageType === PAGE_TYPES.POST) {
-      return `../${imagePath}`;
-    }
-    return `./${imagePath}`;
+    return `${safePrefix}/${safeSlug}`;
   }
 
   function formatDate(value) {
+    if (!value) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) {
       return value;
     }
-    return date.toLocaleDateString("en-US", {
+    return new Intl.DateTimeFormat("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
-    });
+    }).format(date);
   }
 
-  function createScrollerCard(entry, pageType) {
+  async function fetchPosts(path) {
+    if (manifestCache.has(path)) {
+      return manifestCache.get(path);
+    }
+
+    try {
+      const response = await fetch(path, { cache: "no-cache" });
+      if (!response.ok) {
+        throw new Error(`Failed to load posts manifest: ${response.status}`);
+      }
+      const data = await response.json();
+      const posts = Array.isArray(data)
+        ? [...data].sort((a, b) => new Date(b.date) - new Date(a.date))
+        : [];
+      manifestCache.set(path, posts);
+      return posts;
+    } catch (error) {
+      console.error("diary.js: unable to load posts.json", error);
+      const empty = [];
+      manifestCache.set(path, empty);
+      return empty;
+    }
+  }
+
+  function createPostCard(post, pathPrefix = ".") {
     const article = document.createElement("article");
-    article.className =
-      "journal-card group relative flex h-full w-full flex-col overflow-hidden rounded-3xl bg-white/5 ring-1 ring-white/10 transition duration-300 hover:-translate-y-1 hover:ring-amber-300/60";
+    article.className = "post-card group";
     article.setAttribute("role", "listitem");
 
     const link = document.createElement("a");
-    link.href = entryHref(entry.slug, pageType);
-    link.className = "absolute inset-0 z-10";
-    link.setAttribute("aria-label", entry.name || "Read entry");
+    link.className = "post-card__link";
+    link.href = buildPostUrl(post?.slug, pathPrefix);
+    link.setAttribute("aria-label", post?.name || "Read entry");
 
     const imageWrapper = document.createElement("div");
-    imageWrapper.className = "aspect-[4/3] overflow-hidden";
+    imageWrapper.className = "post-card__image-wrapper";
 
-    const img = document.createElement("img");
-    img.src = entryImageSrc(entry.image, pageType);
-    img.alt = entry.imageAlt || "";
-    img.loading = "lazy";
-    img.className =
-      "h-full w-full object-cover transition duration-500 group-hover:scale-105";
-    imageWrapper.appendChild(img);
-
-    const body = document.createElement("div");
-    body.className = "flex flex-col gap-3 px-6 py-5";
-
-    const date = document.createElement("p");
-    date.className = "text-xs uppercase tracking-[0.3em] text-amber-300/80";
-    date.textContent = formatDate(entry.date);
-
-    const title = document.createElement("h3");
-    title.className = "text-lg font-semibold text-white group-hover:text-amber-200";
-    title.textContent = entry.name || "Untitled";
-
-    const caption = document.createElement("p");
-    caption.className = "text-sm text-white/70";
-    caption.textContent = entry.caption || "";
-
-    body.append(date, title, caption);
-    article.append(link, imageWrapper, body);
-    return article;
-  }
-
-  function createGridCard(entry, pageType) {
-    const article = document.createElement("article");
-    article.className =
-      "journal-grid-card group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/10 transition duration-300 hover:-translate-y-1 hover:shadow-2xl dark:bg-white/5 dark:ring-white/10";
-    article.setAttribute("role", "listitem");
-
-    const link = document.createElement("a");
-    link.href = entryHref(entry.slug, pageType);
-    link.className = "absolute inset-0 z-10";
-    link.setAttribute("aria-label", entry.name || "Read entry");
-
-    const imageWrapper = document.createElement("div");
-    imageWrapper.className = "aspect-[4/3] overflow-hidden";
-
-    const img = document.createElement("img");
-    img.src = entryImageSrc(entry.image, pageType);
-    img.alt = entry.imageAlt || "";
-    img.loading = "lazy";
-    img.className =
-      "h-full w-full object-cover transition duration-500 group-hover:scale-105";
-    imageWrapper.appendChild(img);
+    const image = document.createElement("img");
+    image.className = "post-card__image";
+    image.src = post?.image || "";
+    image.alt = post?.imageAlt || "Brauerei Andermatt diary image";
+    image.loading = "lazy";
+    imageWrapper.appendChild(image);
 
     const body = document.createElement("div");
-    body.className = "flex flex-1 flex-col gap-3 px-6 py-6";
+    body.className = "post-card__body";
 
     const date = document.createElement("p");
-    date.className = "text-xs uppercase tracking-[0.3em] text-amber-600/80 dark:text-amber-300/80";
-    date.textContent = formatDate(entry.date);
+    date.className = "post-card__date";
+    date.textContent = formatDate(post?.date);
 
     const title = document.createElement("h3");
-    title.className = "text-xl font-semibold text-gray-900 transition group-hover:text-evergreen dark:text-white";
-    title.textContent = entry.name || "Untitled";
+    title.className = "post-card__title";
+    title.textContent = post?.name || "Untitled entry";
 
     const caption = document.createElement("p");
-    caption.className = "text-sm text-gray-600 dark:text-white/70";
-    caption.textContent = entry.caption || "";
+    caption.className = "post-card__caption";
+    caption.textContent = post?.caption || "";
 
     const cta = document.createElement("span");
-    cta.className = "mt-auto inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-evergreen transition group-hover:text-evergreen-dark dark:text-amber-300 dark:group-hover:text-amber-200";
+    cta.className = "post-card__cta";
     cta.textContent = "Read entry";
+    const arrow = document.createElement("span");
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+    cta.appendChild(document.createTextNode(" "));
+    cta.appendChild(arrow);
 
-    body.append(date, title, caption, cta);
-    article.append(link, imageWrapper, body);
+    body.append(date, title);
+    if (caption.textContent.trim().length > 0) {
+      body.appendChild(caption);
+    }
+    body.appendChild(cta);
+
+    article.append(imageWrapper, body, link);
     return article;
   }
 
-  function attachScrollButtons(container, options = {}) {
-    if (!container) return;
-    const left = options.leftId ? document.getElementById(options.leftId) : null;
-    const right = options.rightId ? document.getElementById(options.rightId) : null;
-    if (!left && !right) return;
-
-    if (container.dataset.navBound === "true") {
+  function setupScroller(containerId, leftId, rightId) {
+    const container = document.getElementById(containerId);
+    if (!container || container.dataset.scrollerInitialised === "true") {
       return;
     }
-    container.dataset.navBound = "true";
 
-    const scrollAmount = () => {
-      const card = container.querySelector(".journal-card");
-      if (!card) {
+    const left = leftId ? document.getElementById(leftId) : null;
+    const right = rightId ? document.getElementById(rightId) : null;
+
+    if (!left && !right) {
+      return;
+    }
+
+    const scrollDistance = () => {
+      const firstCard = container.querySelector(".post-card");
+      if (!firstCard) {
         return Math.max(container.clientWidth * 0.9, 320);
       }
-
-      const containerStyle = window.getComputedStyle(container);
-      const gap = parseFloat(containerStyle.gap) || 0;
-      return card.offsetWidth + gap;
+      const style = window.getComputedStyle(container);
+      const gap = parseFloat(style.columnGap || style.gap || "0");
+      return firstCard.offsetWidth + gap;
     };
 
     const updateDisabled = () => {
@@ -207,107 +155,73 @@
 
     if (left) {
       left.addEventListener("click", () => {
-        container.scrollBy({ left: -scrollAmount(), behavior: "smooth" });
+        container.scrollBy({ left: -scrollDistance(), behavior: "smooth" });
       });
     }
+
     if (right) {
       right.addEventListener("click", () => {
-        container.scrollBy({ left: scrollAmount(), behavior: "smooth" });
+        container.scrollBy({ left: scrollDistance(), behavior: "smooth" });
       });
     }
 
     container.addEventListener("scroll", updateDisabled, { passive: true });
     window.addEventListener("resize", updateDisabled);
     requestAnimationFrame(updateDisabled);
+
+    container.dataset.scrollerInitialised = "true";
   }
 
-  async function loadJournalScroller(containerId, pageType, options = {}) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const manifest = await getManifest(pageType);
-    if (!manifest.length) return;
-
-    const sorted = [...manifest]
-      .filter((entry) => entry && entry.slug)
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    const filtered = options.excludeSlug
-      ? sorted.filter((entry) => entry.slug !== options.excludeSlug)
-      : sorted;
-
-    const limit = options.limit ? Math.max(0, options.limit) : filtered.length;
-    const entries = filtered.slice(0, limit);
-
-    container.innerHTML = "";
-    container.setAttribute("role", "list");
-    container.setAttribute("aria-live", "polite");
-
-    entries.forEach((entry) => {
-      const card = createScrollerCard(entry, pageType);
-      container.appendChild(card);
-    });
-
-    if (options.scrollNav) {
-      attachScrollButtons(container, options.scrollNav);
+  function renderPosts(container, posts, pathPrefix = ".") {
+    if (!container || !Array.isArray(posts) || !posts.length) {
+      return;
     }
-  }
-
-  async function loadJournalGrid(containerId, pageType) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-
-    const manifest = await getManifest(pageType);
-    if (!manifest.length) return;
-
-    const sorted = [...manifest]
-      .filter((entry) => entry && entry.slug)
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     container.innerHTML = "";
-    container.setAttribute("role", "list");
+    if (!container.hasAttribute("role")) {
+      container.setAttribute("role", "list");
+    }
     container.setAttribute("aria-live", "polite");
 
-    sorted.forEach((entry) => {
-      const card = createGridCard(entry, pageType);
+    posts.forEach((post) => {
+      const card = createPostCard(post, pathPrefix);
       container.appendChild(card);
     });
   }
 
-  function initialise() {
-    const pageType = detectPageType();
-    if (!pageType) return;
+  document.addEventListener("DOMContentLoaded", async () => {
+    const indexContainer = document.getElementById("posts-container");
+    const blogGrid = document.getElementById("blog-posts");
+    const relatedContainer = document.getElementById("related-posts-container");
 
-    if (pageType === PAGE_TYPES.INDEX) {
-      loadJournalScroller("posts-container", pageType, {
-        limit: 6,
-        scrollNav: {
-          leftId: "posts-scroll-left",
-          rightId: "posts-scroll-right",
-        },
+    if (!indexContainer && !blogGrid && !relatedContainer) {
+      return;
+    }
+
+    if (indexContainer) {
+      const posts = await fetchPosts("./data/posts.json");
+      renderPosts(indexContainer, posts, ".");
+      setupScroller("posts-container", "posts-scroll-left", "posts-scroll-right");
+    }
+
+    if (blogGrid) {
+      const posts = await fetchPosts("./data/posts.json");
+      renderPosts(blogGrid, posts, ".");
+    }
+
+    if (relatedContainer) {
+      const posts = await fetchPosts("../data/posts.json");
+      const currentSlug = window.location.pathname.split("/").pop();
+      const relatedPosts = posts.filter((post) => {
+        const slugFile = normaliseSlug(post.slug || "").split("/").pop();
+        return slugFile && slugFile !== currentSlug;
       });
-      return;
+      renderPosts(relatedContainer, relatedPosts, "..");
+      setupScroller(
+        "related-posts-container",
+        "related-posts-scroll-left",
+        "related-posts-scroll-right"
+      );
     }
-
-    if (pageType === PAGE_TYPES.GRID) {
-      loadJournalGrid("blog-posts", pageType);
-      return;
-    }
-
-    if (pageType === PAGE_TYPES.POST) {
-      const path = window.location.pathname;
-      const fileName = path.split("/").filter(Boolean).pop() || "";
-      const currentSlug = `blog/${fileName}`;
-      loadJournalScroller("journal-scroll-container", pageType, {
-        excludeSlug: currentSlug,
-        scrollNav: {
-          leftId: "journal-scroll-left",
-          rightId: "journal-scroll-right",
-        },
-      });
-      return;
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", initialise);
+  });
 })();

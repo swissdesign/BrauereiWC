@@ -237,3 +237,183 @@ body {
     background: linear-gradient(to left, rgba(14, 13, 10, 0.95), rgba(14, 13, 10, 0));
   }
 }
+
+/* =========================================
+   Partner marquee + shared footer accents
+   ========================================= */
+
+.partner-marquee {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 1rem 0;
+}
+
+.partner-marquee__track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.partner-marquee__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-marquee__image {
+  height: 4rem;
+  width: auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+}
+
+.marquee-track {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track--static {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* =========================================
+   Post card component shared across pages
+   ========================================= */
+
+.post-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f9fafb;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(252, 211, 77, 0.6);
+  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
+}
+
+.post-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}
+
+.post-card__link:focus-visible {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 4px;
+}
+
+.post-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.post-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.post-card:hover .post-card__image {
+  transform: scale(1.05);
+}
+
+.post-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+}
+
+.post-card__date {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(252, 211, 77, 0.8);
+}
+
+.post-card__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.post-card__caption {
+  font-size: 0.95rem;
+  color: rgba(249, 250, 251, 0.75);
+}
+
+.post-card__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(252, 211, 77, 0.9);
+}
+
+.beer-diaries-section .post-card__cta span {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.beer-diaries-section .post-card:hover .post-card__cta span {
+  transform: translateX(4px);
+}
+
+/* Light theme overrides for the blog grid */
+#blog-posts .post-card {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  color: var(--text);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+#blog-posts .post-card:hover {
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.18);
+  border-color: rgba(0, 99, 65, 0.25);
+}
+
+#blog-posts .post-card__date {
+  color: rgba(217, 119, 6, 0.75);
+}
+
+#blog-posts .post-card__title {
+  color: #111827;
+}
+
+#blog-posts .post-card__caption {
+  color: #4b5563;
+}
+
+#blog-posts .post-card__cta {
+  color: var(--evergreen);
+}
+
+#blog-posts .post-card__cta span {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+#blog-posts .post-card:hover .post-card__cta span {
+  transform: translateX(4px);
+}

@@ -1,0 +1,28 @@
+<header
+  class="w-full sticky top-0 z-40 shadow-sm backdrop-blur-sm text-white bg-gradient-to-r from-[#006341]/95 via-[#72c8dc]/85 to-[#7f1e1c]/90"
+>
+  <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+    <a href="__BASE__/index.html" class="font-playfair text-2xl text-white">Brauerei Andermatt</a>
+    <nav class="hidden md:flex space-x-6 text-sm uppercase text-white/80">
+      <a href="__BASE__/index.html" class="hover:text-white">Home</a>
+      <a href="__BASE__/brewery.html" class="hover:text-white">Die&nbsp;Brauerei</a>
+      <a href="__BASE__/blog.html" class="font-bold hover:text-white">Diary</a>
+    </nav>
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden hidden flex-col gap-2 px-4 pb-4 bg-gradient-to-r from-[#006341]/95 via-[#72c8dc]/90 to-[#7f1e1c]/90">
+    <a href="__BASE__/index.html" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Home</a>
+    <a href="__BASE__/brewery.html" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Die&nbsp;Brauerei</a>
+    <a href="__BASE__/blog.html" class="block py-2 text-sm uppercase text-white font-semibold">Diary</a>
+  </div>
+</header>
