@@ -111,6 +111,30 @@ function runInitializers() {
   initMobileNav();
   initLanguageToggle();
   initDynamicYear();
+
+  const body = document.body;
+  if (body && body.classList.contains('is-loading')) {
+    body.classList.remove('is-loading');
+  }
+
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    requestAnimationFrame(() => {
+      preloader.classList.add('preloader--hidden');
+    });
+
+    const handleTransitionEnd = () => {
+      preloader.removeEventListener('transitionend', handleTransitionEnd);
+      if (preloader.parentElement) {
+        preloader.parentElement.removeChild(preloader);
+      }
+    };
+
+    preloader.addEventListener('transitionend', handleTransitionEnd);
+
+    // Fallback in case the transition event does not fire
+    window.setTimeout(handleTransitionEnd, 800);
+  }
 }
 
 document.addEventListener('partials:loaded', runInitializers);

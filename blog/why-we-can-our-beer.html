@@ -11,30 +11,33 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/index.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
     <script src="../js/diary.js" defer></script>
   </head>
-  <body data-base-path=".." class="font-inter bg-background text-text antialiased">
+  <body data-base-path=".." class="site-body is-loading font-inter antialiased">
     <div data-include="preloader"></div>
     <div data-include="header"></div>
 
-    <main class="max-w-6xl mx-auto py-16 px-4">
-      <a href="../blog.html" class="text-sm text-gray-500 hover:text-evergreen">&larr; Back to all entries</a>
+    <main class="blog-article" id="main-content">
+      <a href="../blog.html" class="blog-article__back-link">
+        <span aria-hidden="true">&larr;</span>
+        Back to all entries
+      </a>
 
-      <h1 class="text-4xl font-playfair mt-4 mb-2" id="post-title">Cans, Bottles, and the Honest Choice</h1>
-      <p class="text-base text-gray-600 mb-8" id="post-date">December 05, 2024</p>
+      <h1 class="blog-article__title" id="post-title">Cans, Bottles, and the Honest Choice</h1>
+      <p class="blog-article__meta" id="post-date">December 05, 2024</p>
 
       <img
         src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80"
         alt="Stacked aluminum beer cans in a brewery"
-        class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg mb-8"
+        class="blog-article__image"
         id="post-image"
       />
 
-      <div class="prose prose-lg max-w-none text-text space-y-6" id="post-content">
+      <div class="blog-article__content" id="post-content">
         <p>
           We get it. A heavy glass bottle feels premium. But when it comes to the beer and the Alps, cans are the undisputed
           champion. Here’s why:
