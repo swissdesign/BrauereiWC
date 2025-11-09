@@ -48,7 +48,7 @@
     }
 
     try {
-      const response = await fetch(path, { cache: "no-cache" });
+      const response = await fetch(path);
       if (!response.ok) {
         throw new Error(`Failed to load posts manifest: ${response.status}`);
       }
