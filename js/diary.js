@@ -5,6 +5,37 @@
 
 (function () {
   const manifestCache = new Map();
+  const renderTargets = [];
+  let lastTranslations = null;
+  let currentLanguage =
+    window.BrauereiI18n?.getLanguage?.() || window.BrauereiI18n?.DEFAULT_LANG || 'de';
+
+  function getLocale(lang = 'de') {
+    return lang === 'de' ? 'de-CH' : 'en-US';
+  }
+
+  function localise(value, lang = currentLanguage) {
+    if (value && typeof value === 'object') {
+      return (
+        value[lang] ??
+        value[window.BrauereiI18n?.DEFAULT_LANG || 'de'] ??
+        value.en ??
+        Object.values(value)[0] ??
+        ''
+      );
+    }
+    return value ?? '';
+  }
+
+  function t(key, fallback = '') {
+    if (lastTranslations && typeof window.BrauereiI18n?.resolveKey === 'function') {
+      const resolved = window.BrauereiI18n.resolveKey(key, lastTranslations);
+      if (typeof resolved === 'string') {
+        return resolved;
+      }
+    }
+    return fallback;
+  }
 
   function normalisePrefix(prefix = ".") {
     if (!prefix || prefix === ".") {
@@ -29,13 +60,13 @@
     return `${safePrefix}/${safeSlug}`;
   }
 
-  function formatDate(value) {
+  function formatDate(value, lang = currentLanguage) {
     if (!value) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) {
       return value;
     }
-    return new Intl.DateTimeFormat("en-US", {
+    return new Intl.DateTimeFormat(getLocale(lang), {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -66,12 +97,16 @@
     }
   }
 
-  function createPostCard(post, pathPrefix = ".") {
+  function createPostCard(post, pathPrefix = ".", lang = currentLanguage) {
     const link = document.createElement("a");
     link.className = "post-card group";
     link.href = buildPostUrl(post?.slug, pathPrefix);
     link.setAttribute("role", "listitem");
-    link.setAttribute("aria-label", post?.name || "Read entry");
+    const untitledFallback = lang === 'de' ? 'Ohne Titel' : 'Untitled entry';
+    const readFallback = lang === 'de' ? 'Eintrag lesen' : 'Read entry';
+    const titleText = localise(post?.name, lang) || t("blog.cards.untitled", untitledFallback);
+    const ariaLabel = `${titleText} — ${t("blog.cards.read", readFallback)}`;
+    link.setAttribute("aria-label", ariaLabel);
 
     const imageWrapper = document.createElement("div");
     imageWrapper.className = "post-card__image-wrapper";
@@ -79,7 +114,7 @@
     const image = document.createElement("img");
     image.className = "post-card__image";
     image.src = post?.image || "";
-    image.alt = post?.imageAlt || "Brauerei Andermatt diary image";
+    image.alt = localise(post?.imageAlt, lang) || "Brauerei Andermatt";
     image.loading = "lazy";
     imageWrapper.appendChild(image);
 
@@ -88,21 +123,21 @@
 
     const date = document.createElement("p");
     date.className = "post-card__date";
-    date.textContent = formatDate(post?.date);
+    date.textContent = formatDate(post?.date, lang);
 
     const title = document.createElement("h3");
     title.className = "post-card__title";
-    title.textContent = post?.name || "Untitled entry";
+    title.textContent = titleText;
 
     const caption = document.createElement("p");
     caption.className = "post-card__caption";
-    caption.textContent = post?.caption || "";
+    caption.textContent = localise(post?.caption, lang) || "";
 
     const cta = document.createElement("span");
     cta.className = "post-card__cta";
     const ctaLabel = document.createElement("span");
     ctaLabel.className = "post-card__cta-label";
-    ctaLabel.textContent = "Read entry";
+    ctaLabel.textContent = t("blog.cards.read", readFallback);
     const arrow = document.createElement("span");
     arrow.className = "post-card__cta-arrow";
     arrow.setAttribute("aria-hidden", "true");
@@ -171,7 +206,7 @@
     container.dataset.scrollerInitialised = "true";
   }
 
-  function renderPosts(container, posts, pathPrefix = ".") {
+  function renderPosts(container, posts, pathPrefix = ".", lang = currentLanguage) {
     if (!container || !Array.isArray(posts) || !posts.length) {
       return;
     }
@@ -183,8 +218,14 @@
     container.setAttribute("aria-live", "polite");
 
     posts.forEach((post) => {
-      const card = createPostCard(post, pathPrefix);
+      const card = createPostCard(post, pathPrefix, lang);
       container.appendChild(card);
+    });
+  }
+
+  function rerenderAll(lang = currentLanguage) {
+    renderTargets.forEach(({ container, posts, prefix }) => {
+      renderPosts(container, posts, prefix, lang);
     });
   }
 
@@ -199,13 +240,15 @@
 
     if (indexContainer) {
       const posts = await fetchPosts("./data/posts.json");
-      renderPosts(indexContainer, posts, ".");
+      renderTargets.push({ container: indexContainer, posts, prefix: "." });
+      renderPosts(indexContainer, posts, ".", currentLanguage);
       setupScroller("posts-container", "posts-scroll-left", "posts-scroll-right");
     }
 
     if (blogGrid) {
       const posts = await fetchPosts("./data/posts.json");
-      renderPosts(blogGrid, posts, ".");
+      renderTargets.push({ container: blogGrid, posts, prefix: "." });
+      renderPosts(blogGrid, posts, ".", currentLanguage);
     }
 
     if (relatedContainer) {
@@ -215,7 +258,8 @@
         const slugFile = normaliseSlug(post.slug || "").split("/").pop();
         return slugFile && slugFile !== currentSlug;
       });
-      renderPosts(relatedContainer, relatedPosts, "..");
+      renderTargets.push({ container: relatedContainer, posts: relatedPosts, prefix: ".." });
+      renderPosts(relatedContainer, relatedPosts, "..", currentLanguage);
       setupScroller(
         "related-posts-container",
         "related-posts-scroll-left",
@@ -223,4 +267,12 @@
       );
     }
   });
+
+  if (window.BrauereiI18n?.subscribe) {
+    window.BrauereiI18n.subscribe((lang, translations) => {
+      currentLanguage = lang || currentLanguage;
+      lastTranslations = translations || lastTranslations;
+      rerenderAll(currentLanguage);
+    });
+  }
 })();

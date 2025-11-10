@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "index": { "title": "Brauerei Andermatt" },
+    "brewery": { "title": "Brauerei Andermatt — Brauerei" },
+    "blog": { "title": "Brauerei Andermatt – Tagebuch" },
+    "post": {
+      "alpine": { "title": "Brauerei Andermatt – Alpine Wasser" },
+      "construction": { "title": "Brauerei Andermatt – Vom Baustellenstaub zu Kupferkesseln" },
+      "urserntal": { "title": "Brauerei Andermatt – Biergeschichte Urserntal" },
+      "cans": { "title": "Brauerei Andermatt – Dosen oder Flaschen?" }
+    }
+  },
+  "nav": {
+    "brand": "Brauerei Andermatt",
+    "home": "Startseite",
+    "beer": "Bier",
+    "brewery": "Die Brauerei",
+    "diary": "Tagebuch",
+    "contact": "Kontakt",
+    "language": {
+      "de": "DE",
+      "en": "EN",
+      "label": "Sprache"
+    },
+    "menu": {
+      "open": "Menü öffnen"
+    }
+  },
+  "index": {
+    "sideNav": {
+      "home": "Startseite",
+      "beer": "Bier",
+      "brewery": "Brauerei",
+      "diary": "Brautagebuch",
+      "contact": "Kontakt"
+    },
+    "hero": {
+      "welcome": "Eine lokale, unabhängige Mikrobrauerei<br />braut charakterstarke Biere in kleinen Chargen.<br />Verwurzelt in Andermatt, gebraut mit Leidenschaft.<br />Brauerei Andermatt"
+    },
+    "beer": {
+      "helles": {
+        "title": "Helles",
+        "description": "Das Schweizer Taschenmesser unter den Bieren: sauber, ausgewogen und immer freundlich. Sanfte Malzsüsse hält es elegant, die dezente Bittere lässt jedes Gespräch weiterfliessen. Perfekt, wenn ein Bier unkompliziert sein soll."
+      },
+      "ipa": {
+        "title": "IPA",
+        "description": "Für alle, die ihre Geschmacksnerven freundlich fordern wollen: Zitrus und Pinie, kräftige Hopfen und eine ehrliche Bittere, die wach hält. Ein moderner Klassiker, gebraut mit einer Extraportion Hopfen."
+      },
+      "weizen": {
+        "title": "Weizen",
+        "description": "Der Bananen-Nelken-Smoothie, der Bier geworden ist. Leicht, zugänglich und so seidig, dass er sich fast entschuldigt. Ideal, wenn du Lust auf Bier hast, ohne zu viel darüber nachzudenken."
+      },
+      "metrics": {
+        "colour": "Farbe",
+        "alcohol": "Alkohol",
+        "hoppiness": "Hopfen"
+      }
+    },
+    "brewery": {
+      "title": "Unsere Brauerei",
+      "description": "Im Herzen von Andermatt vereinen wir traditionelle Braukunst mit moderner Technik. Unsere Biere spiegeln die Klarheit der Alpen wider – handwerklich gebraut, regional verwurzelt und offen für neugierige Besucherinnen und Besucher.",
+      "cta": "Mehr erfahren"
+    },
+    "diary": {
+      "title": "Brautagebuch",
+      "cta": "Alle Einträge ansehen",
+      "listAria": "Aktuelle Tagebucheinträge",
+      "scrollLeft": "Tagebuch nach links blättern",
+      "scrollRight": "Tagebuch nach rechts blättern"
+    }
+  },
+  "brewery": {
+    "hero": {
+      "title": "Moderne Brauerei &amp; Technik<br />für hopfige Spitzenqualität",
+      "description": "Über 30 Jahre Hobbybrauen – eine Leidenschaft, die jetzt zur Brauerei geworden ist. Direkt in den Urner Alpen brauen wir charakterstarke Biere in kleinen Chargen."
+    },
+    "stats": {
+      "capacityTitle": "3HL",
+      "capacity": "Sudhauskapazität für präzise Kleinserien.",
+      "tanksTitle": "5 Tanks",
+      "tanks": "Eigene Gärtanks für Konstanz und Kontrolle.",
+      "canningTitle": "Dosen &amp; Etiketten",
+      "canning": "Vor Ort abgefüllt – bewahrt Frische und Aroma.",
+      "kegsTitle": "20 L Fässer",
+      "kegs": "Kompakte Eventfässer für Partner in der Region."
+    },
+    "cans": {
+      "title": "Warum Dosen? Ganz einfach.",
+      "intro": "Dosen sind das meist unterschätzte Upgrade im Craft-Bier. Sie sind besser für den Planeten und besser für dein Bier – Punkt.",
+      "sustainability": {
+        "title": "Nachhaltigkeit",
+        "point1": "<strong>Überlegene Kreislaufwirtschaft:</strong> Dosen enthalten 3×–20× mehr Recyclingmaterial als Flaschen – und profitieren von effizienten Rücknahmesystemen (<a href=\"https://www.craftbrewingbusiness.com/packaging-distribution/aluminum-cans-vs-glass-bottles-which-one-is-the-most-sustainable-beer-package/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Craft Brewing Business</a>).",
+        "point2": "<strong>Weniger Energie:</strong> Recyceltes Aluminium spart bis zu 95&nbsp;% Energie gegenüber Primärproduktion (<a href=\"https://en.wikipedia.org/wiki/Aluminium_recycling\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Wikipedia</a>).",
+        "point3": "<strong>Geringere Emissionen:</strong> Lebenszyklusstudien zeigen, dass Dosen pro Liter weniger CO₂ ausstossen als Glas (<a href=\"https://www.aluminum.org/aluminum-cans-leading-way-limit-carbon-impact\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Aluminum Association</a>).",
+        "point4": "<strong>Funktionierende Kreisläufe:</strong> In der Schweiz werden 90&nbsp;% aller Dosen recycelt (<a href=\"https://help.nomoq.com/cans-vs-bottles\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">NomOQ</a>)."
+      },
+      "quality": {
+        "title": "Qualität &amp; Frische",
+        "point1": "<strong>Kein Lichteinfall:</strong> Dosen blockieren UV vollständig – kein „skunky“ Fehlton (<a href=\"https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">The Drinks Project</a>).",
+        "point2": "<strong>Weniger Sauerstoff:</strong> Moderne Abfüllung reduziert O₂-Eintrag gegenüber Flaschen (<a href=\"https://www.cheer-glass-bottles.com/info/aluminum-cans-vs-glass-bottles-which-packagi-102853070.html\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Cheer Glass</a>).",
+        "point3": "<strong>Schneller kalt:</strong> Aluminium kühlt rascher – perfekt für den Alltag (<a href=\"https://www.foodandwine.com/beer-cans-history-8640701\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Food &amp; Wine</a>).",
+        "point4": "<strong>Überall dabei:</strong> Dosen dürfen hin, wo Glas verboten ist – ohne Bruchrisiko (<a href=\"https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">The Drinks Project</a>)."
+      },
+      "closer": "Flaschen wirken nostalgisch. Doch wer Geschmacksstabilität und Fussabdruck zählt, landet bei Dosen. Darum füllen wir unsere Kernbiere direkt vor Ort in Dosen oder Fässer – innerhalb weniger Stunden nach Freigabe."
+    },
+    "process": {
+      "title": "Vom Korn bis zur Dose",
+      "mash": {
+        "title": "Schroten &amp; Maischen",
+        "description": "Schweizer und ausgewählte EU-Malze, mehrstufige Rasten für Körper, Vergärbarkeit und stiltypische Profile."
+      },
+      "boil": {
+        "title": "Kochen &amp; Hopfen",
+        "description": "Saubere Bittere und ausdrucksstarke späte Gaben – von klassischen Edelhopfen bis zu neuen Aromasorten."
+      },
+      "package": {
+        "title": "Gären &amp; Abfüllen",
+        "description": "Temperaturgeführte Fermentation, danach Abfüllung in Dosen oder Fässer direkt vor Ort – Frische garantiert."
+      },
+      "consistency": {
+        "title": "Konstanz ohne Kompromisse",
+        "description": "Ein automatisiertes Sudhaus steuert Temperaturen, Zeiten und Transfers präzise. Die <em>Kunst</em> bleibt dort, wo sie hingehört: bei Rezept, Rohstoffen und Sensorik. So schmeckt jede Charge wie geplant."
+      },
+      "water": {
+        "title": "Andermatter Wasser: Leere Leinwand",
+        "description": "Unser Alpenwasser ist extrem weich – ideal zum Brauen. Wir mineralisieren gezielt (Ca, Mg, Cl⁻, SO₄²⁻) für jeden Stil. Statt hartes Wasser auszugleichen, bauen wir das perfekte Profil."
+      }
+    },
+    "visit": {
+      "title": "Besuche die Brauerei",
+      "description": "Dieses Formular bekommt gerade den letzten Schliff – bald kannst du hier direkt deinen Besuch anfragen.",
+      "form": {
+        "firstNameLabel": "Vorname",
+        "firstNamePlaceholder": "Vorname eingeben",
+        "lastNameLabel": "Nachname",
+        "lastNamePlaceholder": "Nachname eingeben",
+        "emailLabel": "E-Mail",
+        "emailPlaceholder": "E-Mail-Adresse",
+        "messageLabel": "Nachricht",
+        "messagePlaceholder": "Wann möchtest du vorbeikommen?",
+        "submit": "Anfrage senden"
+      }
+    }
+  },
+  "contact": {
+    "title": "Melde dich bei uns",
+    "description": "Dieses Formular hat noch etwas Anlaufzeit, aber bald kannst du uns hier direkt schreiben.",
+    "form": {
+      "firstNameLabel": "Vorname",
+      "firstNamePlaceholder": "Vorname eingeben",
+      "lastNameLabel": "Nachname",
+      "lastNamePlaceholder": "Nachname eingeben",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "E-Mail-Adresse",
+      "messageLabel": "Nachricht",
+      "messagePlaceholder": "Nachricht eingeben",
+      "submit": "Nachricht senden"
+    },
+    "footer": {
+      "legal": "&copy; <span id=\"year\">2025</span> Brauerei Andermatt. Alle Rechte vorbehalten.",
+      "address": "Gotthardstrasse 163, 6490 Andermatt | info@brauerei-andermatt.com"
+    },
+    "modal": {
+      "cta": "Flüstern",
+      "close": "Fenster schließen",
+      "title": "Kontakt aufnehmen",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name eingeben",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "E-Mail-Adresse",
+      "topicLabel": "Anliegen",
+      "topic": {
+        "b2b": "B2B",
+        "kegs": "Fässer",
+        "general": "Allgemeine Anfrage",
+        "events": "Events",
+        "other": "Sonstiges"
+      },
+      "messageLabel": "Nachricht",
+      "messagePlaceholder": "Nachricht eingeben",
+      "honeypot": "Bitte leer lassen",
+      "submit": "Senden",
+      "success": "Vielen Dank! Wir melden uns schnellstmöglich."
+    }
+  },
+  "blog": {
+    "intro": {
+      "eyebrow": "Beer Diaries",
+      "title": "Brautagebuch",
+      "description": "Geschichten aus unserer Brauerei in Andermatt – frisch gezapft und direkt aus dem Sudhaus erzählt.",
+      "gridTitle": "Alle Tagebuch-Einträge"
+    },
+    "related": {
+      "title": "Weitere Beiträge",
+      "cta": "Alle Einträge ansehen",
+      "listAria": "Weitere Tagebucheinträge",
+      "scrollLeft": "Weitere Beiträge nach links blättern",
+      "scrollRight": "Weitere Beiträge nach rechts blättern"
+    },
+    "post": {
+      "back": "Zurück zu allen Einträgen",
+      "alpine": { "imageAlt": "Historische Aufnahme eines Schweizer Bergdorfs" },
+      "construction": { "imageAlt": "Brauerteam prüft glänzende Edelstahltanks" },
+      "urserntal": { "imageAlt": "Historische Aufnahme eines Schweizer Bergdorfs" },
+      "cans": { "imageAlt": "Gestapelte Aluminiumdosen in der Brauerei" }
+    },
+    "cards": {
+      "read": "Eintrag lesen",
+      "untitled": "Ohne Titel"
+    }
+  },
+  "marquee": {
+    "ariaLabel": "Vertriebspartner",
+    "logos": {
+      "vinoAlt": "Vinothek Andermatt",
+      "barenAlt": "Hotel Restaurant Bären",
+      "ppcAlt": "Pinte – Pub and Club"
+    }
+  }
+}

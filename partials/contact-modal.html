@@ -1,8 +1,9 @@
 <button
   id="whisper-btn"
   class="fixed bottom-4 right-4 bg-brick-red text-white p-4 rounded-full shadow-lg z-40"
+  data-lang-key="contact.modal.cta"
 >
-  Whisper
+  Flüstern
 </button>
 <div
   id="contact-modal"
@@ -11,66 +12,96 @@
   <div class="bg-background p-8 rounded-lg shadow-xl w-full max-w-lg relative">
     <button
       class="absolute top-2 right-2 text-2xl leading-none hover:text-brick-red close-btn"
+      aria-label="Fenster schließen"
+      data-lang-key="contact.modal.close"
+      data-lang-attr="aria-label"
     >
       ×
     </button>
-    <h3 class="text-2xl font-playfair mb-4">Kontakt aufnehmen</h3>
+    <h3 class="text-2xl font-playfair mb-4" data-lang-key="contact.modal.title">Kontakt aufnehmen</h3>
     <form id="contact-form" class="space-y-4">
       <div>
-        <label for="name" class="block text-sm mb-1">Name</label>
+        <label
+          for="name"
+          class="block text-sm mb-1"
+          data-lang-key="contact.modal.nameLabel"
+          >Name</label
+        >
         <input
           type="text"
           id="name"
           name="name"
           class="w-full border border-gray-300 p-2 rounded"
+          data-lang-key="contact.modal.namePlaceholder"
+          data-lang-attr="placeholder"
           required
         />
       </div>
       <div>
-        <label for="email" class="block text-sm mb-1">Email</label>
+        <label
+          for="email"
+          class="block text-sm mb-1"
+          data-lang-key="contact.modal.emailLabel"
+          >E-Mail</label
+        >
         <input
           type="email"
           id="email"
           name="email"
           class="w-full border border-gray-300 p-2 rounded"
+          data-lang-key="contact.modal.emailPlaceholder"
+          data-lang-attr="placeholder"
           required
         />
       </div>
       <div>
-        <label for="topic" class="block text-sm mb-1">Anliegen</label>
+        <label
+          for="topic"
+          class="block text-sm mb-1"
+          data-lang-key="contact.modal.topicLabel"
+          >Anliegen</label
+        >
         <select
           id="topic"
           name="topic"
           class="w-full border border-gray-300 p-2 rounded"
         >
-          <option value="b2b">B2B</option>
-          <option value="kegs">Fässer</option>
-          <option value="general">Allgemeine Anfrage</option>
-          <option value="events">Events</option>
-          <option value="other">Sonstiges</option>
+          <option value="b2b" data-lang-key="contact.modal.topic.b2b">B2B</option>
+          <option value="kegs" data-lang-key="contact.modal.topic.kegs">Fässer</option>
+          <option value="general" data-lang-key="contact.modal.topic.general">Allgemeine Anfrage</option>
+          <option value="events" data-lang-key="contact.modal.topic.events">Events</option>
+          <option value="other" data-lang-key="contact.modal.topic.other">Sonstiges</option>
         </select>
       </div>
       <div>
-        <label for="message" class="block text-sm mb-1">Nachricht</label>
+        <label
+          for="message"
+          class="block text-sm mb-1"
+          data-lang-key="contact.modal.messageLabel"
+          >Nachricht</label
+        >
         <textarea
           id="message"
           name="message"
           rows="4"
           class="w-full border border-gray-300 p-2 rounded"
+          data-lang-key="contact.modal.messagePlaceholder"
+          data-lang-attr="placeholder"
           required
         ></textarea>
       </div>
       <div class="hidden">
-        <label for="honeypot">Leave this empty</label>
+        <label for="honeypot" data-lang-key="contact.modal.honeypot">Bitte leer lassen</label>
         <input type="text" id="honeypot" name="honeypot" />
       </div>
       <button
         type="submit"
         class="bg-evergreen text-white px-4 py-2 rounded hover:bg-evergreen-dark"
+        data-lang-key="contact.modal.submit"
       >
         Senden
       </button>
-      <p id="form-success" class="hidden mt-4 text-evergreen">
+      <p id="form-success" class="hidden mt-4 text-evergreen" data-lang-key="contact.modal.success">
         Vielen Dank! Wir melden uns schnellstmöglich.
       </p>
     </form>

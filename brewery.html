@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brauerei Andermatt — Brewery</title>
+  <title data-lang-key="meta.brewery.title">Brauerei Andermatt — Brauerei</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <script src="./js/i18n.js" defer></script>
 
   <style>
     body { 
@@ -157,11 +159,11 @@
 
   <!-- Side Navigation -->
   <div id="side-nav" class="fixed top-1/2 right-0 -translate-y-1/2 z-50 flex flex-col gap-2">
-    <a href="index.html" class="side-nav-button">Home</a>
-    <a href="index.html#bar-section" class="side-nav-button">Bier</a>
-    <a href="#brewery-hero" class="side-nav-button">Brauerei</a>
-    <a href="index.html#beer-diaries-section" class="side-nav-button">Brewers Diary</a>
-    <a href="#contact" class="side-nav-button">Contact</a>
+    <a href="index.html" class="side-nav-button" data-lang-key="index.sideNav.home">Startseite</a>
+    <a href="index.html#bar-section" class="side-nav-button" data-lang-key="index.sideNav.beer">Bier</a>
+    <a href="#brewery-hero" class="side-nav-button" data-lang-key="index.sideNav.brewery">Brauerei</a>
+    <a href="index.html#beer-diaries-section" class="side-nav-button" data-lang-key="index.sideNav.diary">Brautagebuch</a>
+    <a href="#contact" class="side-nav-button" data-lang-key="index.sideNav.contact">Kontakt</a>
   </div>
 
   <main id="main-content" class="opacity-0">
@@ -170,9 +172,17 @@
       <div class="parallax-bg" style="background-image:url('media/images/backgrounds/brewerybg.webp');"></div>
       <div class="parallax-content h-full max-w-5xl mx-auto flex items-center px-6">
         <div>
-          <h1 class="text-4xl md:text-6xl font-bold">Modern Brewery & Techniques<br>to deliver Hoppy Goodness</h1>
-          <p class="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl">
-            30 years of home brewing — a lifelong passion. Now fulfilling a dream to bring you only the best craft beers, brewed in the heart of the Urner Alps.
+          <h1
+            class="text-4xl md:text-6xl font-bold"
+            data-lang-key="brewery.hero.title"
+          >
+            Moderne Brauerei & Technik<br />für hopfige Spitzenqualität
+          </h1>
+          <p
+            class="mt-6 text-lg md:text-xl text-gray-200 max-w-2xl"
+            data-lang-key="brewery.hero.description"
+          >
+            Über 30 Jahre Hobbybrauen – eine Leidenschaft, die jetzt zur Brauerei geworden ist. Direkt in den Urner Alpen brauen wir charakterstarke Biere in kleinen Chargen.
           </p>
         </div>
       </div>
@@ -183,20 +193,20 @@
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-3xl font-bold">3HL</h3>
-            <p class="mt-2 text-gray-600">Brew house capacity for precise, small-batch quality.</p>
+            <h3 class="text-3xl font-bold" data-lang-key="brewery.stats.capacityTitle">3HL</h3>
+            <p class="mt-2 text-gray-600" data-lang-key="brewery.stats.capacity">Sudhauskapazität für präzise Kleinserien.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-3xl font-bold">5 Tanks</h3>
-            <p class="mt-2 text-gray-600">Dedicated fermentation for consistency and control.</p>
+            <h3 class="text-3xl font-bold" data-lang-key="brewery.stats.tanksTitle">5 Tanks</h3>
+            <p class="mt-2 text-gray-600" data-lang-key="brewery.stats.tanks">Eigene Gärtanks für Konstanz und Kontrolle.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-3xl font-bold">Canning & Labeling</h3>
-            <p class="mt-2 text-gray-600">On-site packaging to lock in freshness and flavor.</p>
+            <h3 class="text-3xl font-bold" data-lang-key="brewery.stats.canningTitle">Dosen & Etiketten</h3>
+            <p class="mt-2 text-gray-600" data-lang-key="brewery.stats.canning">Vor Ort abgefüllt – bewahrt Frische und Aroma.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-3xl font-bold">20 L Kegs</h3>
-            <p class="mt-2 text-gray-600">Compact, event-friendly kegs for local partners.</p>
+            <h3 class="text-3xl font-bold" data-lang-key="brewery.stats.kegsTitle">20 L Fässer</h3>
+            <p class="mt-2 text-gray-600" data-lang-key="brewery.stats.kegs">Kompakte Eventfässer für Partner in der Region.</p>
           </div>
         </div>
       </div>
@@ -207,33 +217,33 @@
       <div class="parallax-bg" style="background-image:url('media/images/backgrounds/brewerybg.webp');"></div>
       <div class="parallax-content max-w-6xl mx-auto">
         <div class="text-center max-w-3xl mx-auto">
-          <h2 class="text-3xl md:text-5xl font-bold">Why Cans? A No‑Brainer.</h2>
-          <p class="mt-6 text-lg text-gray-300">Cans are the most misunderstood upgrade in craft beer. They are better for the planet and better for your beer — period.</p>
+          <h2 class="text-3xl md:text-5xl font-bold" data-lang-key="brewery.cans.title">Warum Dosen? Ganz einfach.</h2>
+          <p class="mt-6 text-lg text-gray-300" data-lang-key="brewery.cans.intro">Dosen sind das meist unterschätzte Upgrade im Craft-Bier. Sie sind besser für den Planeten und besser für dein Bier – Punkt.</p>
         </div>
         <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Sustainability -->
           <div class="bg-gray-900/90 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 class="text-2xl font-bold">Sustainability</h3>
+            <h3 class="text-2xl font-bold" data-lang-key="brewery.cans.sustainability.title">Nachhaltigkeit</h3>
             <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
-              <li><strong>Superior recyclability:</strong> Cans contain 3×–20× more recycled content than bottles, with highly efficient recovery systems (<a href="https://www.craftbrewingbusiness.com/packaging-distribution/aluminum-cans-vs-glass-bottles-which-one-is-the-most-sustainable-beer-package/" target="_blank" rel="noopener noreferrer" class="underline">Craft Brewing Business</a>).</li>
-              <li><strong>Low energy use:</strong> Recycling aluminum saves up to 95 % energy compared to producing new metal (<a href="https://en.wikipedia.org/wiki/Aluminium_recycling" target="_blank" rel="noopener noreferrer" class="underline">Wikipedia</a>).</li>
-              <li><strong>Lower carbon footprint:</strong> Life-cycle studies show cans emit less CO₂ per litre than glass (<a href="https://www.aluminum.org/aluminum-cans-leading-way-limit-carbon-impact" target="_blank" rel="noopener noreferrer" class="underline">Aluminum Association</a>).</li>
-              <li><strong>Proven circularity:</strong> In Switzerland, 90 % of cans are recycled (<a href="https://help.nomoq.com/cans-vs-bottles" target="_blank" rel="noopener noreferrer" class="underline">NomOQ</a>).</li>
+              <li data-lang-key="brewery.cans.sustainability.point1"><strong>Überlegene Kreislaufwirtschaft:</strong> Dosen enthalten 3×–20× mehr Recyclingmaterial als Flaschen – und profitieren von effizienten Rücknahmesystemen (<a href="https://www.craftbrewingbusiness.com/packaging-distribution/aluminum-cans-vs-glass-bottles-which-one-is-the-most-sustainable-beer-package/" target="_blank" rel="noopener noreferrer" class="underline">Craft Brewing Business</a>).</li>
+              <li data-lang-key="brewery.cans.sustainability.point2"><strong>Weniger Energie:</strong> Recyceltes Aluminium spart bis zu 95&nbsp;% Energie gegenüber Primärproduktion (<a href="https://en.wikipedia.org/wiki/Aluminium_recycling" target="_blank" rel="noopener noreferrer" class="underline">Wikipedia</a>).</li>
+              <li data-lang-key="brewery.cans.sustainability.point3"><strong>Geringere Emissionen:</strong> Lebenszyklusstudien zeigen, dass Dosen pro Liter weniger CO₂ ausstossen als Glas (<a href="https://www.aluminum.org/aluminum-cans-leading-way-limit-carbon-impact" target="_blank" rel="noopener noreferrer" class="underline">Aluminum Association</a>).</li>
+              <li data-lang-key="brewery.cans.sustainability.point4"><strong>Funktionierende Kreisläufe:</strong> In der Schweiz werden 90&nbsp;% aller Dosen recycelt (<a href="https://help.nomoq.com/cans-vs-bottles" target="_blank" rel="noopener noreferrer" class="underline">NomOQ</a>).</li>
             </ul>
           </div>
           <!-- Quality & Freshness -->
           <div class="bg-gray-900/90 rounded-2xl p-8 backdrop-blur-sm">
-            <h3 class="text-2xl font-bold">Quality & Freshness</h3>
+            <h3 class="text-2xl font-bold" data-lang-key="brewery.cans.quality.title">Qualität & Frische</h3>
             <ul class="mt-4 space-y-3 text-gray-300 list-disc list-inside">
-              <li><strong>No light-strike:</strong> Cans fully block UV, preventing skunky off-flavours (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
-              <li><strong>Less oxygen pickup:</strong> Modern canning reduces O₂ ingress compared to bottles (<a href="https://www.cheer-glass-bottles.com/info/aluminum-cans-vs-glass-bottles-which-packagi-102853070.html" target="_blank" rel="noopener noreferrer" class="underline">Cheer Glass</a>).</li>
-              <li><strong>Faster chilling:</strong> Aluminum cools more quickly, ideal for real-world serving (<a href="https://www.foodandwine.com/beer-cans-history-8640701" target="_blank" rel="noopener noreferrer" class="underline">Food & Wine</a>).</li>
-              <li><strong>Portable & safe:</strong> Cans go anywhere — with no glass risks (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
+              <li data-lang-key="brewery.cans.quality.point1"><strong>Kein Lichteinfall:</strong> Dosen blockieren UV vollständig – kein „skunky“ Fehlton (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
+              <li data-lang-key="brewery.cans.quality.point2"><strong>Weniger Sauerstoff:</strong> Moderne Abfüllung reduziert O₂-Eintrag gegenüber Flaschen (<a href="https://www.cheer-glass-bottles.com/info/aluminum-cans-vs-glass-bottles-which-packagi-102853070.html" target="_blank" rel="noopener noreferrer" class="underline">Cheer Glass</a>).</li>
+              <li data-lang-key="brewery.cans.quality.point3"><strong>Schneller kalt:</strong> Aluminium kühlt rascher – perfekt für den Alltag (<a href="https://www.foodandwine.com/beer-cans-history-8640701" target="_blank" rel="noopener noreferrer" class="underline">Food & Wine</a>).</li>
+              <li data-lang-key="brewery.cans.quality.point4"><strong>Überall dabei:</strong> Dosen dürfen hin, wo Glas verboten ist – ohne Bruchrisiko (<a href="https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/" target="_blank" rel="noopener noreferrer" class="underline">The Drinks Project</a>).</li>
             </ul>
           </div>
         </div>
         <div class="mt-10 text-center text-gray-300 max-w-3xl mx-auto">
-          <p>Bottles may look classic. But if you care about flavour stability and footprint, cans win in every real‑world metric. That’s why our flagship range is canned or kegd on site within hours of packaging approval.</p>
+          <p data-lang-key="brewery.cans.closer">Flaschen wirken nostalgisch. Doch wer Geschmacksstabilität und Fussabdruck zählt, landet bei Dosen. Darum füllen wir unsere Kernbiere direkt vor Ort in Dosen oder Fässer – innerhalb weniger Stunden nach Freigabe.</p>
         </div>
       </div>
     </section>
@@ -241,29 +251,29 @@
     <!-- PROCESS (SHORT TOUR) -->
     <section id="process" class="bg-white text-gray-900 py-20 md:py-28 px-6 md:px-10">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl md:text-5xl font-bold text-center">From Grain to Can</h2>
+        <h2 class="text-3xl md:text-5xl font-bold text-center" data-lang-key="brewery.process.title">Vom Korn bis zur Dose</h2>
         <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-xl font-bold">Malt & Mash</h3>
-            <p class="mt-3 text-gray-700">Swiss and select EU malts, stepped temperature rests for body, fermentability, and style‑true profiles.</p>
+            <h3 class="text-xl font-bold" data-lang-key="brewery.process.mash.title">Schroten & Maischen</h3>
+            <p class="mt-3 text-gray-700" data-lang-key="brewery.process.mash.description">Schweizer und ausgewählte EU-Malze, mehrstufige Rasten für Körper, Vergärbarkeit und stiltypische Profile.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-xl font-bold">Boil & Hop</h3>
-            <p class="mt-3 text-gray-700">Clean bittering and expressive late hops — from classic noble to new‑school aromatics.</p>
+            <h3 class="text-xl font-bold" data-lang-key="brewery.process.boil.title">Kochen & Hopfen</h3>
+            <p class="mt-3 text-gray-700" data-lang-key="brewery.process.boil.description">Saubere Bittere und ausdrucksstarke späte Gaben – von klassischen Edelhopfen bis zu neuen Aromasorten.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-xl font-bold">Ferment & Can</h3>
-            <p class="mt-3 text-gray-700">Temperature‑controlled fermentation, then on‑site canning/kegging to lock in peak freshness.</p>
+            <h3 class="text-xl font-bold" data-lang-key="brewery.process.package.title">Gären & Abfüllen</h3>
+            <p class="mt-3 text-gray-700" data-lang-key="brewery.process.package.description">Temperaturgeführte Fermentation, danach Abfüllung in Dosen oder Fässer direkt vor Ort – Frische garantiert.</p>
           </div>
         </div>
         <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-xl font-bold">Consistency without Compromise</h3>
-            <p class="mt-3 text-gray-700">A fully automated brewhouse handles precision steps repeatably — temperatures, timings, transfers. The <em>art</em> stays where it belongs: in recipe design, ingredient selection, and sensory calibration. Automation reduces variance so each batch tastes exactly as intended.</p>
+            <h3 class="text-xl font-bold" data-lang-key="brewery.process.consistency.title">Konstanz ohne Kompromisse</h3>
+            <p class="mt-3 text-gray-700" data-lang-key="brewery.process.consistency.description">Ein automatisiertes Sudhaus steuert Temperaturen, Zeiten und Transfers präzise. Die <em>Kunst</em> bleibt dort, wo sie hingehört: bei Rezept, Rohstoffen und Sensorik. So schmeckt jede Charge wie geplant.</p>
           </div>
           <div class="bg-gray-100 rounded-2xl p-8 shadow">
-            <h3 class="text-xl font-bold">Andermatt Water: A Blank Canvas</h3>
-            <p class="mt-3 text-gray-700">Our alpine water is remarkably soft — essentially “empty.” That’s ideal for brewing because we can mineralise with precision (Ca, Mg, Cl⁻, SO₄²⁻) to match each beer style. Instead of fighting hard water (too much calcium or sodium), we build the profile we want, every time.</p>
+            <h3 class="text-xl font-bold" data-lang-key="brewery.process.water.title">Andermatter Wasser: Leere Leinwand</h3>
+            <p class="mt-3 text-gray-700" data-lang-key="brewery.process.water.description">Unser Alpenwasser ist extrem weich – ideal zum Brauen. Wir mineralisieren gezielt (Ca, Mg, Cl⁻, SO₄²⁻) für jeden Stil. Statt hartes Wasser auszugleichen, bauen wir das perfekte Profil.</p>
           </div>
         </div>
       </div>
@@ -272,47 +282,53 @@
     <!-- CONTACT / VISIT -->
     <section id="contact" class="bg-gray-900 text-white py-16 px-6 md:px-10">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">Visit the Brewery</h2>
-        <p class="text-lg text-gray-300 mb-8">this section is apparently experiancing some trouble. will be working soon thoough.</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4" data-lang-key="brewery.visit.title">Visit the Brewery</h2>
+        <p class="text-lg text-gray-300 mb-8" data-lang-key="brewery.visit.description">this section is apparently experiancing some trouble. will be working soon thoough.</p>
         <form action="#" method="POST" class="mt-6 text-left max-w-xl mx-auto">
           <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
-              <label for="first-name" class="block text-sm font-medium text-gray-300">First name</label>
-              <input type="text" id="first-name" name="first-name" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" />
+              <label for="first-name" class="block text-sm font-medium text-gray-300" data-lang-key="brewery.visit.form.firstNameLabel">First name</label>
+              <input type="text" id="first-name" name="first-name" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" data-lang-key="brewery.visit.form.firstNamePlaceholder" data-lang-attr="placeholder" placeholder="First name" />
             </div>
             <div>
-              <label for="last-name" class="block text-sm font-medium text-gray-300">Last name</label>
-              <input type="text" id="last-name" name="last-name" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" />
+              <label for="last-name" class="block text-sm font-medium text-gray-300" data-lang-key="brewery.visit.form.lastNameLabel">Last name</label>
+              <input type="text" id="last-name" name="last-name" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" data-lang-key="brewery.visit.form.lastNamePlaceholder" data-lang-attr="placeholder" placeholder="Last name" />
             </div>
             <div class="sm:col-span-2">
-              <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
-              <input type="email" id="email" name="email" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" />
+              <label for="email" class="block text-sm font-medium text-gray-300" data-lang-key="brewery.visit.form.emailLabel">Email</label>
+              <input type="email" id="email" name="email" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" data-lang-key="brewery.visit.form.emailPlaceholder" data-lang-attr="placeholder" placeholder="Email" />
             </div>
             <div class="sm:col-span-2">
-              <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
-              <textarea id="message" name="message" rows="4" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500"></textarea>
+              <label for="message" class="block text-sm font-medium text-gray-300" data-lang-key="brewery.visit.form.messageLabel">Message</label>
+              <textarea id="message" name="message" rows="4" class="mt-1 py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500" data-lang-key="brewery.visit.form.messagePlaceholder" data-lang-attr="placeholder" placeholder="Message"></textarea>
             </div>
             <div class="sm:col-span-2">
-              <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-yellow-500 transition-colors">Send</button>
+              <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-medium text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-yellow-500 transition-colors" data-lang-key="brewery.visit.form.submit">Send</button>
             </div>
           </div>
         </form>
         <div class="mt-12 border-t border-gray-800 pt-8">
-          <p class="text-base text-gray-400">&copy; 2025 Brauerei Andermatt. All rights reserved.</p>
-          <p class="text-sm text-gray-500 mt-2">Gotthardstrasse 163, 6490 Andermatt | info@brauerei-andermatt.com</p>
+          <p class="text-base text-gray-400" data-lang-key="contact.footer.legal">&copy; <span id="year">2025</span> Brauerei Andermatt. All rights reserved.</p>
+          <p class="text-sm text-gray-500 mt-2" data-lang-key="contact.footer.address">Gotthardstrasse 163, 6490 Andermatt | info@brauerei-andermatt.com</p>
         </div>
       </div>
     </section>
   </main>
 
   <!-- Bottom Partner Marquee -->
-  <div id="bottom-marquee" class="overflow-hidden whitespace-nowrap">
+  <div
+    id="bottom-marquee"
+    class="overflow-hidden whitespace-nowrap"
+    aria-label="Vertriebspartner"
+    data-lang-key="marquee.ariaLabel"
+    data-lang-attr="aria-label"
+  >
     <div class="marquee-track">
       <a href="https://www.1620.ch/" target="_blank" rel="noopener noreferrer" class="partner-logo">
-        <img src="media/images/partners/vino.svg" alt="Vinothek Andermatt" class="inline-block h-20 mx-20 my-auto"/>
+        <img src="media/images/partners/vino.svg" alt="Vinothek Andermatt" class="inline-block h-20 mx-20 my-auto" data-lang-key="marquee.logos.vinoAlt" data-lang-attr="alt"/>
       </a>
       <a href="https://www.baeren-andermatt.ch/" target="_blank" rel="noopener noreferrer" class="partner-logo">
-        <img src="media/images/partners/baren.svg" alt="Hotel Restaurant Bären" class="inline-block h-20 mx-20 my-auto"/>
+        <img src="media/images/partners/baren.svg" alt="Hotel Restaurant Bären" class="inline-block h-20 mx-20 my-auto" data-lang-key="marquee.logos.barenAlt" data-lang-attr="alt"/>
       </a>
     </div>
   </div>
