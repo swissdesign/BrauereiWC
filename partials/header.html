@@ -1,32 +1,116 @@
 <header
   class="w-full sticky top-0 z-40 shadow-sm backdrop-blur-sm text-white bg-gradient-to-r from-[#006341]/95 via-[#72c8dc]/85 to-[#7f1e1c]/90"
 >
-  <div class="max-w-6xl mx-auto flex justify-between items-center p-4">
-    <a href="__BASE__/index.html" class="font-playfair text-2xl text-white">Brauerei Andermatt</a>
-    <nav class="hidden md:flex space-x-6 text-sm uppercase text-white/80">
-      <a href="__BASE__/index.html" class="hover:text-white">Home</a>
-      <a href="__BASE__/index.html#bar-section" class="hover:text-white">Bier</a>
-      <a href="__BASE__/brewery.html" class="hover:text-white">Die&nbsp;Brauerei</a>
-      <a href="__BASE__/blog.html" class="font-bold hover:text-white">Diary</a>
-      <a href="__BASE__/index.html#contact-section" class="hover:text-white">Contact</a>
-    </nav>
+  <div class="max-w-6xl mx-auto flex justify-between items-center p-4 gap-6">
+    <a
+      href="__BASE__/index.html"
+      class="font-playfair text-2xl text-white"
+      data-lang-key="nav.brand"
+      >Brauerei Andermatt</a
+    >
+    <div class="hidden md:flex items-center gap-6 text-sm uppercase text-white/80">
+      <nav class="flex items-center gap-6">
+        <a
+          href="__BASE__/index.html"
+          class="hover:text-white"
+          data-lang-key="nav.home"
+          >Startseite</a
+        >
+        <a
+          href="__BASE__/index.html#bar-section"
+          class="hover:text-white"
+          data-lang-key="nav.beer"
+          >Bier</a
+        >
+        <a
+          href="__BASE__/brewery.html"
+          class="hover:text-white"
+          data-lang-key="nav.brewery"
+          >Die Brauerei</a
+        >
+        <a
+          href="__BASE__/blog.html"
+          class="font-bold hover:text-white"
+          data-lang-key="nav.diary"
+          >Tagebuch</a
+        >
+        <a
+          href="__BASE__/index.html#contact-section"
+          class="hover:text-white"
+          data-lang-key="nav.contact"
+          >Kontakt</a
+        >
+      </nav>
+      <div class="flex items-center gap-2" aria-label="Sprachauswahl">
+        <button
+          type="button"
+          class="lang-toggle"
+          data-lang-switch="de"
+          data-lang-key="nav.language.de"
+        >
+          DE
+        </button>
+        <span class="text-white/60" aria-hidden="true">/</span>
+        <button
+          type="button"
+          class="lang-toggle"
+          data-lang-switch="en"
+          data-lang-key="nav.language.en"
+        >
+          EN
+        </button>
+      </div>
+    </div>
     <button
       id="mobile-menu-btn"
       class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
-      <span class="sr-only">Open main menu</span>
+      <span class="sr-only" data-lang-key="nav.menu.open">Menü öffnen</span>
       <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
       </svg>
     </button>
   </div>
   <div id="mobile-menu" class="md:hidden hidden flex-col gap-2 px-4 pb-4 bg-gradient-to-r from-[#006341]/95 via-[#72c8dc]/90 to-[#7f1e1c]/90">
-    <a href="__BASE__/index.html" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Home</a>
-    <a href="__BASE__/index.html#bar-section" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Bier</a>
-    <a href="__BASE__/brewery.html" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Die&nbsp;Brauerei</a>
-    <a href="__BASE__/blog.html" class="block py-2 text-sm uppercase text-white font-semibold">Diary</a>
-    <a href="__BASE__/index.html#contact-section" class="block py-2 text-sm uppercase text-white/80 hover:text-white">Contact</a>
+    <div class="flex items-center justify-between py-2">
+      <span class="text-xs uppercase tracking-[0.3em] text-white/50" data-lang-key="nav.language.label">Sprache</span>
+      <div class="flex items-center gap-2">
+        <button type="button" class="lang-toggle" data-lang-switch="de" data-lang-key="nav.language.de">DE</button>
+        <span class="text-white/60" aria-hidden="true">/</span>
+        <button type="button" class="lang-toggle" data-lang-switch="en" data-lang-key="nav.language.en">EN</button>
+      </div>
+    </div>
+    <a
+      href="__BASE__/index.html"
+      class="block py-2 text-sm uppercase text-white/80 hover:text-white"
+      data-lang-key="nav.home"
+      >Startseite</a
+    >
+    <a
+      href="__BASE__/index.html#bar-section"
+      class="block py-2 text-sm uppercase text-white/80 hover:text-white"
+      data-lang-key="nav.beer"
+      >Bier</a
+    >
+    <a
+      href="__BASE__/brewery.html"
+      class="block py-2 text-sm uppercase text-white/80 hover:text-white"
+      data-lang-key="nav.brewery"
+      >Die&nbsp;Brauerei</a
+    >
+    <a
+      href="__BASE__/blog.html"
+      class="block py-2 text-sm uppercase text-white font-semibold"
+      data-lang-key="nav.diary"
+      >Tagebuch</a
+    >
+    <a
+      href="__BASE__/index.html#contact-section"
+      class="block py-2 text-sm uppercase text-white/80 hover:text-white"
+      data-lang-key="nav.contact"
+      >Kontakt</a
+    >
   </div>
 </header>

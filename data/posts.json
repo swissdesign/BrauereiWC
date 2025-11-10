@@ -2,33 +2,69 @@
   {
     "date": "2025-02-12",
     "slug": "blog/construction-to-first-pour.html",
-    "name": "From Construction Dust to Copper Kettles",
-    "caption": "A look back at the journey of building a brewery at 1,447 meters, from blasting to the logistical ballet of installing 3HL copper kettles in Andermatt.",
+    "name": {
+      "de": "Vom Baustellenstaub zu Kupferkesseln",
+      "en": "From Construction Dust to Copper Kettles"
+    },
+    "caption": {
+      "de": "Wie wir eine Brauerei auf 1.447 Metern Höhe aufgebaut haben – vom Sprengen der Fundamente bis zur Anlieferung der 3-HL-Kupferkessel in Andermatt.",
+      "en": "A look back at building a brewery at 1,447 metres, from blasting bedrock to guiding 3HL copper kettles into place in Andermatt."
+    },
     "image": "https://images.unsplash.com/photo-1458890957269-085068f80b36?auto=format&fit=crop&w=1200&q=80",
-    "imageAlt": "Brewery team inspecting stainless steel tanks"
+    "imageAlt": {
+      "de": "Brauerteam prüft glänzende Edelstahltanks",
+      "en": "Brewery team inspecting stainless steel tanks"
+    }
   },
   {
     "date": "2025-01-22",
     "slug": "blog/alpine-water-superpower.html",
-    "name": "What Alpine Water Gives to Our Beer",
-    "caption": "Our secret is the Alpine water. Glacial runoff filtered through granite yields remarkably soft, pure water, giving us a blank canvas to build on.",
+    "name": {
+      "de": "Was alpines Wasser unserem Bier gibt",
+      "en": "What Alpine Water Gives to Our Beer"
+    },
+    "caption": {
+      "de": "Unser vermeintliches Geheimnis ist das alpine Wasser: weiches Gletscherwasser, das uns eine leere Leinwand für jedes Rezept schenkt.",
+      "en": "Our secret is Alpine water: glacial runoff filtered through granite that gives us a blank canvas for every recipe."
+    },
     "image": "https://images.unsplash.com/photo-1600172454520-134a5d4b6ef2?auto=format&fit=crop&w=1200&q=80",
-    "imageAlt": "Mountain stream flowing through alpine rocks"
+    "imageAlt": {
+      "de": "Bergbach, der durch Felsen rauscht",
+      "en": "Mountain stream flowing through alpine rocks"
+    }
   },
   {
     "date": "2024-12-05",
     "slug": "blog/why-we-can-our-beer.html",
-    "name": "Cans, Bottles, and the Honest Choice",
-    "caption": "Heavy glass feels premium, but cans win. They are better for the beer (blocking 100% of UV light), better for the planet (lighter, infinitely recyclable), and better for you (portable, safer).",
+    "name": {
+      "de": "Warum wir unser Bier in Dosen abfüllen",
+      "en": "Cans, Bottles, and the Honest Choice"
+    },
+    "caption": {
+      "de": "Glas fühlt sich edel an, aber Dosen gewinnen: besserer Lichtschutz, leichter transportiert und klimafreundlicher.",
+      "en": "Heavy glass feels premium, but cans win—better for the beer, the planet, and your backpack."
+    },
     "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
-    "imageAlt": "Stacked aluminum beer cans in a brewery"
+    "imageAlt": {
+      "de": "Gestapelte Aluminiumdosen in der Brauerei",
+      "en": "Stacked aluminum beer cans in a brewery"
+    }
   },
   {
     "date": "2024-10-29",
     "slug": "blog/urserntal-beer-history.html",
-    "name": "A Brief History of Beer in Urserntal",
-    "caption": "From the Gotthard pass to the beer cartel era, Andermatt has a dramatic history with brewing. Now, in 2025, Brauerei Andermatt is finally brewing at home.",
+    "name": {
+      "de": "Eine kurze Geschichte des Biers im Urserntal",
+      "en": "A Brief History of Beer in Urserntal"
+    },
+    "caption": {
+      "de": "Von der Gotthardroute über das Bierkartell bis 2025: Jetzt wird in Andermatt endlich wieder vor Ort gebraut.",
+      "en": "From the Gotthard pass through the beer cartel era to 2025—Andermatt is finally brewing at home again."
+    },
     "image": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
-    "imageAlt": "Old black and white photo of a Swiss village"
+    "imageAlt": {
+      "de": "Historische Aufnahme eines Schweizer Bergdorfs",
+      "en": "Old black and white photo of a Swiss village"
+    }
   }
 ]

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brauerei Andermatt</title>
+    <title data-lang-key="meta.index.title">Brauerei Andermatt</title>
 
     <!-- Tailwind CSS for modern, responsive styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,6 +19,7 @@
     <!-- Page specific styles -->
     <link rel="stylesheet" href="css/index.css" />
 
+    <script src="./js/i18n.js" defer></script>
     <script src="./js/diary.js" defer></script>
   </head>
   <body class="site-body is-loading">
@@ -278,18 +279,30 @@
     >
       <ul class="side-nav__list flex flex-col gap-2">
         <li>
-          <a href="https://brauerei-andermatt.com" class="side-nav__link"
-            >Home</a
+          <a
+            href="https://brauerei-andermatt.com"
+            class="side-nav__link"
+            data-lang-key="index.sideNav.home"
+            >Startseite</a
           >
         </li>
-        <li><a href="#bar-section" class="side-nav__link">Bier</a></li>
-        <li><a href="./brewery.html" class="side-nav__link">Brauerei</a></li>
         <li>
-          <a href="#beer-diaries-section" class="side-nav__link"
-            >Brewers Diary</a
+          <a href="#bar-section" class="side-nav__link" data-lang-key="index.sideNav.beer">Bier</a>
+        </li>
+        <li>
+          <a href="./brewery.html" class="side-nav__link" data-lang-key="index.sideNav.brewery">Brauerei</a>
+        </li>
+        <li>
+          <a
+            href="#beer-diaries-section"
+            class="side-nav__link"
+            data-lang-key="index.sideNav.diary"
+            >Brautagebuch</a
           >
         </li>
-        <li><a href="#contact-section" class="side-nav__link">Contact</a></li>
+        <li>
+          <a href="#contact-section" class="side-nav__link" data-lang-key="index.sideNav.contact">Kontakt</a>
+        </li>
       </ul>
     </nav>
 
@@ -333,10 +346,11 @@
           >
             <h1
               class="text-3xl md:text-5xl lg:text-6xl font-bold text-white text-center px-4"
+              data-lang-key="index.hero.welcome"
             >
-              A locally owned and independent microbrewery<br />crafting
-              small-batch beers with big character.<br />
-              Rooted in Andermatt, brewed with passion.<br />Brauerei Andermatt
+              Eine lokale, unabhängige Mikrobrauerei<br />braut charakterstarke
+              Biere in kleinen Chargen.<br />Verwurzelt in Andermatt, gebraut mit
+              Leidenschaft.<br />Brauerei Andermatt
             </h1>
           </div>
         </div>
@@ -366,16 +380,25 @@
               >
                 <!-- Details on top -->
                 <div class="beer-item__details">
-                  <h2 class="text-4xl md:text-6xl font-bold">Helles</h2>
-                  <p class="mt-4 text-base md:text-lg max-w-md mx-auto">
-                    The Switzerland of beers: neutral, clean, and unlikely to
-                    start a fight. Light malt sweetness keeps it polite, while
-                    the low hops mean it won’t interrupt your conversations.
-                    Perfect if you want a beer that behaves itself.
+                  <h2
+                    class="text-4xl md:text-6xl font-bold"
+                    data-lang-key="index.beer.helles.title"
+                  >
+                    Helles
+                  </h2>
+                  <p
+                    class="mt-4 text-base md:text-lg max-w-md mx-auto"
+                    data-lang-key="index.beer.helles.description"
+                  >
+                    Das Schweizer Taschenmesser unter den Bieren: sauber,
+                    ausgewogen und immer freundlich. Sanfte Malzsüsse hält es
+                    elegant, die dezente Bittere lässt jedes Gespräch
+                    weiterfliessen. Perfekt, wenn ein Bier unkompliziert sein
+                    soll.
                   </p>
                   <div class="mt-8 space-y-4 text-lg max-w-xs mx-auto">
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Colour</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.colour">Farbe</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -385,7 +408,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Alcohol</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.alcohol">Alkohol</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -395,7 +418,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Hoppiness</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.hoppiness">Hopfen</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -420,16 +443,24 @@
               >
                 <!-- Details on top -->
                 <div class="beer-item__details">
-                  <h2 class="text-4xl md:text-6xl font-bold">IPA</h2>
-                  <p class="mt-4 text-base md:text-lg max-w-md mx-auto">
-                    For people who like their taste buds assaulted—politely,
-                    with citrus and pine. Bold hops, decent strength, and just
-                    enough bitterness to remind you you’re alive. A modern
-                    classic Brewed with more hops than a Steibock.
+                  <h2
+                    class="text-4xl md:text-6xl font-bold"
+                    data-lang-key="index.beer.ipa.title"
+                  >
+                    IPA
+                  </h2>
+                  <p
+                    class="mt-4 text-base md:text-lg max-w-md mx-auto"
+                    data-lang-key="index.beer.ipa.description"
+                  >
+                    Für alle, die ihre Geschmacksnerven freundlich fordern
+                    wollen: Zitrus und Pinie, kräftige Hopfen und eine ehrliche
+                    Bittere, die wach hält. Ein moderner Klassiker, gebraut mit
+                    einer Extraportion Hopfen.
                   </p>
                   <div class="mt-8 space-y-2 text-lg max-w-xs mx-auto">
                     <div class="flex items-center justify-between gap-2">
-                      <span class="font-semibold">Colour</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.colour">Farbe</span>
                       <div class="flex gap-1">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -439,7 +470,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Alcohol</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.alcohol">Alkohol</span>
                       <div class="flex gap-1">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -449,7 +480,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Hoppiness</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.hoppiness">Hopfen</span>
                       <div class="flex gap-1">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -474,16 +505,24 @@
               >
                 <!-- Details on top -->
                 <div class="beer-item__details">
-                  <h2 class="text-4xl md:text-6xl font-bold">Weizen</h2>
-                  <p class="mt-4 text-base md:text-lg max-w-md mx-auto">
-                    The banana-clove smoothie that decided to become a beer.
-                    Light, easy-going, and so smooth it might actually apologize
-                    for existing. Ideal for when you want beer, but don’t want
-                    to think too hard about it.
+                  <h2
+                    class="text-4xl md:text-6xl font-bold"
+                    data-lang-key="index.beer.weizen.title"
+                  >
+                    Weizen
+                  </h2>
+                  <p
+                    class="mt-4 text-base md:text-lg max-w-md mx-auto"
+                    data-lang-key="index.beer.weizen.description"
+                  >
+                    Der Bananen-Nelken-Smoothie, der Bier geworden ist. Leicht,
+                    zugänglich und so seidig, dass er sich fast entschuldigt.
+                    Ideal, wenn du Lust auf Bier hast, ohne zu viel darüber
+                    nachzudenken.
                   </p>
                   <div class="mt-8 space-y-4 text-lg max-w-xs mx-auto">
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Colour</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.colour">Farbe</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-gray-700 rounded-full"></span
@@ -493,7 +532,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Alcohol</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.alcohol">Alkohol</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-yellow-400 rounded-full"></span
@@ -503,7 +542,7 @@
                       </div>
                     </div>
                     <div class="flex items-center justify-between gap-4">
-                      <span class="font-semibold">Hoppiness</span>
+                      <span class="font-semibold" data-lang-key="index.beer.metrics.hoppiness">Hopfen</span>
                       <div class="flex gap-2">
                         <span class="w-5 h-5 bg-yellow-400 rounded-full"></span
                         ><span class="w-5 h-5 bg-gray-700 rounded-full"></span
@@ -535,17 +574,26 @@
         class="brewery-section bg-gray-100 text-gray-800 py-20 md:py-32 px-6 md:px-10 relative z-30"
       >
         <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl md:text-5xl font-bold mb-6">Our Brewery</h2>
-          <p class="text-lg md:text-xl leading-relaxed">
-            Nestled in the heart of Andermatt, our brewery combines traditional
-            techniques with modern innovation. We are passionate about crafting
-            exceptional beers that reflect the purity of the Swiss Alps. Come
-            visit us to see where the magic happens.
+          <h2
+            class="text-3xl md:text-5xl font-bold mb-6"
+            data-lang-key="index.brewery.title"
+          >
+            Unsere Brauerei
+          </h2>
+          <p
+            class="text-lg md:text-xl leading-relaxed"
+            data-lang-key="index.brewery.description"
+          >
+            Im Herzen von Andermatt vereinen wir traditionelle Braukunst mit
+            moderner Technik. Unsere Biere spiegeln die Klarheit der Alpen
+            wider – handwerklich gebraut, regional verwurzelt und offen für
+            neugierige Besucherinnen und Besucher.
           </p>
           <a
             href="brewery.html"
             class="mt-8 inline-block bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition-colors"
-            >Learn More</a
+            data-lang-key="index.brewery.cta"
+            >Mehr erfahren</a
           >
         </div>
       </section>
@@ -559,12 +607,17 @@
           <div
             class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
           >
-            <h2 class="text-3xl md:text-5xl font-bold">Beer Diaries</h2>
+            <h2
+              class="text-3xl md:text-5xl font-bold"
+              data-lang-key="index.diary.title"
+            >
+              Brautagebuch
+            </h2>
             <a
               href="blog.html"
               class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-amber-300 hover:text-amber-200"
             >
-              View all entries
+              <span data-lang-key="index.diary.cta">Alle Einträge ansehen</span>
               <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -572,7 +625,9 @@
             <div
               id="posts-container"
               role="list"
-              aria-label="Latest diary entries"
+              aria-label="Aktuelle Tagebucheinträge"
+              data-lang-key="index.diary.listAria"
+              data-lang-attr="aria-label"
               class="journal-scroll-container"
             ></div>
             <div
@@ -582,7 +637,9 @@
                 id="posts-scroll-left"
                 type="button"
                 class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="Scroll beer diaries left"
+                aria-label="Tagebuch nach links blättern"
+                data-lang-key="index.diary.scrollLeft"
+                data-lang-attr="aria-label"
               >
                 <svg
                   aria-hidden="true"
@@ -600,7 +657,9 @@
                 id="posts-scroll-right"
                 type="button"
                 class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="Scroll beer diaries right"
+                aria-label="Tagebuch nach rechts blättern"
+                data-lang-key="index.diary.scrollRight"
+                data-lang-attr="aria-label"
               >
                 <svg
                   aria-hidden="true"
@@ -631,10 +690,9 @@
         class="bg-gray-900 text-white py-16 px-6 md:px-10 relative z-30"
       >
         <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
-          <p class="text-lg text-gray-400 mb-8">
-            This section is apparently experiencing some trouble. It will be
-            working soon though.
+          <h2 class="text-3xl md:text-4xl font-bold mb-4" data-lang-key="contact.title">Melde dich bei uns</h2>
+          <p class="text-lg text-gray-400 mb-8" data-lang-key="contact.description">
+            Dieses Formular hat noch etwas Anlaufzeit, aber bald kannst du uns hier direkt schreiben.
           </p>
 
           <form
@@ -647,7 +705,8 @@
                 <label
                   for="first-name"
                   class="block text-sm font-medium text-gray-300"
-                  >First name</label
+                  data-lang-key="contact.form.firstNameLabel"
+                  >Vorname</label
                 >
                 <div class="mt-1">
                   <input
@@ -656,6 +715,8 @@
                     id="first-name"
                     autocomplete="given-name"
                     class="py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500"
+                    data-lang-key="contact.form.firstNamePlaceholder"
+                    data-lang-attr="placeholder"
                   />
                 </div>
               </div>
@@ -663,7 +724,8 @@
                 <label
                   for="last-name"
                   class="block text-sm font-medium text-gray-300"
-                  >Last name</label
+                  data-lang-key="contact.form.lastNameLabel"
+                  >Nachname</label
                 >
                 <div class="mt-1">
                   <input
@@ -672,6 +734,8 @@
                     id="last-name"
                     autocomplete="family-name"
                     class="py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500"
+                    data-lang-key="contact.form.lastNamePlaceholder"
+                    data-lang-attr="placeholder"
                   />
                 </div>
               </div>
@@ -679,7 +743,8 @@
                 <label
                   for="email"
                   class="block text-sm font-medium text-gray-300"
-                  >Email</label
+                  data-lang-key="contact.form.emailLabel"
+                  >E-Mail</label
                 >
                 <div class="mt-1">
                   <input
@@ -688,6 +753,8 @@
                     type="email"
                     autocomplete="email"
                     class="py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500"
+                    data-lang-key="contact.form.emailPlaceholder"
+                    data-lang-attr="placeholder"
                   />
                 </div>
               </div>
@@ -695,7 +762,8 @@
                 <label
                   for="message"
                   class="block text-sm font-medium text-gray-300"
-                  >Message</label
+                  data-lang-key="contact.form.messageLabel"
+                  >Nachricht</label
                 >
                 <div class="mt-1">
                   <textarea
@@ -703,6 +771,8 @@
                     name="message"
                     rows="4"
                     class="py-3 px-4 block w-full shadow-sm focus:ring-yellow-500 focus:border-yellow-500 border-gray-700 bg-gray-800 rounded-md placeholder-gray-500"
+                    data-lang-key="contact.form.messagePlaceholder"
+                    data-lang-attr="placeholder"
                   ></textarea>
                 </div>
               </div>
@@ -710,18 +780,19 @@
                 <button
                   type="submit"
                   class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-black bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-yellow-500 transition-colors"
+                  data-lang-key="contact.form.submit"
                 >
-                  Send Message
+                  Nachricht senden
                 </button>
               </div>
             </div>
           </form>
 
           <div class="mt-12 border-t border-gray-800 pt-8">
-            <p class="text-base text-gray-400">
-              &copy; 2025 Brauerei Andermatt. All rights reserved.
+            <p class="text-base text-gray-400" data-lang-key="contact.footer.legal">
+              &copy; 2025 Brauerei Andermatt. Alle Rechte vorbehalten.
             </p>
-            <p class="text-sm text-gray-500 mt-2">
+            <p class="text-sm text-gray-500 mt-2" data-lang-key="contact.footer.address">
               Gotthardstrasse 163, 6490 Andermatt | info@brauerei-andermatt.com
             </p>
           </div>
@@ -733,7 +804,9 @@
     <section
       id="partner-marquee"
       class="partner-marquee"
-      aria-label="Distribution partners"
+      aria-label="Vertriebspartner"
+      data-lang-key="marquee.ariaLabel"
+      data-lang-attr="aria-label"
     >
       <div class="partner-marquee__track marquee-track marquee-track--static">
         <a

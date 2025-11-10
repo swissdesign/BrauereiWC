@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="de" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brauerei Andermatt – Diary</title>
+    <title data-lang-key="meta.blog.title">Brauerei Andermatt – Tagebuch</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/i18n.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
@@ -23,15 +24,15 @@
 
     <main class="blog-page" id="main-content">
       <div class="blog-page__intro">
-        <span class="blog-page__eyebrow">Beer Diaries</span>
-        <h1 class="blog-page__title">Brautagebuch</h1>
-        <p class="blog-page__description">
+        <span class="blog-page__eyebrow" data-lang-key="blog.intro.eyebrow">Beer Diaries</span>
+        <h1 class="blog-page__title" data-lang-key="blog.intro.title">Brautagebuch</h1>
+        <p class="blog-page__description" data-lang-key="blog.intro.description">
           Geschichten aus unserer Brauerei in Andermatt – frisch gezapft und direkt aus dem Sudhaus erzählt.
         </p>
       </div>
 
       <section class="blog-page__grid" aria-labelledby="blog-heading">
-        <h2 id="blog-heading" class="sr-only">Alle Tagebuch-Einträge</h2>
+        <h2 id="blog-heading" class="sr-only" data-lang-key="blog.intro.gridTitle">Alle Tagebuch-Einträge</h2>
         <div id="blog-posts"></div>
       </section>
     </main>

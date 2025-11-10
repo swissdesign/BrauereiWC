@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="de" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brauerei Andermatt – From Construction Dust to Copper Kettles</title>
+    <title data-lang-key="meta.post.construction.title">Brauerei Andermatt – Vom Baustellenstaub zu Kupferkesseln</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/index.css" />
+    <script src="../js/i18n.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
@@ -24,26 +25,43 @@
     <main class="blog-article" id="main-content">
       <a href="../blog.html" class="blog-article__back-link">
         <span aria-hidden="true">&larr;</span>
-        Back to all entries
+        <span data-lang-key="blog.post.back">Zurück zu allen Einträgen</span>
       </a>
 
-      <h1 class="blog-article__title" id="post-title">From Construction Dust to Copper Kettles</h1>
-      <p class="blog-article__meta" id="post-date">June 12, 2025</p>
+      <div class="bilingual-heading">
+        <h1 class="blog-article__title lang-de">[Deutscher Titel folgt]</h1>
+        <h1 class="blog-article__title lang-en">From Construction Dust to Copper Kettles</h1>
+      </div>
+
+      <div class="bilingual-meta">
+        <p class="blog-article__meta lang-de">[12. Juni 2025]</p>
+        <p class="blog-article__meta lang-en">June 12, 2025</p>
+      </div>
 
       <img
         src="https://images.unsplash.com/photo-1458890957269-085068f80b36?auto=format&fit=crop&w=1200&q=80"
         alt="Brewery team inspecting stainless steel tanks"
         class="blog-article__image"
         id="post-image"
+        data-lang-key="blog.post.construction.imageAlt"
+        data-lang-attr="alt"
       />
 
       <div class="blog-article__content" id="post-content">
-        <p>
-          Building a brewery at 1,447 meters is not for the faint of heart. This post is a look back at the journey, from blasting to the logistical ballet of getting 3HL copper kettles delivered up to Andermatt. To getting the whole thing put together and built over brewing my first batch and dealing with all the hurdles inbetween.
-        </p>
-        <p>
-          First, go grab a beer or two this is going to take a while... <...Please wait...Bill is typing and thinking...>
-        </p>
+        <div class="bilingual-paragraph">
+          <p class="lang-de">[Deutsche Übersetzung dieses Abschnitts folgt.]</p>
+          <p class="lang-en">
+            Building a brewery at 1,447 meters is not for the faint of heart. This post is a look back at the journey, from
+            blasting to the logistical ballet of getting 3HL copper kettles delivered up to Andermatt. To getting the whole thing
+            put together and built over brewing my first batch and dealing with all the hurdles inbetween.
+          </p>
+        </div>
+        <div class="bilingual-paragraph">
+          <p class="lang-de">[Hier folgt die deutsche Version dieses Abschnitts.]</p>
+          <p class="lang-en">
+            First, go grab a beer or two this is going to take a while... &lt;...Please wait...Bill is typing and thinking...&gt;
+          </p>
+        </div>
       </div>
     </main>
 
@@ -53,12 +71,12 @@
     >
       <div class="max-w-6xl mx-auto">
         <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <h2 class="text-3xl md:text-5xl font-bold">Related Posts</h2>
+          <h2 class="text-3xl md:text-5xl font-bold" data-lang-key="blog.related.title">Weitere Beiträge</h2>
           <a
             href="../blog.html"
             class="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-amber-300 hover:text-amber-200"
           >
-            View all entries
+            <span data-lang-key="blog.related.cta">Alle Einträge ansehen</span>
             <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -66,7 +84,9 @@
           <div
             id="related-posts-container"
             role="list"
-            aria-label="More diary entries"
+            aria-label="Weitere Tagebucheinträge"
+            data-lang-key="blog.related.listAria"
+            data-lang-attr="aria-label"
             class="journal-scroll-container"
           ></div>
           <div
@@ -76,7 +96,9 @@
               id="related-posts-scroll-left"
               type="button"
               class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
-              aria-label="Scroll related posts left"
+              aria-label="Weitere Beiträge nach links blättern"
+              data-lang-key="blog.related.scrollLeft"
+              data-lang-attr="aria-label"
             >
               <svg
                 aria-hidden="true"
@@ -94,7 +116,9 @@
               id="related-posts-scroll-right"
               type="button"
               class="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white shadow-lg transition hover:bg-amber-300 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:cursor-not-allowed disabled:opacity-40"
-              aria-label="Scroll related posts right"
+              aria-label="Weitere Beiträge nach rechts blättern"
+              data-lang-key="blog.related.scrollRight"
+              data-lang-attr="aria-label"
             >
               <svg
                 aria-hidden="true"

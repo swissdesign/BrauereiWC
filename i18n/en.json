@@ -1,0 +1,220 @@
+{
+  "meta": {
+    "index": { "title": "Brauerei Andermatt" },
+    "brewery": { "title": "Brauerei Andermatt — Brewery" },
+    "blog": { "title": "Brauerei Andermatt – Diary" },
+    "post": {
+      "alpine": { "title": "Brauerei Andermatt – What Alpine Water Gives to Our Beer" },
+      "construction": { "title": "Brauerei Andermatt – From Construction Dust to Copper Kettles" },
+      "urserntal": { "title": "Brauerei Andermatt – A Brief History of Beer in Urserntal" },
+      "cans": { "title": "Brauerei Andermatt – Cans, Bottles, and the Honest Choice" }
+    }
+  },
+  "nav": {
+    "brand": "Brauerei Andermatt",
+    "home": "Home",
+    "beer": "Beer",
+    "brewery": "The Brewery",
+    "diary": "Diary",
+    "contact": "Contact",
+    "language": {
+      "de": "DE",
+      "en": "EN",
+      "label": "Language"
+    },
+    "menu": {
+      "open": "Open main menu"
+    }
+  },
+  "index": {
+    "sideNav": {
+      "home": "Home",
+      "beer": "Beer",
+      "brewery": "Brewery",
+      "diary": "Brewers Diary",
+      "contact": "Contact"
+    },
+    "hero": {
+      "welcome": "A locally owned and independent microbrewery<br />crafting small-batch beers with big character.<br />Rooted in Andermatt, brewed with passion.<br />Brauerei Andermatt"
+    },
+    "beer": {
+      "helles": {
+        "title": "Helles",
+        "description": "The Swiss army knife of beers: clean, balanced, and always polite. Gentle malt sweetness keeps it smooth while the subtle bitterness lets every conversation flow. Ideal when you want a beer that simply behaves."
+      },
+      "ipa": {
+        "title": "IPA",
+        "description": "For everyone who wants to nudge their tastebuds—citrus and pine, bold hops and an honest bitterness to keep you awake. A modern classic brewed with an extra hop bill."
+      },
+      "weizen": {
+        "title": "Weizen",
+        "description": "The banana-and-clove smoothie that became beer. Light, approachable, and so silky it almost apologises. Perfect when you want a beer without overthinking it."
+      },
+      "metrics": {
+        "colour": "Colour",
+        "alcohol": "Alcohol",
+        "hoppiness": "Hoppiness"
+      }
+    },
+    "brewery": {
+      "title": "Our Brewery",
+      "description": "In the heart of Andermatt we blend traditional craft with modern technique. Our beers mirror the clarity of the Alps—brewed by hand, rooted in the region, and open to curious visitors.",
+      "cta": "Learn more"
+    },
+    "diary": {
+      "title": "Beer Diaries",
+      "cta": "View all entries",
+      "listAria": "Latest diary entries",
+      "scrollLeft": "Scroll beer diaries left",
+      "scrollRight": "Scroll beer diaries right"
+    }
+  },
+  "brewery": {
+    "hero": {
+      "title": "Modern brewhouse &amp; technology<br />for hop-forward excellence",
+      "description": "Over 30 years of homebrewing—a passion now scaled into a brewery. High in the Ursern Alps we brew characterful beers in small batches."
+    },
+    "stats": {
+      "capacityTitle": "3HL",
+      "capacity": "Brewhouse capacity built for precise small batches.",
+      "tanksTitle": "5 Tanks",
+      "tanks": "Dedicated fermentation tanks for consistency and control.",
+      "canningTitle": "Cans &amp; Labels",
+      "canning": "Packaged on site to lock in freshness and aroma.",
+      "kegsTitle": "20 L Kegs",
+      "kegs": "Compact event kegs for partners across the region."
+    },
+    "cans": {
+      "title": "Why cans? Easy.",
+      "intro": "Cans are the most underrated upgrade in craft beer. They’re better for the planet and better for your beer—full stop.",
+      "sustainability": {
+        "title": "Sustainability",
+        "point1": "<strong>Closed-loop advantage:</strong> Cans contain 3×–20× more recycled content than bottles and benefit from efficient return systems (<a href=\"https://www.craftbrewingbusiness.com/packaging-distribution/aluminum-cans-vs-glass-bottles-which-one-is-the-most-sustainable-beer-package/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Craft Brewing Business</a>).",
+        "point2": "<strong>Less energy:</strong> Recycled aluminium saves up to 95&nbsp;% energy compared with primary production (<a href=\"https://en.wikipedia.org/wiki/Aluminium_recycling\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Wikipedia</a>).",
+        "point3": "<strong>Lower emissions:</strong> Lifecycle studies show cans emit less CO₂ per litre than glass (<a href=\"https://www.aluminum.org/aluminum-cans-leading-way-limit-carbon-impact\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Aluminum Association</a>).",
+        "point4": "<strong>Proven recovery:</strong> 90&nbsp;% of cans in Switzerland are recycled (<a href=\"https://help.nomoq.com/cans-vs-bottles\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">NomOQ</a>)."
+      },
+      "quality": {
+        "title": "Quality &amp; Freshness",
+        "point1": "<strong>No light strike:</strong> Cans block UV completely—no skunky off-notes (<a href=\"https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">The Drinks Project</a>).",
+        "point2": "<strong>Less oxygen:</strong> Modern filling lines cut oxygen pickup compared with bottles (<a href=\"https://www.cheer-glass-bottles.com/info/aluminum-cans-vs-glass-bottles-which-packagi-102853070.html\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Cheer Glass</a>).",
+        "point3": "<strong>Chills faster:</strong> Aluminium cools quickly—perfect for everyday moments (<a href=\"https://www.foodandwine.com/beer-cans-history-8640701\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">Food &amp; Wine</a>).",
+        "point4": "<strong>Welcome everywhere:</strong> Cans go where glass is banned—with zero breakage risk (<a href=\"https://thedrinksproject.com/does-beer-taste-different-in-a-can-or-bottle/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"underline\">The Drinks Project</a>)."
+      },
+      "closer": "Bottles feel nostalgic, but if you care about flavour stability and footprint, cans win. That’s why we package our core beers on site within hours of release."
+    },
+    "process": {
+      "title": "From grain to can",
+      "mash": {
+        "title": "Milling &amp; Mashing",
+        "description": "Swiss and selected EU malts with multi-step rests for body, fermentability, and style-specific profiles."
+      },
+      "boil": {
+        "title": "Boil &amp; Hops",
+        "description": "Clean bitterness and expressive late additions—from noble classics to modern aroma cultivars."
+      },
+      "package": {
+        "title": "Ferment &amp; Package",
+        "description": "Temperature-controlled fermentation followed by on-site canning or kegging—freshness guaranteed."
+      },
+      "consistency": {
+        "title": "Consistency without compromise",
+        "description": "An automated brewhouse dials in temperatures, timings, and transfers. The <em>craft</em> stays where it belongs: recipe, ingredients, and sensory work. Every batch tastes as planned."
+      },
+      "water": {
+        "title": "Andermatt water: Blank canvas",
+        "description": "Our alpine water is naturally soft—ideal for brewing. We tailor minerals (Ca, Mg, Cl⁻, SO₄²⁻) for each style, building the perfect profile from the start."
+      }
+    },
+    "visit": {
+      "title": "Visit the brewery",
+      "description": "This form is almost ready—soon you can request your visit right here.",
+      "form": {
+        "firstNameLabel": "First name",
+        "firstNamePlaceholder": "Enter first name",
+        "lastNameLabel": "Last name",
+        "lastNamePlaceholder": "Enter last name",
+        "emailLabel": "Email",
+        "emailPlaceholder": "Enter email address",
+        "messageLabel": "Message",
+        "messagePlaceholder": "Tell us when you’d like to stop by",
+        "submit": "Send request"
+      }
+    }
+  },
+  "contact": {
+    "title": "Get in touch",
+    "description": "This form is still warming up, but soon you’ll be able to message us directly here.",
+    "form": {
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Enter first name",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Enter last name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter email address",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write your message",
+      "submit": "Send message"
+    },
+    "footer": {
+      "legal": "&copy; <span id=\"year\">2025</span> Brauerei Andermatt. All rights reserved.",
+      "address": "Gotthardstrasse 163, 6490 Andermatt | info@brauerei-andermatt.com"
+    },
+    "modal": {
+      "cta": "Whisper",
+      "close": "Close dialog",
+      "title": "Drop us a note",
+      "nameLabel": "Name",
+      "namePlaceholder": "Enter your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter email",
+      "topicLabel": "Topic",
+      "topic": {
+        "b2b": "B2B",
+        "kegs": "Kegs",
+        "general": "General enquiry",
+        "events": "Events",
+        "other": "Other"
+      },
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us how we can help",
+      "honeypot": "Leave this empty",
+      "submit": "Send",
+      "success": "Thank you! We’ll get back to you shortly."
+    }
+  },
+  "blog": {
+    "intro": {
+      "eyebrow": "Beer Diaries",
+      "title": "Beer Diary",
+      "description": "Stories from our brewery in Andermatt—freshly poured and told straight from the brewhouse.",
+      "gridTitle": "All diary entries"
+    },
+    "related": {
+      "title": "Related posts",
+      "cta": "View all entries",
+      "listAria": "More diary entries",
+      "scrollLeft": "Scroll related posts left",
+      "scrollRight": "Scroll related posts right"
+    },
+    "post": {
+      "back": "Back to all entries",
+      "alpine": { "imageAlt": "Historic photograph of a Swiss mountain village" },
+      "construction": { "imageAlt": "Brewery team inspecting stainless steel tanks" },
+      "urserntal": { "imageAlt": "Historic photograph of a Swiss mountain village" },
+      "cans": { "imageAlt": "Stacked aluminium cans in the brewhouse" }
+    },
+    "cards": {
+      "read": "Read entry",
+      "untitled": "Untitled entry"
+    }
+  },
+  "marquee": {
+    "ariaLabel": "Distribution partners",
+    "logos": {
+      "vinoAlt": "Vinothek Andermatt",
+      "barenAlt": "Hotel Restaurant Bären",
+      "ppcAlt": "Pinte – Pub and Club"
+    }
+  }
+}
