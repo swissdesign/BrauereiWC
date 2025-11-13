@@ -74,7 +74,7 @@
 }
 
 .process-step::before {
-  font-family: var(--font-body, var(--font-family-base));
+  font-family: var(--font-body);
   font-size: calc(var(--font-size-lg) * 0.8);
   font-weight: var(--font-weight-bold);
 }
