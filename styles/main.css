@@ -1,0 +1,74 @@
+@import url("./typography.css");
+
+/*
+ * Layout-focused rules live here. Typography is sourced from typography.css
+ * to keep the system predictable and easy to maintain.
+ */
+
+.hero-title {
+  margin-bottom: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
+}
+
+.hero-subtitle {
+  margin-bottom: clamp(1rem, 0.85rem + 0.8vw, 1.75rem);
+}
+
+.hero-tagline {
+  margin-top: 1.25rem;
+}
+
+.section-title {
+  margin-bottom: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+.section-title-small {
+  margin-bottom: 1rem;
+}
+
+.team-title {
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card blockquote {
+  margin: 0;
+  padding: 1.5rem 2rem;
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.person-name {
+  margin-bottom: 0.25rem;
+}
+
+.person-bio {
+  margin-top: 0.75rem;
+}
+
+.timeline-title {
+  margin-bottom: 0.5rem;
+}
+
+.timeline-date {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.project-page .project-title {
+  margin-bottom: 1rem;
+}
+
+.project-page .project-meta {
+  margin-bottom: 1.5rem;
+}
+
+.project-page .project-description {
+  margin-bottom: 2rem;
+}
+
+.project-page .project-details h4 {
+  margin-bottom: 0.75rem;
+}
