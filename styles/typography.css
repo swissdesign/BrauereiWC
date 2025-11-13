@@ -45,12 +45,6 @@ body {
   letter-spacing: 0.01em;
 }
 
-p,
-li {
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-default);
-}
-
 small {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-snug);
@@ -101,7 +95,6 @@ h6 {
 }
 
 .lead,
-.hero-subtitle,
 .section-lead {
   font-size: var(--font-size-lg);
   line-height: var(--line-height-relaxed);
@@ -161,6 +154,7 @@ h6 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--font-color-heading);
+  margin-bottom: 0.75rem;
 }
 
 .team-title {
@@ -258,8 +252,7 @@ h6 {
   .section-title-small,
   .testimonial-card blockquote,
   .person-title,
-  .timeline-date,
-  .project-page .project-meta {
+  .timeline-date {
     color: var(--font-color-subtle);
   }
 
