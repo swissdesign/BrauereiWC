@@ -1,0 +1,271 @@
+/*
+ * Typography system — establishes a single, shared language for type across the site.
+ * The scale emphasises clarity and a quiet sense of confidence, with generous line heights
+ * and subtle weight shifts.
+ */
+
+:root {
+  --font-family-base: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-family-serif: "Cormorant Garamond", "Times New Roman", serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-xs: clamp(0.75rem, 0.72rem + 0.2vw, 0.85rem);
+  --font-size-sm: clamp(0.875rem, 0.83rem + 0.2vw, 0.95rem);
+  --font-size-base: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --font-size-md: clamp(1.125rem, 1.05rem + 0.4vw, 1.35rem);
+  --font-size-lg: clamp(1.25rem, 1.15rem + 0.6vw, 1.6rem);
+  --font-size-xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  --font-size-2xl: clamp(1.875rem, 1.55rem + 1.5vw, 2.5rem);
+  --font-size-3xl: clamp(2.25rem, 1.85rem + 2vw, 3rem);
+  --font-size-display: clamp(3rem, 2.35rem + 3vw, 4.25rem);
+
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.3;
+  --line-height-default: 1.65;
+  --line-height-relaxed: 1.85;
+
+  --font-color-heading: #0f172a;
+  --font-color-body: #1f2937;
+  --font-color-muted: #475569;
+  --font-color-subtle: #64748b;
+  --font-color-inverse: #f8fafc;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-default);
+  color: var(--font-color-body);
+  letter-spacing: 0.01em;
+}
+
+p,
+li {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-default);
+}
+
+small {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-snug);
+}
+
+strong,
+.bilingual-heading strong,
+.bilingual-meta strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  color: var(--font-color-heading);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-tight);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+}
+
+.lead,
+.hero-subtitle,
+.section-lead {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--font-color-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.muted,
+.text-muted {
+  color: var(--font-color-subtle);
+}
+
+.hero-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+  color: var(--font-color-heading);
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-snug);
+  color: var(--font-color-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.hero-tagline {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
+  color: var(--font-color-subtle);
+  max-width: 48ch;
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+  letter-spacing: -0.012em;
+}
+
+.section-title-small {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--font-color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+}
+
+.value-card h3,
+.work-card-content h3,
+.process-step h3,
+.credentials-block h3,
+.team-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+.team-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+.testimonial-card blockquote {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--font-color-heading);
+}
+
+.accordion-header {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--font-color-heading);
+}
+
+.person-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+.person-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--font-color-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.person-bio {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--font-color-body);
+  max-width: 60ch;
+}
+
+.timeline-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+.timeline-date {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--font-color-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.project-page .project-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+.project-page .project-meta {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--font-color-subtle);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.project-page .project-description {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--font-color-body);
+  max-width: 70ch;
+}
+
+.project-page .project-details h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--font-color-heading);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --font-color-heading: #f8fafc;
+    --font-color-body: #e2e8f0;
+    --font-color-muted: #cbd5f5;
+    --font-color-subtle: #94a3b8;
+  }
+
+  .hero-subtitle,
+  .section-title-small,
+  .testimonial-card blockquote,
+  .person-title,
+  .timeline-date,
+  .project-page .project-meta {
+    color: var(--font-color-subtle);
+  }
+
+  .hero-tagline,
+  .person-bio,
+  .project-page .project-description {
+    color: var(--font-color-body);
+  }
+}
