@@ -140,14 +140,6 @@ h6 {
   letter-spacing: -0.012em;
 }
 
-h1.section-title {
-  font-size: var(--font-size-3xl);
-}
-
-h2.section-title {
-  font-size: var(--font-size-3xl);
-}
-
 .section-title-small {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-medium);
