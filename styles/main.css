@@ -72,3 +72,20 @@
 .project-page .project-details h4 {
   margin-bottom: 0.75rem;
 }
+
+.process-step::before {
+  font-family: var(--font-body, var(--font-family-base));
+  font-size: calc(var(--font-size-lg) * 0.8);
+  font-weight: 700;
+}
+
+@media (min-width: 1024px) {
+  .process-step::before {
+    font-size: calc(var(--font-size-lg) * 0.8);
+    font-weight: 700;
+    width: 3rem;
+    height: 3rem;
+    left: -1.5rem;
+    top: -0.25rem;
+  }
+}
