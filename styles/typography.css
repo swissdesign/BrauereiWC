@@ -7,8 +7,6 @@
 :root {
   --font-family-base: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-body: var(--font-family-base);
-  --font-family-serif: "Cormorant Garamond", "Times New Roman", serif;
-
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
